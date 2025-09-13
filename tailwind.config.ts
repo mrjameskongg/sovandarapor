@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'spectral': ['Spectral', 'Georgia', 'serif'],
+        'content': ['Spectral', 'Georgia', 'serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,37 +52,29 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          foreground: "hsl(var(--gold-foreground))",
         },
-        bento: {
-          orange: "hsl(var(--bento-orange))",
-          green: "hsl(var(--fresh-green))",
-          yellow: "hsl(var(--golden-yellow))",
-          cream: "hsl(var(--warm-cream))",
-          brown: "hsl(var(--rich-brown))",
+        slate: {
+          DEFAULT: "hsl(var(--slate))",
+          light: "hsl(var(--slate-light))",
+        },
+        content: {
+          DEFAULT: "hsl(var(--content))",
+          muted: "hsl(var(--content-muted))",
         },
       },
       backgroundImage: {
         "gradient-hero": "var(--gradient-hero)",
-        "gradient-card": "var(--gradient-card)",
-        "gradient-success": "var(--gradient-success)",
+        "gradient-subtle": "var(--gradient-subtle)",
       },
       boxShadow: {
+        "elegant": "var(--shadow-elegant)",
         "card": "var(--shadow-card)",
-        "hero": "var(--shadow-hero)",
-        "success": "var(--shadow-success)",
       },
       transitionTimingFunction: {
         "smooth": "var(--transition-smooth)",
-        "bounce": "var(--transition-bounce)",
       },
       borderRadius: {
         lg: "var(--radius)",
