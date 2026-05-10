@@ -8,25 +8,16 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <div className="min-h-screen bg-background relative">
         <Navigation />
         <main className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 py-10 md:py-16">
           {children}
         </main>
         <footer className="relative z-10 border-t border-border mt-24">
-          <div className="max-w-6xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-content-muted">
-            <div className="flex items-center gap-3">
-              <span className="font-display text-base text-foreground">SK</span>
-              <span>© {new Date().getFullYear()} Sovandarapor Kong</span>
-            </div>
-            <div className="flex items-center gap-5 uppercase tracking-widest">
-              <span>Phnom Penh</span>
-              <span className="opacity-40">/</span>
-              <span>Bangkok</span>
-              <span className="opacity-40">/</span>
-              <span>Everywhere</span>
-            </div>
+          <div className="max-w-6xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
+            <span>© {new Date().getFullYear()} Sovandarapor Kong · Phnom Penh</span>
+            <span className="tabular">Vol. 01 · Issue 12</span>
           </div>
         </footer>
       </div>
