@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft } from 'lucide-react';
 import { categorySlug, formatDate } from '@/lib/blog';
+import Colophon from '@/components/editorial/Colophon';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
@@ -17,6 +17,7 @@ export default function BlogPost() {
   const [related, setRelated] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (!slug) return;
@@ -30,75 +31,124 @@ export default function BlogPost() {
           const m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); return m;
         })();
         meta.setAttribute('content', data.seo_description || data.subtitle || data.title);
-        // related
         supabase.from('posts').select('id,slug,title,subtitle,featured_image_url,category,tags,published_at,content_html,gallery_urls,author_name,seo_title,seo_description')
-          .eq('status', 'published').eq('category', data.category).neq('id', data.id).limit(3)
+          .eq('status', 'published').eq('category', data.category).neq('id', data.id).limit(2)
           .then(({ data: rel }) => setRelated((rel as Post[]) || []));
         setLoading(false);
       });
   }, [slug]);
 
-  if (loading) return <div className="text-content-muted py-20 text-center">Loading…</div>;
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const total = h.scrollHeight - h.clientHeight;
+      setProgress(total > 0 ? Math.min(1, h.scrollTop / total) : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  if (loading) return <div className="py-32 text-center font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">Loading</div>;
   if (notFound || !post) return (
-    <div className="py-20 text-center">
-      <h1 className="font-display text-4xl text-foreground mb-3">Post not found</h1>
-      <Link to="/blog" className="text-gold underline">Back to journal</Link>
+    <div className="py-32 text-center">
+      <h1 className="font-display font-light text-5xl text-foreground mb-6">Not found.</h1>
+      <Link to="/blog" className="font-ui text-[10px] uppercase tracking-[0.3em] text-gold link-quiet">Back to journal</Link>
     </div>
   );
 
   return (
-    <article className="space-y-12">
-      <Link to="/blog" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-content-muted hover:text-foreground">
-        <ArrowLeft className="w-3 h-3" /> Back to journal
-      </Link>
+    <>
+      {/* Reading progress hairline */}
+      <div className="fixed top-0 left-0 right-0 z-[60] h-px bg-transparent">
+        <div className="h-full bg-gold transition-[width] duration-150" style={{ width: `${progress * 100}%` }} />
+      </div>
 
-      <header className="space-y-6 max-w-3xl">
-        <div className="flex items-center gap-4 text-[11px] uppercase tracking-[0.25em] text-content-muted">
-          <Link to={`/blog/category/${categorySlug(post.category)}`} className="text-gold hover:underline">{post.category}</Link>
-          <span className="opacity-40">/</span>
-          <span className="tabular">{formatDate(post.published_at)}</span>
-          {post.author_name && <><span className="opacity-40">/</span><span>{post.author_name}</span></>}
-        </div>
-        <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">{post.title}</h1>
-        {post.subtitle && <p className="font-content text-2xl text-content-muted leading-relaxed">{post.subtitle}</p>}
-      </header>
-
+      {/* COVER PAGE */}
       {post.featured_image_url && (
-        <img src={post.featured_image_url} alt={post.title} className="w-full aspect-[16/9] object-cover rounded-sm" />
-      )}
-
-      <div className="prose max-w-3xl mx-auto" dangerouslySetInnerHTML={{ __html: post.content_html }} />
-
-      {post.gallery_urls?.length > 0 && (
-        <section className="space-y-4">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Gallery</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {post.gallery_urls.map(u => (
-              <img key={u} src={u} alt="" className="w-full aspect-square object-cover rounded-sm" />
-            ))}
-          </div>
+        <section className="relative -mx-6 md:-mx-10 -mt-10 md:-mt-16 h-[85vh] min-h-[600px] overflow-hidden grain">
+          <img src={post.featured_image_url} alt={post.title} className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
+          <p className="absolute bottom-6 left-6 md:left-12 font-ui text-[10px] uppercase tracking-[0.3em] text-foreground/70">
+            Plate I · {post.category}
+          </p>
         </section>
       )}
 
-      {post.tags?.length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-6 text-xs text-content-muted">
-          {post.tags.map(t => <span key={t}>#{t}</span>)}
-        </div>
-      )}
+      <article className="pt-16 md:pt-24">
+        {/* TITLE */}
+        <header className="max-w-4xl mx-auto text-center mb-20 px-2">
+          <p className="font-ui text-[10px] uppercase tracking-[0.4em] text-gold mb-8">
+            <Link to={`/blog/category/${categorySlug(post.category)}`} className="link-quiet">{post.category}</Link>
+          </p>
+          <h1 className="font-display font-light text-5xl md:text-8xl leading-[0.95] text-foreground">
+            {post.title}
+          </h1>
+          {post.subtitle && (
+            <p className="font-display italic font-light text-2xl md:text-3xl text-content-muted mt-10 leading-snug">
+              {post.subtitle}
+            </p>
+          )}
+          <div className="hairline w-24 mx-auto my-12" />
+          <div className="flex items-center justify-center gap-5 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted tabular">
+            <span>{formatDate(post.published_at)}</span>
+            {post.author_name && <><span className="opacity-40">·</span><span>{post.author_name}</span></>}
+          </div>
+        </header>
 
-      {related.length > 0 && (
-        <section className="border-t border-border pt-12 space-y-6">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Related</p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {related.map(r => (
-              <Link key={r.id} to={`/blog/${r.slug}`} className="group">
-                {r.featured_image_url && <img src={r.featured_image_url} alt="" className="w-full aspect-[4/3] object-cover rounded-sm mb-3" />}
-                <h3 className="font-display text-xl text-foreground group-hover:text-gold">{r.title}</h3>
-              </Link>
+        {/* BODY */}
+        <div
+          className="prose reading max-w-[62ch] mx-auto px-2"
+          dangerouslySetInnerHTML={{ __html: post.content_html }}
+        />
+
+        {/* GALLERY — varied sizes */}
+        {post.gallery_urls?.length > 0 && (
+          <section className="mt-24 max-w-5xl mx-auto space-y-6">
+            <p className="eyebrow-gold text-center mb-8">Plates</p>
+            {post.gallery_urls.map((u, i) => (
+              <figure key={u} className={i % 3 === 0 ? '' : i % 3 === 1 ? 'md:px-16' : 'md:px-32'}>
+                <img src={u} alt="" className="w-full grain" />
+                <figcaption className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-3">
+                  Plate {String(i + 2).padStart(2, '0')}
+                </figcaption>
+              </figure>
+            ))}
+          </section>
+        )}
+
+        {/* TAGS */}
+        {post.tags?.length > 0 && (
+          <div className="max-w-[62ch] mx-auto mt-24 pt-8 border-t border-border font-content italic text-content-muted text-base">
+            Filed under: {post.tags.map((t, i) => (
+              <span key={t}>{i > 0 && ', '}{t}</span>
             ))}
           </div>
-        </section>
-      )}
-    </article>
+        )}
+
+        {/* CONTINUE */}
+        {related.length > 0 && (
+          <section className="mt-32 border-t border-border pt-12 max-w-5xl mx-auto">
+            <p className="eyebrow-gold mb-10">Continue</p>
+            <div className="grid md:grid-cols-2 gap-12">
+              {related.map((r) => (
+                <Link key={r.id} to={`/blog/${r.slug}`} className="group flex gap-6 items-start">
+                  {r.featured_image_url && (
+                    <img src={r.featured_image_url} alt="" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
+                  )}
+                  <div>
+                    <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-3">{r.category}</p>
+                    <h3 className="font-display font-light text-2xl md:text-3xl leading-tight text-foreground group-hover:text-gold transition-colors duration-500">
+                      {r.title}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <Colophon />
+      </article>
+    </>
   );
 }
