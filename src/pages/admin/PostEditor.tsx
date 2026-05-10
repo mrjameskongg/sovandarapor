@@ -33,6 +33,7 @@ export default function PostEditor() {
   const { user } = useAuth();
   const isNew = !id || id === 'new';
   const [form, setForm] = useState<PostForm>(empty);
+  const categories = useCategories();
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState(false);
