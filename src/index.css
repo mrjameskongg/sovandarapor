@@ -6,36 +6,52 @@
 
 @layer base {
   :root {
-    /* Paper — warm off-white */
-    --background: 42 27% 94%;
-    --foreground: 30 14% 9%;
-    --card: 42 27% 94%;
-    --card-foreground: 30 14% 9%;
-    --popover: 42 27% 94%;
-    --popover-foreground: 30 14% 9%;
-    --primary: 30 14% 9%;
-    --primary-foreground: 42 27% 94%;
-    --secondary: 38 18% 88%;
-    --secondary-foreground: 30 14% 9%;
-    --muted: 38 18% 90%;
-    --muted-foreground: 30 6% 38%;
-    --accent: 38 18% 88%;
-    --accent-foreground: 30 14% 9%;
+    /* PAPER (light) — default
+       Hex refs: bg #F4F1EA, bg-2 #EDE7D8, ink #1A1815,
+       ink-soft #4D4842, ink-muted #8A847A, hairline #D8D2C4,
+       gold #A8884C, gold-deep #8B6E36 */
+    --bg:         42 33% 94%;
+    --bg-2:       42 32% 89%;
+    --ink-color:  36 11% 9%;
+    --ink-soft:   36 8% 28%;
+    --ink-muted:  36 7% 51%;
+    --hairline:   39 22% 81%;
+    --gold-color: 38 39% 48%;
+    --gold-deep:  38 44% 38%;
+
+    /* shadcn aliases — flip with mode */
+    --background: var(--bg);
+    --foreground: var(--ink-color);
+    --card: var(--bg);
+    --card-foreground: var(--ink-color);
+    --popover: var(--bg);
+    --popover-foreground: var(--ink-color);
+    --primary: var(--ink-color);
+    --primary-foreground: var(--bg);
+    --secondary: var(--bg-2);
+    --secondary-foreground: var(--ink-color);
+    --muted: var(--bg-2);
+    --muted-foreground: var(--ink-muted);
+    --accent: var(--bg-2);
+    --accent-foreground: var(--ink-color);
     --destructive: 0 60% 40%;
-    --destructive-foreground: 42 27% 94%;
-    --border: 36 14% 78%;
-    --input: 36 14% 78%;
-    --ring: 36 35% 47%;
+    --destructive-foreground: var(--bg);
+    --border: var(--hairline);
+    --input: var(--hairline);
+    --ring: var(--gold-color);
     --radius: 0;
 
-    --gold: 36 38% 47%;
-    --gold-foreground: 42 27% 94%;
-    --ink: 30 14% 9%;
-    --paper: 42 27% 94%;
-    --slate: 30 6% 38%;
-    --slate-light: 30 6% 56%;
-    --content: 30 14% 9%;
-    --content-muted: 30 6% 38%;
+    --gold: var(--gold-color);
+    --gold-foreground: var(--bg);
+
+    /* Fixed (do NOT flip) — for use over imagery */
+    --paper: 42 33% 94%;
+    --ink:   36 11% 9%;
+
+    --slate: var(--ink-soft);
+    --slate-light: var(--ink-muted);
+    --content: var(--ink-color);
+    --content-muted: var(--ink-soft);
 
     --gradient-hero: linear-gradient(135deg, hsl(30 14% 9%), hsl(30 14% 14%));
     --gradient-subtle: linear-gradient(180deg, hsl(42 27% 94%), hsl(38 18% 90%));
@@ -52,35 +68,26 @@
   }
 
   .dark {
-    /* Night — near-black with green undertone */
-    --background: 60 5% 6%;
-    --foreground: 40 30% 89%;
-    --card: 60 5% 6%;
-    --card-foreground: 40 30% 89%;
-    --popover: 60 5% 6%;
-    --popover-foreground: 40 30% 89%;
-    --primary: 40 30% 89%;
-    --primary-foreground: 60 5% 6%;
-    --secondary: 60 4% 11%;
-    --secondary-foreground: 40 30% 89%;
-    --muted: 60 4% 10%;
-    --muted-foreground: 35 8% 56%;
-    --accent: 60 4% 13%;
-    --accent-foreground: 40 30% 89%;
-    --destructive: 0 50% 45%;
-    --destructive-foreground: 40 30% 89%;
-    --border: 40 6% 18%;
-    --input: 40 6% 18%;
-    --ring: 38 45% 55%;
+    /* NIGHT — near-black with green undertone
+       Hex refs: bg #0F0F0E, bg-2 #14130F, ink #EDE6D8,
+       ink-soft #B8B0A0, ink-muted #7A7468, hairline #2A2823,
+       gold #C8A36B, gold-deep #A8884C */
+    --bg:         60 3% 5%;
+    --bg-2:       48 7% 7%;
+    --ink-color:  42 32% 89%;
+    --ink-soft:   38 14% 68%;
+    --ink-muted:  38 8% 44%;
+    --hairline:   39 9% 15%;
+    --gold-color: 36 47% 60%;
+    --gold-deep:  38 39% 48%;
 
-    --gold: 38 45% 60%;
-    --gold-foreground: 60 5% 6%;
-    --ink: 40 30% 89%;
-    --paper: 60 5% 6%;
-    --slate: 35 8% 56%;
-    --slate-light: 35 8% 38%;
-    --content: 40 30% 89%;
-    --content-muted: 35 8% 56%;
+    --destructive: 0 50% 45%;
+    /* paper / ink stay fixed — same values as :root */
+
+    --slate: var(--ink-soft);
+    --slate-light: var(--ink-muted);
+    --content: var(--ink-color);
+    --content-muted: var(--ink-soft);
 
     --gradient-hero: linear-gradient(135deg, hsl(60 5% 6%), hsl(60 5% 10%));
     --gradient-subtle: linear-gradient(180deg, hsl(60 5% 6%), hsl(60 4% 9%));
