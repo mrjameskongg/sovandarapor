@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
-import { Clock, Calendar } from 'lucide-react';
+import { Clock, ArrowUpRight } from 'lucide-react';
 
 export interface Post {
   id: string;
@@ -16,56 +15,47 @@ export interface Post {
 
 interface PostCardProps {
   post: Post;
+  index?: number;
 }
 
-const PostCard = ({ post }: PostCardProps) => {
-  const categoryColors = {
-    essays: 'bg-gold/10 text-gold',
-    notes: 'bg-slate/10 text-slate',
-    travel: 'bg-primary/10 text-primary',
-    'build-log': 'bg-muted-foreground/10 text-muted-foreground'
-  };
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
+const PostCard = ({ post, index }: PostCardProps) => {
   return (
-    <article className="group">
+    <article className="group relative">
       <Link to={`/${post.category}/${post.slug}`} className="block">
-        <div className="border border-border rounded-lg p-6 hover:shadow-card transition-smooth bg-card">
-          <div className="flex items-start justify-between mb-3">
-            <Badge variant="secondary" className={categoryColors[post.category]}>
-              {post.category.replace('-', ' ')}
-            </Badge>
-            <div className="flex items-center text-xs text-content-muted gap-3">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-3 h-3" />
-                {post.date}
-              </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                {post.readingTime}m
-              </div>
-            </div>
+        <div className="flex flex-col h-full pt-6">
+          <div className="hairline mb-6" />
+          <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-content-muted mb-5">
+            <span className="flex items-center gap-3">
+              {typeof index === 'number' && (
+                <span className="tabular text-foreground/60">{String(index).padStart(2, '0')}</span>
+              )}
+              <span className="text-gold">{post.category.replace('-', ' ')}</span>
+            </span>
+            <span className="flex items-center gap-3 tabular">
+              <span>{formatDate(post.date)}</span>
+              <span className="opacity-40">/</span>
+              <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{post.readingTime}m</span>
+            </span>
           </div>
-          
-          <h3 className="font-semibold text-lg text-foreground mb-2 group-hover:text-gold transition-smooth">
+
+          <h3 className="font-display text-2xl md:text-3xl font-medium leading-[1.15] text-foreground group-hover:text-gold transition-smooth">
             {post.title}
           </h3>
-          
-          <p className="text-content-muted text-sm font-medium mb-3 italic">
-            TL;DR: {post.tldr}
+
+          <p className="text-content-muted font-content text-base leading-relaxed mt-4 line-clamp-3">
+            {post.excerpt || post.tldr}
           </p>
-          
-          {post.excerpt && (
-            <p className="text-content font-content text-sm leading-relaxed mb-4">
-              {post.excerpt}
-            </p>
-          )}
-          
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
-                {tag}
-              </Badge>
-            ))}
+
+          <div className="flex items-center justify-between mt-6">
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-content-muted">
+              {post.tags.slice(0, 3).map((tag) => (
+                <span key={tag}>#{tag}</span>
+              ))}
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-content-muted group-hover:text-gold group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-smooth" />
           </div>
         </div>
       </Link>
