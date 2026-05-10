@@ -1,12 +1,15 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Plate from '@/components/editorial/Plate';
 import PullQuote from '@/components/editorial/PullQuote';
 import ChapterDivider from '@/components/editorial/ChapterDivider';
 import Marginalia from '@/components/editorial/Marginalia';
 import Colophon from '@/components/editorial/Colophon';
+import { fetchVentureImages, type VentureImages } from '@/lib/siteSettings';
 
 const ventures = [
   {
+    slug: 'princess-jenna',
     name: 'Princess Jenna Norodom',
     category: 'Talent · Media · Royal Brand',
     role: 'Personal Manager · 2024 — 2025',
@@ -17,6 +20,7 @@ const ventures = [
     placeholder: 'portrait of HRH Jenna Norodom',
   },
   {
+    slug: 'brm-agro',
     name: 'BRM Agro',
     category: 'Agriculture · Rice · Export',
     role: 'Brand Strategy · 2026 → Present',
@@ -27,6 +31,7 @@ const ventures = [
     placeholder: 'rice fields, Kampong Thom',
   },
   {
+    slug: 'moo-moo',
     name: 'Moo Moo Farms',
     category: 'Dairy · Food · Turnaround',
     role: 'Group Operations · 2024 → Present',
@@ -37,6 +42,7 @@ const ventures = [
     placeholder: 'a Holstein at Moo Moo Farms',
   },
   {
+    slug: 'seekers',
     name: 'Seekers Group',
     category: 'Spirits · Hospitality · Lifestyle',
     role: 'Brand & Storytelling · Ongoing',
@@ -61,6 +67,12 @@ const craft = [
 ];
 
 const Profile = () => {
+  const [ventureImages, setVentureImages] = useState<VentureImages>({});
+
+  useEffect(() => {
+    fetchVentureImages().then(setVentureImages);
+  }, []);
+
   return (
     <>
       {/* HERO PORTRAIT — full bleed, full viewport */}
@@ -119,6 +131,8 @@ const Profile = () => {
             <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start mt-8">
               <div className={`md:col-span-7 ${flip ? 'md:order-2' : ''}`}>
                 <Plate
+                  src={ventureImages[v.slug]}
+                  alt={v.name}
                   plate={numerals[i]}
                   ratio={i % 2 === 0 ? 'portrait' : 'landscape'}
                   placeholder={v.placeholder}
