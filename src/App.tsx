@@ -68,6 +68,7 @@ const App = () => (
 
                 {/* Admin */}
                 <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin/reset-password" element={<AdminResetPassword />} />
                 <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
                 <Route path="/admin/settings" element={<AdminGuard><AdminSettings /></AdminGuard>} />
                 <Route path="/admin/posts/new" element={<AdminGuard><PostEditor /></AdminGuard>} />
