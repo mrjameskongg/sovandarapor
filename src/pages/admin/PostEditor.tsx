@@ -194,11 +194,27 @@ export default function PostEditor() {
             <div>
               <Label>Featured image</Label>
               {form.featured_image_url ? (
-                <div className="mt-2 relative w-full max-w-md">
-                  <img src={form.featured_image_url} alt="" className="w-full aspect-[16/9] object-cover rounded-sm border border-border" />
-                  <button onClick={() => update('featured_image_url', '')} className="absolute top-2 right-2 bg-background/90 rounded-full p-1 hover:bg-destructive hover:text-destructive-foreground">
-                    <X className="w-4 h-4" />
-                  </button>
+                <div className="mt-2 w-full max-w-md space-y-2">
+                  <div className="relative">
+                    <img src={form.featured_image_url} alt="" className="w-full aspect-[16/9] object-cover rounded-sm border border-border" />
+                    <div className="absolute top-2 right-2 flex gap-1">
+                      <button type="button" onClick={() => featRef.current?.click()}
+                        title="Replace"
+                        className="bg-background/90 border border-border rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em] hover:bg-foreground hover:text-background">
+                        Replace
+                      </button>
+                      <button type="button" onClick={() => setForm(s => ({ ...s, featured_image_url: '', featured_image_size: null }))}
+                        title="Remove"
+                        className="bg-background/90 border border-border rounded-full p-1 hover:bg-destructive hover:text-destructive-foreground">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                  {form.featured_image_size != null && (
+                    <p className="text-xs text-content-muted tabular">
+                      {(form.featured_image_size / 1024).toFixed(1)} KB
+                    </p>
+                  )}
                 </div>
               ) : (
                 <button onClick={() => featRef.current?.click()} className="mt-2 border-2 border-dashed border-border rounded-sm p-10 w-full max-w-md text-center hover:border-gold hover:text-gold transition-colors text-content-muted">
