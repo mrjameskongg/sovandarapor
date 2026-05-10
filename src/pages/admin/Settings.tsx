@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Save, Plus, X, Pencil, Check } from 'lucide-react';
+import { ArrowLeft, Save, Plus, X, Pencil, Check, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
 import {
   applyFonts, fetchSettings, saveSettings,
-  FONT_OPTIONS, DEFAULT_FONTS, type SiteFonts,
+  FONT_OPTIONS, DEFAULT_FONTS, VENTURES, type SiteFonts, type VentureImages,
 } from '@/lib/siteSettings';
 import { DEFAULT_CATEGORIES, setCategories } from '@/lib/blog';
+import { uploadToPostImages, statsLine } from '@/lib/imageUpload';
 
 export default function AdminSettings() {
   const [fonts, setFonts] = useState<SiteFonts>(DEFAULT_FONTS);
