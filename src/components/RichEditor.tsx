@@ -20,7 +20,11 @@ export const RichEditor = ({ value, onChange }: Props) => {
     extensions: [
       StarterKit,
       Image.configure({ HTMLAttributes: { class: 'rounded-sm my-6 max-w-full' } }),
-      Link.configure({ openOnClick: false, HTMLAttributes: { class: 'text-gold underline underline-offset-4' } }),
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: { class: 'text-gold underline underline-offset-4', rel: 'noopener noreferrer' },
+        validate: (href) => /^(https?:\/\/|mailto:|\/|#)/i.test(href),
+      }),
       Placeholder.configure({ placeholder: 'Start writing your story…' }),
     ],
     content: value || '',
@@ -40,8 +44,13 @@ export const RichEditor = ({ value, onChange }: Props) => {
   };
 
   const addLink = () => {
-    const url = window.prompt('Enter URL');
-    if (url) editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+    const url = window.prompt('Enter URL (https://...)');
+    if (!url) return;
+    if (!/^(https?:\/\/|mailto:|\/|#)/i.test(url)) {
+      toast({ title: 'Invalid URL', description: 'Only http(s), mailto, or relative URLs are allowed.', variant: 'destructive' });
+      return;
+    }
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   };
 
   const Btn = ({ active, onClick, children, title }: any) => (

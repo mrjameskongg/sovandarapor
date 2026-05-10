@@ -11,6 +11,7 @@ import { toast } from '@/hooks/use-toast';
 import { ArrowLeft, Eye, Save, Send, Upload, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { uploadToPostImages, statsLine } from '@/lib/imageUpload';
+import DOMPurify from 'dompurify';
 
 interface PostForm {
   title: string; subtitle: string; slug: string; category: string;

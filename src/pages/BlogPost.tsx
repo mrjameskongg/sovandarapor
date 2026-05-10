@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { categorySlug, formatDate } from '@/lib/blog';
 import Colophon from '@/components/editorial/Colophon';
 import Seo from '@/components/Seo';
+import DOMPurify from 'dompurify';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
