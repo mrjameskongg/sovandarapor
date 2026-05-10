@@ -156,7 +156,7 @@ export default function PostEditor() {
               <Input value={form.subtitle} onChange={e => update('subtitle', e.target.value)} placeholder="Short description" className="mt-2" />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-3 gap-5">
               <div>
                 <Label>Slug (URL)</Label>
                 <Input value={form.slug} onChange={e => { setSlugTouched(true); update('slug', slugify(e.target.value)); }} className="mt-2 font-mono text-sm" />
@@ -166,7 +166,15 @@ export default function PostEditor() {
                 <Label>Category</Label>
                 <select value={form.category} onChange={e => update('category', e.target.value)}
                   className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
-                  {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label>Country</Label>
+                <select value={form.country} onChange={e => update('country', e.target.value as CountryValue | '')}
+                  className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  <option value="">None</option>
+                  {COUNTRIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                 </select>
               </div>
             </div>
