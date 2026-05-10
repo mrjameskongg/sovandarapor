@@ -41,6 +41,7 @@ export default function CountryPage({ country }: { country: CountryValue }) {
   const cfg = COUNTRY_CONFIG[country];
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [ventureImages, setVentureImages] = useState<VentureImages>({});
 
   useEffect(() => {
     setLoading(true);
@@ -50,6 +51,10 @@ export default function CountryPage({ country }: { country: CountryValue }) {
       .eq('country', country)
       .order('published_at', { ascending: false })
       .then(({ data }: any) => { setPosts((data as Post[]) || []); setLoading(false); });
+  }, [country]);
+
+  useEffect(() => {
+    if (country === 'cambodia') fetchVentureImages().then(setVentureImages);
   }, [country]);
 
   return (
@@ -64,19 +69,30 @@ export default function CountryPage({ country }: { country: CountryValue }) {
         <section className="space-y-8">
           <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Ventures</p>
           <div className="grid md:grid-cols-2 gap-px bg-border">
-            {cambodiaVentures.map(v => {
-              const Icon = v.icon;
+            {VENTURES.map(v => {
+              const img = ventureImages[v.slug];
               return (
-                <div key={v.name} className="bg-background p-8 md:p-10 group">
-                  <div className="flex items-start justify-between mb-6">
-                    <Icon className="w-7 h-7 text-gold" strokeWidth={1.5} />
-                    <Link to={`/blog/category/${categorySlug(v.category)}`} className="text-[10px] uppercase tracking-[0.22em] text-content-muted hover:text-gold flex items-center gap-1">
-                      Read more <ArrowUpRight className="w-3 h-3" />
-                    </Link>
+                <div key={v.slug} className="bg-background group flex flex-col">
+                  {img ? (
+                    <div className="overflow-hidden rounded-sm">
+                      <img src={img} alt={v.name}
+                        className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                  ) : (
+                    <div className="aspect-[4/3] bg-muted flex items-center justify-center rounded-sm">
+                      <span className="font-display text-content-muted text-2xl text-center px-4">{v.name}</span>
+                    </div>
+                  )}
+                  <div className="p-8 md:p-10 flex-1 flex flex-col">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted">{v.category} · {v.role}</p>
+                      <Link to={`/blog/category/${categorySlug(v.category)}`} className="text-[10px] uppercase tracking-[0.22em] text-content-muted hover:text-gold flex items-center gap-1">
+                        Read more <ArrowUpRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                    <h2 className="font-display text-3xl text-foreground mb-3">{v.name}</h2>
+                    <p className="font-content text-content-muted leading-relaxed">{v.desc}</p>
                   </div>
-                  <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted mb-2">{v.category} · {v.role}</p>
-                  <h2 className="font-display text-3xl text-foreground mb-4">{v.name}</h2>
-                  <p className="font-content text-content-muted leading-relaxed">{v.desc}</p>
                 </div>
               );
             })}
