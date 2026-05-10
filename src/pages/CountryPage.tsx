@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Crown, Wheat, Milk, Wine, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { categorySlug, formatDate, type CountryValue } from '@/lib/blog';
+import { VENTURES, fetchVentureImages, type VentureImages } from '@/lib/siteSettings';
 
 interface CountryConfig {
   label: string;
@@ -30,13 +31,6 @@ const COUNTRY_CONFIG: Record<CountryValue, CountryConfig> = {
     intro: 'Letters from the Old World. Where the work began and what it taught.',
   },
 };
-
-const cambodiaVentures = [
-  { icon: Crown, name: 'Princess Jenna Norodom', category: 'Media & Talent', role: 'Personal Manager', desc: 'Managing public presence, partnerships, and content strategy for Princess Jenna Norodom.' },
-  { icon: Wheat, name: 'BRM Agro', category: 'Rice', role: 'Brand Strategy', desc: 'Building a premium rice brand for export, from origin story to packaging to international buyers.' },
-  { icon: Milk, name: 'Moo Moo Farms', category: 'Dairy', role: 'Group Operations', desc: 'Turnaround work on a Cambodian dairy operation. Supply, distribution, and a new web presence.' },
-  { icon: Wine, name: 'Seekers Group', category: 'Spirits & Hospitality', role: 'Brand & Storytelling', desc: 'Spirits and hospitality concepts grounded in Cambodian terroir and craft.' },
-];
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
