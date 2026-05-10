@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Search, ArrowUpRight } from 'lucide-react';
 import { useCategories, categorySlug, formatDate } from '@/lib/blog';
+import Seo from '@/components/Seo';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
@@ -42,6 +43,7 @@ export default function Blog() {
 
   return (
     <div className="space-y-16">
+      <Seo title="Journal — James" description="Notes, essays and field reports on building businesses, brands and a life in Cambodia and Southeast Asia." />
       <header className="space-y-4 border-b border-border pb-8">
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Journal</p>
         <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">Writing</h1>
@@ -80,6 +82,7 @@ export default function Blog() {
                 {featured.featured_image_url && (
                   <div className="md:col-span-7 overflow-hidden rounded-sm">
                     <img src={featured.featured_image_url} alt={featured.title}
+                      fetchPriority="high" decoding="async"
                       className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                 )}
@@ -100,6 +103,7 @@ export default function Blog() {
                   {p.featured_image_url && (
                     <div className="overflow-hidden rounded-sm mb-5">
                       <img src={p.featured_image_url} alt={p.title}
+                        loading="lazy" decoding="async"
                         className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
                     </div>
                   )}

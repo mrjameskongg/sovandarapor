@@ -62,12 +62,21 @@ export function applyFonts(fonts: SiteFonts) {
   root.style.setProperty('--font-ui',      `'${fonts.ui}', system-ui, sans-serif`);
 }
 
+function isDefault(fonts: SiteFonts) {
+  return fonts.display === DEFAULT_FONTS.display
+    && fonts.content === DEFAULT_FONTS.content
+    && fonts.ui === DEFAULT_FONTS.ui;
+}
+
 export function SiteSettingsLoader() {
   useEffect(() => {
-    applyFonts(DEFAULT_FONTS);
+    // Default fonts are already loaded via <link> in index.html — no need to refetch.
     supabase.from('site_settings' as any).select('fonts,categories').limit(1).maybeSingle()
       .then(({ data }: any) => {
-        if (data?.fonts) applyFonts({ ...DEFAULT_FONTS, ...data.fonts });
+        if (data?.fonts) {
+          const merged = { ...DEFAULT_FONTS, ...data.fonts };
+          if (!isDefault(merged)) applyFonts(merged);
+        }
         if (data?.categories?.length) setCategories(data.categories);
       });
   }, []);

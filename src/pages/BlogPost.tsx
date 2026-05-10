@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { categorySlug, formatDate } from '@/lib/blog';
 import Colophon from '@/components/editorial/Colophon';
+import Seo from '@/components/Seo';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
@@ -58,6 +59,12 @@ export default function BlogPost() {
 
   return (
     <>
+      <Seo
+        title={`${post.seo_title || post.title} — James`}
+        description={post.seo_description || post.subtitle || post.title}
+        image={post.featured_image_url || undefined}
+        type="article"
+      />
       {/* Reading progress hairline */}
       <div className="fixed top-0 left-0 right-0 z-[60] h-px bg-transparent">
         <div className="h-full bg-gold transition-[width] duration-150" style={{ width: `${progress * 100}%` }} />
@@ -66,7 +73,7 @@ export default function BlogPost() {
       {/* COVER PAGE */}
       {post.featured_image_url && (
         <section className="relative -mx-6 md:-mx-10 -mt-10 md:-mt-16 h-[85vh] min-h-[600px] overflow-hidden grain">
-          <img src={post.featured_image_url} alt={post.title} className="absolute inset-0 w-full h-full object-cover" />
+          <img src={post.featured_image_url} alt={post.title} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
           <p className="absolute bottom-6 left-6 md:left-12 font-ui text-[10px] uppercase tracking-[0.3em] text-foreground/70">
             Plate I · {post.category}
@@ -107,7 +114,7 @@ export default function BlogPost() {
             <p className="eyebrow-gold text-center mb-8">Plates</p>
             {post.gallery_urls.map((u, i) => (
               <figure key={u} className={i % 3 === 0 ? '' : i % 3 === 1 ? 'md:px-16' : 'md:px-32'}>
-                <img src={u} alt="" className="w-full grain" />
+                <img src={u} alt="" loading="lazy" decoding="async" className="w-full grain" />
                 <figcaption className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-3">
                   Plate {String(i + 2).padStart(2, '0')}
                 </figcaption>
@@ -133,7 +140,7 @@ export default function BlogPost() {
               {related.map((r) => (
                 <Link key={r.id} to={`/blog/${r.slug}`} className="group flex gap-6 items-start">
                   {r.featured_image_url && (
-                    <img src={r.featured_image_url} alt="" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
+                    <img src={r.featured_image_url} alt="" loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
                   )}
                   <div>
                     <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-3">{r.category}</p>

@@ -9,6 +9,7 @@ import Masthead from '@/components/editorial/Masthead';
 import Plate from '@/components/editorial/Plate';
 import PullQuote from '@/components/editorial/PullQuote';
 import Colophon from '@/components/editorial/Colophon';
+import Seo from '@/components/Seo';
 
 interface Post {
   id: string; title: string; slug: string; date: string; tldr: string;
@@ -50,11 +51,18 @@ const Home = () => {
 
   return (
     <>
+      <Seo
+        title="James — Notes from the Road"
+        description="Essays and notes on nondual awareness, travel, and building businesses across Cambodia, Thailand, Vietnam and France."
+        image={heroStreet}
+      />
       {/* FULL-BLEED HERO */}
       <section className="relative -mx-6 md:-mx-10 -mt-10 md:-mt-16 h-screen min-h-[640px] overflow-hidden grain">
         <img
           src={heroStreet}
           alt="Phnom Penh, after the rain"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ transform: `translate3d(0, ${scrollY * 0.25}px, 0) scale(${1 + scrollY * 0.0002})` }}
         />
@@ -94,6 +102,8 @@ const Home = () => {
                 <img
                   src={featured.image || featureTemple}
                   alt={featured.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full aspect-[4/5] object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
                 />
               </div>
@@ -123,7 +133,7 @@ const Home = () => {
 
       {/* IMAGE-ONLY SECTION — full viewport */}
       <section className="relative -mx-6 md:-mx-10 h-screen overflow-hidden grain my-16">
-        <img src={featureTemple} alt="Temple silhouette at dusk" className="absolute inset-0 w-full h-full object-cover grayscale" />
+        <img src={featureTemple} alt="Temple silhouette at dusk" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale" />
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 h-full flex items-center justify-center px-6">
           <p className="font-display italic font-light text-3xl md:text-6xl text-paper/85 max-w-4xl text-center leading-[1.2]">
@@ -201,7 +211,7 @@ const Home = () => {
               </Link>
               {hoverIdx === i && p.image && (
                 <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-[110%] w-48 pointer-events-none">
-                  <img src={p.image} alt="" className="w-full aspect-[4/5] object-cover grain" />
+                  <img src={p.image} alt="" loading="lazy" decoding="async" className="w-full aspect-[4/5] object-cover grain" />
                 </div>
               )}
             </li>
