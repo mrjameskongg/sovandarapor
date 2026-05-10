@@ -158,7 +158,7 @@ export default function PostEditor() {
             <h1 className="font-display text-5xl text-foreground mt-3">{form.title}</h1>
             {form.subtitle && <p className="font-content text-2xl text-content-muted mt-3">{form.subtitle}</p>}
             <div className="hairline my-8" />
-            <div dangerouslySetInnerHTML={{ __html: form.content_html }} />
+            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(form.content_html, { USE_PROFILES: { html: true } }) }} />
           </article>
         ) : (
           <div className="space-y-8">

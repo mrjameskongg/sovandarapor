@@ -105,7 +105,7 @@ export default function BlogPost() {
         {/* BODY */}
         <div
           className="prose reading max-w-[62ch] mx-auto px-2"
-          dangerouslySetInnerHTML={{ __html: post.content_html }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content_html, { USE_PROFILES: { html: true } }) }}
         />
 
         {/* GALLERY — varied sizes */}
