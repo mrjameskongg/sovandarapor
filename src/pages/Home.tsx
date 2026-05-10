@@ -4,6 +4,7 @@ import heroStreet from '@/assets/hero-street.jpg';
 import featureTemple from '@/assets/feature-temple.jpg';
 import deskNotes from '@/assets/desk-notes.jpg';
 import mountainMist from '@/assets/mountain-mist.jpg';
+import nondual1 from '@/assets/nondual-1.jpg';
 import Masthead from '@/components/editorial/Masthead';
 import Plate from '@/components/editorial/Plate';
 import PullQuote from '@/components/editorial/PullQuote';
@@ -132,6 +133,37 @@ const Home = () => {
         <p className="absolute bottom-6 left-6 md:left-12 font-ui text-[10px] uppercase tracking-[0.3em] text-paper/60">
           Plate II · Siem Reap · 2024
         </p>
+      </section>
+
+      {/* COMPANION THREAD — Nondual */}
+      <section className="relative -mx-6 md:-mx-10 my-16 bg-secondary py-20 md:py-28">
+        <div className="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
+          <Link to="/nondual" className="md:col-span-5 block group grain overflow-hidden">
+            <img
+              src={nondual1}
+              alt="Window of light, quiet interior"
+              loading="lazy"
+              className="w-full aspect-[4/5] object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
+            />
+          </Link>
+          <div className="md:col-span-7">
+            <p className="eyebrow-gold mb-5">§ Companion thread · 02b</p>
+            <h2 className="font-display font-light text-4xl md:text-6xl leading-[1.05] text-foreground">
+              The other half<br /><span className="italic">of the work.</span>
+            </h2>
+            <p className="font-content text-lg leading-[1.8] text-content mt-8 max-w-xl">
+              Nondual awareness is the lens behind everything else on this site.
+              Less reaction. Wider view. The same attention I bring to building
+              a rice export brand or hiring an engineer.
+            </p>
+            <Link
+              to="/nondual"
+              className="inline-block font-ui text-[10px] uppercase tracking-[0.3em] text-foreground link-quiet mt-8 border-b border-gold pb-1"
+            >
+              Read the longer view →
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* ARCHIVE — typographic index */}
