@@ -21,6 +21,7 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const BlogCategory = lazy(() => import("./pages/BlogCategory"));
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
+const AdminResetPassword = lazy(() => import("./pages/admin/ResetPassword"));
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminSettings = lazy(() => import("./pages/admin/Settings"));
 const PostEditor = lazy(() => import("./pages/admin/PostEditor"));
@@ -67,6 +68,7 @@ const App = () => (
 
                 {/* Admin */}
                 <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin/reset-password" element={<AdminResetPassword />} />
                 <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
                 <Route path="/admin/settings" element={<AdminGuard><AdminSettings /></AdminGuard>} />
                 <Route path="/admin/posts/new" element={<AdminGuard><PostEditor /></AdminGuard>} />
