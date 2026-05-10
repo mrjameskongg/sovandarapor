@@ -1,118 +1,90 @@
-import { MapPin, Briefcase, Globe, Mail, Linkedin, ArrowUpRight, BookOpen } from 'lucide-react';
+import { MapPin, Globe, Mail, Linkedin, ArrowUpRight, Wheat, Milk, Wine, Crown, Palette, Megaphone, FileText, Sparkles, LineChart, Languages } from 'lucide-react';
 
-const experience = [
+const ventures = [
   {
-    role: 'Brand Consultant',
-    company: 'BRM Agro',
-    type: 'Contract',
-    period: 'Jan 2026 — Present',
-    location: 'Phnom Penh, Cambodia · Hybrid',
-    description: 'Leading brand strategy for an agribusiness operating across Cambodia. Positioning, narrative, and go-to-market for agricultural products.',
-    tags: ['Brand Strategy', 'Agribusiness', 'Cambodia'],
-  },
-  {
+    icon: Crown,
+    name: 'Princess Jenna Norodom',
+    category: 'Talent · Media · Royal Brand',
     role: 'Personal Manager',
-    company: 'NCJ — Princess Jenna Norodom',
-    type: 'Full-time',
-    period: 'Jan 2024 — Mar 2025',
-    location: 'Phnom Penh, Cambodia · On-site',
-    description: 'Managed the career and brand positioning of Princess Jenna Norodom. Negotiated multi-tier ambassador contracts, directed social strategy, and acted as the main liaison between the Royal Palace, corporate partners, and media.',
-    tags: ['Brand Strategy', 'Influencer Marketing', 'Negotiation', 'PR'],
+    period: '2024 — 2025',
+    body: 'Worked closely with Princess Jenna Norodom on talent management, media positioning, storytelling, production, and public image — operating inside Cambodia\'s entertainment, royal, and cultural ecosystem.',
+    highlights: ['Talent representation', 'Brand positioning', 'Media & PR', 'Cambodian cultural production'],
   },
   {
-    role: 'Content Ecosystem Operation',
-    company: 'TikTok (ByteDance)',
-    type: 'Full-time',
-    period: 'Oct 2022 — Nov 2023',
-    location: 'Bangkok, Thailand',
-    description: 'Ran TikTok\'s content ecosystem for Cambodia. Grew the creator base, analyzed audience insights, and shipped cross-border campaigns including push notifications and music activations.',
-    tags: ['Content Strategy', 'Digital Marketing', 'Creator Partnerships'],
+    icon: Wheat,
+    name: 'BRM Agro',
+    category: 'Agriculture · Rice · Export',
+    role: 'Brand Strategy',
+    period: '2026 → Present',
+    body: 'A Cambodian rice and agriculture group rooted in Kampong Thom. Multiple house brands moving from local farms to international markets — the United States, Europe, and beyond.',
+    highlights: ['White King Elephant', 'Diamond', 'King White Elephant'],
+    label: 'Brands',
   },
   {
-    role: 'Sales Operations Executive',
-    company: 'Eatigo',
-    type: 'Full-time',
-    period: 'Oct 2021 — Oct 2022',
-    location: 'Bangkok, Thailand · On-site',
-    description: 'Built and managed restaurant partner relationships, coordinated sales and marketing campaigns, and used performance data to inform market growth decisions.',
-    tags: ['Sales Operations', 'B2B Sales', 'Partnerships'],
+    icon: Milk,
+    name: 'Moo Moo Farms',
+    category: 'Dairy · Food · Turnaround',
+    role: 'Group Operations',
+    period: '2024 → Present',
+    body: 'Cambodia\'s first dairy farm, founded around 2015 and acquired by our group in 2024. Inherited 100+ underfed cows; rebuilding the farm, the herd, and the operation. On track for ~600 cows in 2025 and ~1,000 by end of 2026.',
+    highlights: ['Acquired 2024', '~600 cows in 2025', '~1,000 cows by 2026', 'National dairy ambitions'],
+    label: 'Trajectory',
   },
   {
-    role: 'Sales Operations Analyst — Intern',
-    company: 'Manatal',
-    type: 'Internship',
-    period: 'Feb 2021 — Jun 2021',
-    location: 'Bangkok, Thailand',
-    description: 'Cut my teeth on B2B SaaS sales operations: pipeline analytics, lead routing, and CRM hygiene for a recruitment software company.',
-    tags: ['SaaS', 'Analytics', 'CRM'],
+    icon: Wine,
+    name: 'Seekers Group',
+    category: 'Spirits · Hospitality · Lifestyle',
+    role: 'Brand & Storytelling',
+    period: 'Ongoing',
+    body: 'A Cambodian spirits and beverage group building a portfolio of premium, lifestyle-driven brands rooted in modern Cambodian identity.',
+    highlights: ['Seekers', 'Jason Kong', 'Chanthy (upcoming)', 'Wild Bond'],
+    label: 'Brands',
   },
 ];
 
-const stories = [
-  {
-    place: 'TikTok · ByteDance',
-    when: 'Bangkok, 2022–2023',
-    headline: 'Building a country\'s content ecosystem from a Bangkok desk.',
-    teaser: 'What it actually takes to grow creators in a market the algorithm doesn\'t understand yet — and the politics of being the "Cambodia person" inside a giant.',
-  },
-  {
-    place: 'Damrei Angkor Hotel',
-    when: 'Siem Reap',
-    headline: 'Hotellerie at the foot of the temples.',
-    teaser: 'Front-of-house lessons that no business book teaches: reading a guest in three seconds, why housekeeping runs the building, and the quiet economics of a small hotel.',
-  },
-  {
-    place: 'Moo Moo Farms',
-    when: 'Cambodia',
-    headline: 'Built the website. Learned the farm.',
-    teaser: 'A small project that became a study in translating a real-world operation — cows, milk, distribution — into something that fits inside a browser.',
-  },
-  {
-    place: 'BRM Agro',
-    when: 'Phnom Penh, 2026 →',
-    headline: 'Brand strategy for Cambodian agriculture.',
-    teaser: 'How you build a brand for a sector that\'s historically had none. Notes from inside the work.',
-  },
-  {
-    place: 'Eatigo',
-    when: 'Bangkok, 2021–2022',
-    headline: 'Selling restaurants on a discount they didn\'t want to give.',
-    teaser: 'Field notes from running sales ops in Thai F&B — and what marketplaces look like from the supply side.',
-  },
-  {
-    place: 'Manatal',
-    when: 'Bangkok, 2021',
-    headline: 'First job. SaaS sales ops, observed up close.',
-    teaser: 'The internship that taught me how a B2B funnel actually moves — and what good operators do differently.',
-  },
+const craft = [
+  { icon: LineChart, label: 'Marketing strategy' },
+  { icon: Palette, label: 'Graphic design' },
+  { icon: Megaphone, label: 'Social media campaigns' },
+  { icon: Sparkles, label: 'Brand positioning' },
+  { icon: FileText, label: 'Content planning' },
+  { icon: FileText, label: 'Pitch decks' },
+  { icon: Sparkles, label: 'Product storytelling' },
+  { icon: Crown, label: 'Cambodian cultural branding' },
+  { icon: Globe, label: 'Export & international communication' },
 ];
 
 const Profile = () => {
   return (
-    <div className="space-y-24">
-      {/* Masthead */}
-      <header className="space-y-10">
+    <div className="space-y-32">
+      {/* ─────────────────────── 1. HERO ─────────────────────── */}
+      <header className="space-y-12">
         <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.25em] text-content-muted border-y border-border py-3">
-          <span>Profile · Portfolio</span>
-          <span>No. 01</span>
+          <span>Profile · Cambodia</span>
+          <span>Entrepreneur · Brand Builder</span>
         </div>
 
-        <div className="grid md:grid-cols-12 gap-10 items-end">
-          <div className="md:col-span-7 space-y-6">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-gold">The author</p>
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] text-foreground">
-              James
-              <span className="italic font-normal text-gold"> Kong.</span>
+        <div className="grid md:grid-cols-12 gap-12 items-center">
+          <div className="md:col-span-7 space-y-7">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-gold flex items-center gap-3">
+              <span className="w-8 h-px bg-gold" /> Phnom Penh, Cambodia
+            </p>
+            <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-light leading-[0.95] text-foreground">
+              Building brands,
+              <br />
+              stories, and
+              <br />
+              <span className="italic font-normal text-gold">businesses</span> from Cambodia.
             </h1>
-            <p className="font-content text-base text-content-muted italic">
-              Sovandarapor (James) Kong
+            <p className="font-content text-xl text-content-muted leading-relaxed max-w-2xl">
+              I'm James — Sovandarapor Kong. I work across agriculture, food, beverage, media,
+              and brand development in Cambodia. From managing talent and creating campaigns
+              to helping grow rice, dairy, and spirits brands, my work is rooted in Cambodia's
+              next chapter.
             </p>
-            <p className="font-content text-xl text-content-muted leading-relaxed max-w-xl">
-              Brand strategist and operator. Writing from the seam between Cambodia and Thailand.
-            </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.2em] text-content-muted">
-              <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Phnom Penh / Bangkok</span>
-              <span className="flex items-center gap-2"><Globe className="w-3.5 h-3.5" /> EN · KM · TH · FR</span>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.2em] text-content-muted pt-2">
+              <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Phnom Penh · Bangkok</span>
+              <span className="flex items-center gap-2"><Languages className="w-3.5 h-3.5" /> EN · KM · TH · FR</span>
             </div>
           </div>
 
@@ -123,163 +95,157 @@ const Profile = () => {
               <img
                 src="/profile-photo.jpg"
                 alt="James Kong"
-                className="w-full aspect-[4/5] object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700 shadow-elegant"
+                className="w-full aspect-[4/5] object-cover rounded-sm shadow-elegant"
               />
-              <p className="text-[10px] uppercase tracking-[0.25em] text-content-muted mt-3 text-right">— Portrait, 2024</p>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-content-muted mt-3 text-right">
+                — James Kong, Cambodia
+              </p>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Bio */}
-      <section className="grid md:grid-cols-12 gap-12">
+      {/* ─────────────────────── 2. PHILOSOPHY ─────────────────────── */}
+      <section className="grid md:grid-cols-12 gap-12 items-start">
         <div className="md:col-span-3">
           <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ I</p>
-          <h2 className="font-display text-3xl text-foreground mt-2">About</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mt-2 leading-tight">Philosophy</h2>
+          <p className="text-xs text-content-muted mt-3 font-content italic">A worldview, not a religion.</p>
         </div>
-        <div className="md:col-span-9 space-y-5 font-content text-lg leading-relaxed text-content max-w-2xl">
-          <p className="first-letter:font-display first-letter:text-6xl first-letter:font-medium first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-gold first-letter:leading-none">
-            I'm Sovandarapor Kong — James, for short. I work on brand and operations across
-            Cambodia and Thailand, write about what I'm learning, and move slowly through
-            Southeast Asia.
+        <div className="md:col-span-9 space-y-6 max-w-2xl">
+          <p className="font-display text-2xl md:text-3xl font-light leading-snug text-foreground">
+            I try to see life from a wider angle — beyond identity, role, or status.
           </p>
-          <p>
-            My path runs through hotellerie in Siem Reap, SaaS sales ops in Bangkok, TikTok's
-            creator ecosystem for Cambodia, and managing the public brand of a Cambodian princess.
-            These days it's brand strategy for agribusiness, a few independent projects, and writing.
+          <div className="hairline" />
+          <p className="font-content text-lg text-content leading-relaxed">
+            Nondual thinking shapes how I approach business, relationships, and pressure.
+            It gives me a kind of clarity and detachment that's useful in negotiation,
+            in long projects, in difficult quarters. Less reaction. Wider view.
           </p>
-          <p>
-            This site is where I think in public. Travel logistics, business notes, nondual
-            reflections, short takes on whatever I'm chewing on. No grand theory — just direct
-            experience, written down before I forget it.
+          <p className="font-content text-lg text-content-muted leading-relaxed">
+            It's not the headline of my work. It's the lens behind it.
           </p>
         </div>
       </section>
 
-      {/* Experience */}
-      <section className="grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-3">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ II</p>
-          <h2 className="font-display text-3xl text-foreground mt-2 flex items-center gap-2">
-            <Briefcase className="w-5 h-5" /> Practice
-          </h2>
-          <p className="text-xs text-content-muted mt-3 font-content italic">
-            Brand, ops, and platforms across SEA.
+      {/* ─────────────────────── 3. CAMBODIA WORK ─────────────────────── */}
+      <section className="space-y-12">
+        <div className="grid md:grid-cols-12 gap-12 items-end border-b border-border pb-6">
+          <div className="md:col-span-7">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ II</p>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-2 leading-tight">
+              Cambodia work & ventures.
+            </h2>
+          </div>
+          <p className="md:col-span-5 font-content text-base text-content-muted italic md:text-right">
+            Four chapters across talent, agriculture, dairy, and spirits.
           </p>
         </div>
-        <div className="md:col-span-9 space-y-0">
-          {experience.map((job, i) => (
-            <div key={job.company} className="group grid md:grid-cols-12 gap-4 py-7 border-t border-border last:border-b">
-              <div className="md:col-span-3 text-xs uppercase tracking-[0.2em] text-content-muted tabular space-y-1">
-                <div><span className="text-gold mr-2">{String(i + 1).padStart(2, '0')}</span>{job.period}</div>
-                <div className="text-[10px] normal-case tracking-normal text-content-muted/80 font-content not-italic">{job.location}</div>
-              </div>
-              <div className="md:col-span-9 space-y-2">
-                <div className="flex items-baseline justify-between gap-4 flex-wrap">
-                  <h3 className="font-display text-2xl md:text-3xl font-medium text-foreground group-hover:text-gold transition-smooth">
-                    {job.role}
-                  </h3>
-                  <p className="text-sm text-content-muted italic font-content">{job.company} · {job.type}</p>
+
+        <div className="grid md:grid-cols-2 gap-px bg-border">
+          {ventures.map((v, i) => {
+            const Icon = v.icon;
+            return (
+              <article key={v.name} className="bg-background p-8 md:p-10 space-y-6 group">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <span className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-gold group-hover:text-gold transition-smooth">
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-gold tabular">
+                        {String.fromCharCode(65 + i)} · {v.period}
+                      </p>
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-content-muted mt-1">
+                        {v.category}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p className="font-content text-base text-content leading-relaxed max-w-2xl">
-                  {job.description}
-                </p>
-                <div className="flex flex-wrap gap-x-4 gap-y-1 pt-2 text-[11px] uppercase tracking-[0.18em] text-content-muted">
-                  {job.tags.map((tag) => <span key={tag}>· {tag}</span>)}
-                </div>
-              </div>
-            </div>
-          ))}
+
+                <h3 className="font-display text-3xl md:text-4xl font-medium leading-tight text-foreground">
+                  {v.name}
+                </h3>
+                <p className="text-xs uppercase tracking-[0.2em] text-content-muted">{v.role}</p>
+
+                <p className="font-content text-base text-content leading-relaxed">{v.body}</p>
+
+                {v.highlights && (
+                  <div className="pt-4 border-t border-border space-y-2">
+                    {v.label && (
+                      <p className="text-[10px] uppercase tracking-[0.25em] text-content-muted">
+                        {v.label}
+                      </p>
+                    )}
+                    <ul className="flex flex-wrap gap-x-4 gap-y-1">
+                      {v.highlights.map((h) => (
+                        <li key={h} className="font-display text-base text-foreground">
+                          {h}<span className="text-gold/60">.</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      {/* Work Stories */}
+      {/* ─────────────────────── 4. BRAND BUILDING / CRAFT ─────────────────────── */}
       <section className="grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-3">
+        <div className="md:col-span-4">
           <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ III</p>
-          <h2 className="font-display text-3xl text-foreground mt-2 flex items-center gap-2">
-            <BookOpen className="w-5 h-5" /> Work Stories
+          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-2 leading-tight">
+            Brand building & creative work.
           </h2>
-          <p className="text-xs text-content-muted mt-3 font-content italic">
-            The CV is the headline. These are the chapters.
+          <p className="font-content text-lg text-content-muted mt-6 leading-relaxed">
+            My work isn't only operations. It's marketing, design, storytelling, and growth —
+            translating Cambodian businesses into something the world can read.
           </p>
         </div>
-        <div className="md:col-span-9 grid sm:grid-cols-2 gap-px bg-border">
-          {stories.map((s, i) => (
-            <article key={s.place} className="group bg-background p-7 space-y-4 hover:bg-accent transition-smooth cursor-pointer">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] uppercase tracking-[0.22em] text-gold tabular">
-                  Ch. {String(i + 1).padStart(2, '0')}
-                </span>
-                <ArrowUpRight className="w-4 h-4 text-content-muted group-hover:text-gold group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-smooth" />
-              </div>
-              <div className="space-y-1">
-                <p className="text-[11px] uppercase tracking-[0.2em] text-content-muted">{s.place}</p>
-                <p className="text-[10px] uppercase tracking-[0.18em] text-content-muted/70 font-content">{s.when}</p>
-              </div>
-              <h3 className="font-display text-xl md:text-2xl leading-snug text-foreground group-hover:text-gold transition-smooth">
-                {s.headline}
-              </h3>
-              <p className="font-content text-base text-content leading-relaxed">
-                {s.teaser}
-              </p>
-              <p className="text-[10px] uppercase tracking-[0.22em] text-content-muted/70 italic font-content">
-                Story coming soon
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
 
-      {/* Now */}
-      <section className="grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-3">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ IV</p>
-          <h2 className="font-display text-3xl text-foreground mt-2">Now</h2>
-        </div>
-        <div className="md:col-span-9 grid sm:grid-cols-3 gap-px bg-border">
-          {[
-            { label: 'Building', body: 'Brand strategy for BRM Agro and a couple of independent projects across Cambodia.' },
-            { label: 'Exploring', body: 'Nondual awareness through direct looking. Less reading, more seeing.' },
-            { label: 'Where', body: 'Phnom Penh as home base. Bangkok regularly. Siem Reap when I need quiet.' },
-          ].map((b) => (
-            <div key={b.label} className="bg-background p-6 space-y-3">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-gold">{b.label}</p>
-              <p className="font-content text-base text-content leading-relaxed">{b.body}</p>
+        <div className="md:col-span-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          {craft.map(({ icon: Icon, label }) => (
+            <div key={label} className="bg-background p-6 flex items-start gap-4 group hover:bg-accent transition-smooth">
+              <Icon className="w-4 h-4 text-gold mt-1 shrink-0" />
+              <p className="font-display text-lg leading-snug text-foreground">{label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Interests */}
-      <section className="grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-3">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ V</p>
-          <h2 className="font-display text-3xl text-foreground mt-2">Preoccupations</h2>
-        </div>
-        <div className="md:col-span-9 flex flex-wrap gap-x-5 gap-y-2">
-          {[
-            'Brand strategy', 'Southeast Asian business', 'Creator economies',
-            'Hospitality', 'Agribusiness', 'Nondual awareness',
-            'Cambodian history', 'Thai street food', 'Clean writing', 'Slow travel',
-          ].map((interest) => (
-            <span key={interest} className="font-display text-2xl md:text-3xl text-content-muted hover:text-gold transition-smooth cursor-default">
-              {interest}<span className="text-gold/60">.</span>
-            </span>
-          ))}
+      {/* ─────────────────────── 5. OVERALL STORY ─────────────────────── */}
+      <section className="relative -mx-6 md:-mx-10 px-6 md:px-10 py-20 md:py-28 bg-gradient-hero text-paper">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-gold">§ IV · The thread</p>
+          <h2 className="font-display text-4xl md:text-6xl font-light leading-[1.05] text-paper">
+            Building from Cambodia.
+          </h2>
+          <div className="grid md:grid-cols-2 gap-10 pt-4">
+            <p className="font-content text-lg leading-relaxed text-paper/85">
+              My story is about using creativity, business, culture, and strategy to help
+              local brands become stronger, more visible, and more respected — at home,
+              and abroad.
+            </p>
+            <p className="font-content text-lg leading-relaxed text-paper/70 italic">
+              Talent. Rice. Dairy. Spirits. Different sectors, one thread: Cambodia's next
+              chapter — built deliberately.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Contact */}
+      {/* ─────────────────────── 6. CONTACT ─────────────────────── */}
       <section className="grid md:grid-cols-12 gap-12 border-t border-border pt-16">
         <div className="md:col-span-5">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ VI</p>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-gold">§ V</p>
           <h2 className="font-display text-4xl md:text-5xl text-foreground mt-2 leading-tight">
-            Write back.
+            Get in touch.
           </h2>
           <p className="font-content text-lg text-content-muted mt-4 max-w-md">
-            I read everything and reply to the thoughtful ones. Telegram for quicker exchanges
-            once we've already met.
+            For brand work, partnerships across Cambodian agriculture, F&B, and spirits,
+            or to talk about building something here.
           </p>
         </div>
         <div className="md:col-span-7 space-y-px bg-border">
@@ -298,7 +264,7 @@ const Profile = () => {
               <Linkedin className="w-5 h-5 text-gold" />
               <span>
                 <span className="block text-[11px] uppercase tracking-[0.22em] text-content-muted">Network</span>
-                <span className="font-display text-xl text-foreground">LinkedIn / Sovandarapor Kong</span>
+                <span className="font-display text-xl text-foreground">LinkedIn / Sovandarapor (James) Kong</span>
               </span>
             </span>
             <ArrowUpRight className="w-5 h-5 text-content-muted group-hover:text-gold group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-smooth" />
