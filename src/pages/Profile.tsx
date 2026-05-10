@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Plate from '@/components/editorial/Plate';
 import PullQuote from '@/components/editorial/PullQuote';
 import ChapterDivider from '@/components/editorial/ChapterDivider';
 import Marginalia from '@/components/editorial/Marginalia';
 import Colophon from '@/components/editorial/Colophon';
+import { fetchVentureImages, type VentureImages } from '@/lib/siteSettings';
 
 const ventures = [
   {
