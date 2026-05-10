@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
         'spectral': ['Spectral', 'Georgia', 'serif'],
+        'display': ['Fraunces', 'Spectral', 'Georgia', 'serif'],
         'content': ['Spectral', 'Georgia', 'serif'],
       },
       colors: {
