@@ -13,15 +13,18 @@ import { useAuth } from '@/hooks/useAuth';
 
 interface PostForm {
   title: string; subtitle: string; slug: string; category: string;
-  tags: string; featured_image_url: string; content_html: string;
+  tags: string; featured_image_url: string; featured_image_size: number | null;
+  content_html: string;
   gallery_urls: string[]; seo_title: string; seo_description: string;
   status: 'draft' | 'published'; published_at: string | null; author_name: string;
+  country: CountryValue | '';
 }
 
 const empty: PostForm = {
-  title: '', subtitle: '', slug: '', category: CATEGORIES[0], tags: '',
-  featured_image_url: '', content_html: '', gallery_urls: [],
+  title: '', subtitle: '', slug: '', category: DEFAULT_CATEGORIES[0], tags: '',
+  featured_image_url: '', featured_image_size: null, content_html: '', gallery_urls: [],
   seo_title: '', seo_description: '', status: 'draft', published_at: null, author_name: 'James',
+  country: '',
 };
 
 export default function PostEditor() {
