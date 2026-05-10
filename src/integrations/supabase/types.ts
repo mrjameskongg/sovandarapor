@@ -105,6 +105,7 @@ export type Database = {
           id: string
           singleton: boolean
           updated_at: string
+          venture_images: Json
         }
         Insert: {
           categories?: string[]
@@ -112,6 +113,7 @@ export type Database = {
           id?: string
           singleton?: boolean
           updated_at?: string
+          venture_images?: Json
         }
         Update: {
           categories?: string[]
@@ -119,6 +121,7 @@ export type Database = {
           id?: string
           singleton?: boolean
           updated_at?: string
+          venture_images?: Json
         }
         Relationships: []
       }
