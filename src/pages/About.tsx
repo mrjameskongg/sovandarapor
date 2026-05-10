@@ -41,7 +41,7 @@ const About = () => {
           </p>
         </div>
 
-        <aside className="md:col-span-4 md:col-start-9 md:pt-4 space-y-10 font-ui text-[11px] uppercase tracking-[0.25em] text-content-muted">
+        <aside className="md:col-span-7 md:col-start-1 md:order-3 md:pt-4 grid grid-cols-3 gap-8 font-ui text-[11px] uppercase tracking-[0.25em] text-content-muted">
           <div>
             <p className="text-gold text-[10px] mb-3">Based</p>
             <p className="font-content normal-case text-base text-foreground italic">
