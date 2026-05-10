@@ -80,16 +80,22 @@ export async function fetchSettings() {
   return data as any;
 }
 
-export async function saveSettings(patch: { fonts?: SiteFonts; categories?: string[] }) {
+export async function saveSettings(patch: { fonts?: SiteFonts; categories?: string[]; venture_images?: VentureImages }) {
   const existing = await fetchSettings();
   if (!existing) {
     const { error } = await supabase.from('site_settings' as any).insert({
       fonts: patch.fonts ?? DEFAULT_FONTS,
       categories: patch.categories ?? [...DEFAULT_CATEGORIES],
+      venture_images: patch.venture_images ?? {},
     } as any);
     if (error) throw error;
   } else {
     const { error } = await supabase.from('site_settings' as any).update(patch as any).eq('id', existing.id);
     if (error) throw error;
   }
+}
+
+export async function fetchVentureImages(): Promise<VentureImages> {
+  const s = await fetchSettings();
+  return (s?.venture_images as VentureImages) || {};
 }
