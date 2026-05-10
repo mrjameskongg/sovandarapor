@@ -12,6 +12,7 @@ const Navigation = () => {
   const navItems = [
     { name: 'Index', path: '/' },
     { name: 'Profile', path: '/profile' },
+    { name: 'Nondual', path: '/nondual' },
     { name: 'Cambodia', path: '/cambodia-work' },
     { name: 'Craft', path: '/brand-building' },
     { name: 'Journal', path: '/blog' },
