@@ -9,6 +9,7 @@ import { fetchVentureImages, type VentureImages } from '@/lib/siteSettings';
 
 const ventures = [
   {
+    slug: 'princess-jenna',
     name: 'Princess Jenna Norodom',
     category: 'Talent · Media · Royal Brand',
     role: 'Personal Manager · 2024 — 2025',
@@ -19,6 +20,7 @@ const ventures = [
     placeholder: 'portrait of HRH Jenna Norodom',
   },
   {
+    slug: 'brm-agro',
     name: 'BRM Agro',
     category: 'Agriculture · Rice · Export',
     role: 'Brand Strategy · 2026 → Present',
@@ -29,6 +31,7 @@ const ventures = [
     placeholder: 'rice fields, Kampong Thom',
   },
   {
+    slug: 'moo-moo',
     name: 'Moo Moo Farms',
     category: 'Dairy · Food · Turnaround',
     role: 'Group Operations · 2024 → Present',
@@ -39,6 +42,7 @@ const ventures = [
     placeholder: 'a Holstein at Moo Moo Farms',
   },
   {
+    slug: 'seekers',
     name: 'Seekers Group',
     category: 'Spirits · Hospitality · Lifestyle',
     role: 'Brand & Storytelling · Ongoing',
