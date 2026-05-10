@@ -2,6 +2,7 @@ import Plate from '@/components/editorial/Plate';
 import PullQuote from '@/components/editorial/PullQuote';
 import Colophon from '@/components/editorial/Colophon';
 import deskNotes from '@/assets/desk-notes.jpg';
+import portraitJames from '@/assets/portrait-james.jpg';
 
 const About = () => {
   return (
@@ -16,7 +17,13 @@ const About = () => {
       </header>
 
       <div className="grid md:grid-cols-12 gap-12 items-start">
-        <div className="md:col-span-7 reading font-content text-lg leading-[1.8] text-content space-y-6">
+        <div className="md:col-span-5 md:order-2">
+          <Plate src={portraitJames} alt="Sovandarapor Kong, Phnom Penh"
+                 plate="I" location="Phnom Penh" date="2024"
+                 ratio="portrait"
+                 caption="Sovandarapor Kong, in formal Khmer dress." />
+        </div>
+        <div className="md:col-span-7 md:order-1 reading font-content text-lg leading-[1.8] text-content space-y-6">
           <p>
             James — Sovandarapor Kong — works between Phnom Penh and Bangkok. The
             day-to-day is operations, brand, and storytelling across four ventures
@@ -34,7 +41,7 @@ const About = () => {
           </p>
         </div>
 
-        <aside className="md:col-span-4 md:col-start-9 md:pt-4 space-y-10 font-ui text-[11px] uppercase tracking-[0.25em] text-content-muted">
+        <aside className="md:col-span-7 md:col-start-1 md:order-3 md:pt-4 grid grid-cols-3 gap-8 font-ui text-[11px] uppercase tracking-[0.25em] text-content-muted">
           <div>
             <p className="text-gold text-[10px] mb-3">Based</p>
             <p className="font-content normal-case text-base text-foreground italic">
