@@ -12,13 +12,12 @@ const Navigation = () => {
   useEffect(() => { setMounted(true); }, []);
 
   const navItems = [
-    { name: 'Index', path: '/' },
-    { name: 'Essays', path: '/essays' },
-    { name: 'Notes', path: '/notes' },
-    { name: 'Travel', path: '/travel' },
-    { name: 'Build Log', path: '/build-log' },
-    { name: 'Profile', path: '/profile' },
+    { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
+    { name: 'Cambodia Work', path: '/cambodia-work' },
+    { name: 'Brand Building', path: '/brand-building' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
