@@ -10,6 +10,7 @@ import { useCategories, slugify, COUNTRIES, type CountryValue, DEFAULT_CATEGORIE
 import { toast } from '@/hooks/use-toast';
 import { ArrowLeft, Eye, Save, Send, Upload, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { uploadToPostImages, statsLine } from '@/lib/imageUpload';
 
 interface PostForm {
   title: string; subtitle: string; slug: string; category: string;
@@ -40,6 +41,9 @@ export default function PostEditor() {
   const [slugTouched, setSlugTouched] = useState(false);
   const featRef = useRef<HTMLInputElement>(null);
   const galRef = useRef<HTMLInputElement>(null);
+  const [featStats, setFeatStats] = useState<string | null>(null);
+  const [galStats, setGalStats] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (isNew) return;
@@ -65,25 +69,36 @@ export default function PostEditor() {
     ...(k === 'title' && !slugTouched ? { slug: slugify(v) } : {}),
   }));
 
-  const uploadImage = async (file: File, folder = 'featured'): Promise<string | null> => {
-    const ext = file.name.split('.').pop();
-    const path = `${folder}/${crypto.randomUUID()}.${ext}`;
-    const { error } = await supabase.storage.from('post-images').upload(path, file);
-    if (error) { toast({ title: 'Upload failed', description: error.message, variant: 'destructive' }); return null; }
-    return supabase.storage.from('post-images').getPublicUrl(path).data.publicUrl;
-  };
-
   const onFeat = async (f: File) => {
-    const url = await uploadImage(f, 'featured');
-    if (url) setForm(s => ({ ...s, featured_image_url: url, featured_image_size: f.size }));
+    setUploading(true);
+    try {
+      const { publicUrl, stats } = await uploadToPostImages(f, 'featured');
+      setForm(s => ({ ...s, featured_image_url: publicUrl, featured_image_size: stats.optimizedSize }));
+      setFeatStats(statsLine(stats));
+    } catch (e: any) {
+      toast({ title: 'Upload failed', description: e.message, variant: 'destructive' });
+    } finally { setUploading(false); }
   };
   const onGallery = async (files: FileList) => {
+    setUploading(true);
     const urls: string[] = [];
+    let totalOrig = 0, totalOpt = 0, anyOptimized = false;
     for (const f of Array.from(files)) {
-      const u = await uploadImage(f, 'gallery');
-      if (u) urls.push(u);
+      try {
+        const { publicUrl, stats } = await uploadToPostImages(f, 'gallery');
+        urls.push(publicUrl);
+        totalOrig += stats.originalSize; totalOpt += stats.optimizedSize;
+        if (!stats.skipped) anyOptimized = true;
+      } catch (e: any) {
+        toast({ title: 'Upload failed', description: e.message, variant: 'destructive' });
+      }
     }
     setForm(s => ({ ...s, gallery_urls: [...s.gallery_urls, ...urls] }));
+    if (anyOptimized) {
+      const fmt = (b: number) => b >= 1024 * 1024 ? `${(b/1048576).toFixed(2)} MB` : `${(b/1024).toFixed(0)} KB`;
+      setGalStats(`Original: ${fmt(totalOrig)} → Optimized: ${fmt(totalOpt)}`);
+    }
+    setUploading(false);
   };
 
   const save = async (status?: 'draft' | 'published') => {
