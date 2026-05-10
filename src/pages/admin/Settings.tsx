@@ -15,6 +15,10 @@ import { uploadToPostImages, statsLine } from '@/lib/imageUpload';
 export default function AdminSettings() {
   const [fonts, setFonts] = useState<SiteFonts>(DEFAULT_FONTS);
   const [categories, setCats] = useState<string[]>([...DEFAULT_CATEGORIES]);
+  const [ventureImages, setVentureImages] = useState<VentureImages>({});
+  const [ventureStats, setVentureStats] = useState<Record<string, string>>({});
+  const [ventureUploading, setVentureUploading] = useState<string | null>(null);
+  const ventureRefs = useRef<Record<string, HTMLInputElement | null>>({});
   const [newCat, setNewCat] = useState('');
   const [editIdx, setEditIdx] = useState<number | null>(null);
   const [editVal, setEditVal] = useState('');
@@ -25,6 +29,7 @@ export default function AdminSettings() {
     fetchSettings().then(s => {
       if (s?.fonts) setFonts({ ...DEFAULT_FONTS, ...s.fonts });
       if (s?.categories?.length) setCats(s.categories);
+      if (s?.venture_images) setVentureImages(s.venture_images);
       setLoading(false);
     });
   }, []);
@@ -38,7 +43,7 @@ export default function AdminSettings() {
   const onSave = async () => {
     setSaving(true);
     try {
-      await saveSettings({ fonts, categories });
+      await saveSettings({ fonts, categories, venture_images: ventureImages });
       setCategories(categories);
       applyFonts(fonts);
       toast({ title: 'Settings saved' });
@@ -47,6 +52,32 @@ export default function AdminSettings() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const onVentureUpload = async (slug: string, file: File) => {
+    setVentureUploading(slug);
+    try {
+      const { publicUrl, stats } = await uploadToPostImages(file, 'ventures');
+      const next = { ...ventureImages, [slug]: publicUrl };
+      setVentureImages(next);
+      const line = statsLine(stats);
+      if (line) setVentureStats(s => ({ ...s, [slug]: line }));
+      // Persist immediately so the photo is live without an extra Save click
+      await saveSettings({ venture_images: next });
+      toast({ title: 'Photo uploaded' });
+    } catch (e: any) {
+      toast({ title: 'Upload failed', description: e.message, variant: 'destructive' });
+    } finally {
+      setVentureUploading(null);
+    }
+  };
+
+  const removeVenturePhoto = async (slug: string) => {
+    const next = { ...ventureImages };
+    delete next[slug];
+    setVentureImages(next);
+    setVentureStats(s => { const c = { ...s }; delete c[slug]; return c; });
+    try { await saveSettings({ venture_images: next }); } catch {}
   };
 
   const addCat = () => {
