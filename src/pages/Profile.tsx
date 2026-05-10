@@ -67,6 +67,12 @@ const craft = [
 ];
 
 const Profile = () => {
+  const [ventureImages, setVentureImages] = useState<VentureImages>({});
+
+  useEffect(() => {
+    fetchVentureImages().then(setVentureImages);
+  }, []);
+
   return (
     <>
       {/* HERO PORTRAIT — full bleed, full viewport */}
