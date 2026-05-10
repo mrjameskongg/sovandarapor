@@ -238,6 +238,8 @@ export default function PostEditor() {
                 </button>
               )}
               <input ref={featRef} type="file" accept="image/*" className="hidden" onChange={e => e.target.files?.[0] && onFeat(e.target.files[0])} />
+              {featStats && <p className="text-[11px] text-content-muted mt-2 tabular">{featStats}</p>}
+              {uploading && !featStats && <p className="text-[11px] text-content-muted mt-2">Optimizing…</p>}
             </div>
 
             <div>
@@ -264,6 +266,7 @@ export default function PostEditor() {
                 </button>
               </div>
               <input ref={galRef} type="file" accept="image/*" multiple className="hidden" onChange={e => e.target.files && onGallery(e.target.files)} />
+              {galStats && <p className="text-[11px] text-content-muted mt-2 tabular">{galStats}</p>}
             </div>
 
             <div className="border-t border-border pt-8 space-y-5">
