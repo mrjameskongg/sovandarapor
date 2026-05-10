@@ -1,19 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Save, Plus, X, Pencil, Check } from 'lucide-react';
+import { ArrowLeft, Save, Plus, X, Pencil, Check, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
 import {
   applyFonts, fetchSettings, saveSettings,
-  FONT_OPTIONS, DEFAULT_FONTS, type SiteFonts,
+  FONT_OPTIONS, DEFAULT_FONTS, VENTURES, type SiteFonts, type VentureImages,
 } from '@/lib/siteSettings';
 import { DEFAULT_CATEGORIES, setCategories } from '@/lib/blog';
+import { uploadToPostImages, statsLine } from '@/lib/imageUpload';
 
 export default function AdminSettings() {
   const [fonts, setFonts] = useState<SiteFonts>(DEFAULT_FONTS);
   const [categories, setCats] = useState<string[]>([...DEFAULT_CATEGORIES]);
+  const [ventureImages, setVentureImages] = useState<VentureImages>({});
+  const [ventureStats, setVentureStats] = useState<Record<string, string>>({});
+  const [ventureUploading, setVentureUploading] = useState<string | null>(null);
+  const ventureRefs = useRef<Record<string, HTMLInputElement | null>>({});
   const [newCat, setNewCat] = useState('');
   const [editIdx, setEditIdx] = useState<number | null>(null);
   const [editVal, setEditVal] = useState('');
@@ -24,6 +29,7 @@ export default function AdminSettings() {
     fetchSettings().then(s => {
       if (s?.fonts) setFonts({ ...DEFAULT_FONTS, ...s.fonts });
       if (s?.categories?.length) setCats(s.categories);
+      if (s?.venture_images) setVentureImages(s.venture_images);
       setLoading(false);
     });
   }, []);
@@ -37,7 +43,7 @@ export default function AdminSettings() {
   const onSave = async () => {
     setSaving(true);
     try {
-      await saveSettings({ fonts, categories });
+      await saveSettings({ fonts, categories, venture_images: ventureImages });
       setCategories(categories);
       applyFonts(fonts);
       toast({ title: 'Settings saved' });
@@ -46,6 +52,32 @@ export default function AdminSettings() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const onVentureUpload = async (slug: string, file: File) => {
+    setVentureUploading(slug);
+    try {
+      const { publicUrl, stats } = await uploadToPostImages(file, 'ventures');
+      const next = { ...ventureImages, [slug]: publicUrl };
+      setVentureImages(next);
+      const line = statsLine(stats);
+      if (line) setVentureStats(s => ({ ...s, [slug]: line }));
+      // Persist immediately so the photo is live without an extra Save click
+      await saveSettings({ venture_images: next });
+      toast({ title: 'Photo uploaded' });
+    } catch (e: any) {
+      toast({ title: 'Upload failed', description: e.message, variant: 'destructive' });
+    } finally {
+      setVentureUploading(null);
+    }
+  };
+
+  const removeVenturePhoto = async (slug: string) => {
+    const next = { ...ventureImages };
+    delete next[slug];
+    setVentureImages(next);
+    setVentureStats(s => { const c = { ...s }; delete c[slug]; return c; });
+    try { await saveSettings({ venture_images: next }); } catch {}
   };
 
   const addCat = () => {
@@ -152,6 +184,58 @@ export default function AdminSettings() {
             <Button variant="outline" onClick={addCat}><Plus className="w-4 h-4 mr-1" />Add</Button>
           </div>
           <p className="text-xs text-content-muted">Removing a category does not affect existing posts already filed under it.</p>
+        </section>
+
+        {/* VENTURES */}
+        <section className="space-y-5">
+          <div className="border-b border-border pb-3">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Cambodia</p>
+            <h2 className="font-display text-2xl text-foreground mt-1">Ventures</h2>
+            <p className="text-sm text-content-muted mt-2">One photo per venture. Saved immediately on upload. Max 1600px, auto-optimized.</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-px bg-border">
+            {VENTURES.map(v => {
+              const img = ventureImages[v.slug];
+              const stat = ventureStats[v.slug];
+              return (
+                <div key={v.slug} className="bg-background p-5 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.22em] text-content-muted">{v.category}</p>
+                      <p className="font-display text-lg text-foreground">{v.name}</p>
+                    </div>
+                    {img && (
+                      <button onClick={() => removeVenturePhoto(v.slug)}
+                        className="p-1 text-content-muted hover:text-destructive" title="Remove photo">
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+
+                  {img ? (
+                    <img src={img} alt={v.name} className="w-full aspect-[4/3] object-cover rounded-sm border border-border" />
+                  ) : (
+                    <div className="aspect-[4/3] bg-muted rounded-sm flex items-center justify-center">
+                      <span className="font-display text-content-muted">No photo</span>
+                    </div>
+                  )}
+
+                  <Button variant="outline" size="sm" onClick={() => ventureRefs.current[v.slug]?.click()}
+                    disabled={ventureUploading === v.slug}>
+                    <Upload className="w-3.5 h-3.5 mr-2" />
+                    {ventureUploading === v.slug ? 'Uploading…' : (img ? 'Replace photo' : 'Upload photo')}
+                  </Button>
+                  <input
+                    ref={el => { ventureRefs.current[v.slug] = el; }}
+                    type="file" accept="image/*" className="hidden"
+                    onChange={e => e.target.files?.[0] && onVentureUpload(v.slug, e.target.files[0])}
+                  />
+                  {stat && <p className="text-[11px] text-content-muted tabular">{stat}</p>}
+                </div>
+              );
+            })}
+          </div>
         </section>
       </main>
     </div>

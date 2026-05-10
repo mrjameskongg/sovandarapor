@@ -6,7 +6,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { Button } from '@/components/ui/button';
 import { Bold, Italic, Heading2, Heading3, List, ListOrdered, Link as LinkIcon, Image as ImageIcon, Quote, Undo, Redo } from 'lucide-react';
 import { useRef } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { uploadToPostImages } from '@/lib/imageUpload';
 import { toast } from '@/hooks/use-toast';
 
 interface Props {
@@ -31,12 +31,12 @@ export const RichEditor = ({ value, onChange }: Props) => {
   if (!editor) return null;
 
   const insertImage = async (file: File) => {
-    const ext = file.name.split('.').pop();
-    const path = `inline/${crypto.randomUUID()}.${ext}`;
-    const { error } = await supabase.storage.from('post-images').upload(path, file);
-    if (error) { toast({ title: 'Upload failed', description: error.message, variant: 'destructive' }); return; }
-    const { data: { publicUrl } } = supabase.storage.from('post-images').getPublicUrl(path);
-    editor.chain().focus().setImage({ src: publicUrl }).run();
+    try {
+      const { publicUrl } = await uploadToPostImages(file, 'inline');
+      editor.chain().focus().setImage({ src: publicUrl }).run();
+    } catch (e: any) {
+      toast({ title: 'Upload failed', description: e.message, variant: 'destructive' });
+    }
   };
 
   const addLink = () => {
