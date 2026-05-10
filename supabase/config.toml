@@ -1,1 +1,4 @@
 project_id = "ukuqlxteqlsgtoascjvl"
+
+[functions.admin-unlock]
+verify_jwt = false
