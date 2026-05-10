@@ -1,26 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Plus, Pencil, Trash2, ExternalLink, LogOut } from 'lucide-react';
+import { Plus, Pencil, Trash2, ExternalLink, LogOut, Settings as SettingsIcon } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/hooks/use-toast';
-import { formatDate } from '@/lib/blog';
+import { formatDate, useCategories, COUNTRIES } from '@/lib/blog';
 
 interface Row {
   id: string; title: string; slug: string; status: string; category: string;
+  country: string | null;
   published_at: string | null; updated_at: string;
 }
 
 export default function AdminDashboard() {
   const { signOut } = useAuth();
+  const categories = useCategories();
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
+  const [statusFilter, setStatusFilter] = useState<'all' | 'draft' | 'published'>('all');
+  const [catFilter, setCatFilter] = useState('all');
+  const [countryFilter, setCountryFilter] = useState('all');
 
   const load = async () => {
     setLoading(true);
-    const { data, error } = await supabase.from('posts')
-      .select('id,title,slug,status,category,published_at,updated_at')
+    const { data, error } = await (supabase.from('posts') as any)
+      .select('id,title,slug,status,category,country,published_at,updated_at')
       .order('updated_at', { ascending: false });
     if (error) toast({ title: 'Load failed', description: error.message, variant: 'destructive' });
     setRows((data as Row[]) || []);
@@ -36,12 +41,23 @@ export default function AdminDashboard() {
     load();
   };
 
+  const filtered = useMemo(() => rows.filter(r =>
+    (statusFilter === 'all' || r.status === statusFilter) &&
+    (catFilter === 'all' || r.category === catFilter) &&
+    (countryFilter === 'all' || (countryFilter === 'none' ? !r.country : r.country === countryFilter))
+  ), [rows, statusFilter, catFilter, countryFilter]);
+
+  const selectClass = "h-9 rounded-md border border-input bg-background px-3 text-xs uppercase tracking-[0.2em]";
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
         <div className="max-w-6xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between">
           <Link to="/admin" className="font-display text-xl text-foreground">Editor</Link>
           <div className="flex items-center gap-3">
+            <Link to="/admin/settings" className="text-xs uppercase tracking-[0.2em] text-content-muted hover:text-foreground flex items-center gap-1">
+              <SettingsIcon className="w-3.5 h-3.5" /> Settings
+            </Link>
             <Link to="/" className="text-xs uppercase tracking-[0.2em] text-content-muted hover:text-foreground">View site</Link>
             <Button variant="ghost" size="sm" onClick={signOut}><LogOut className="w-4 h-4 mr-2" />Sign out</Button>
           </div>
@@ -59,9 +75,26 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        {loading ? <div className="text-content-muted">Loading…</div> : rows.length === 0 ? (
+        <div className="flex flex-wrap gap-3 mb-6">
+          <select value={statusFilter} onChange={e => setStatusFilter(e.target.value as any)} className={selectClass}>
+            <option value="all">All statuses</option>
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+          <select value={catFilter} onChange={e => setCatFilter(e.target.value)} className={selectClass}>
+            <option value="all">All categories</option>
+            {categories.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <select value={countryFilter} onChange={e => setCountryFilter(e.target.value)} className={selectClass}>
+            <option value="all">All countries</option>
+            <option value="none">No country</option>
+            {COUNTRIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+          </select>
+        </div>
+
+        {loading ? <div className="text-content-muted">Loading…</div> : filtered.length === 0 ? (
           <div className="border border-dashed border-border rounded-sm p-16 text-center">
-            <p className="text-content-muted mb-4">No posts yet.</p>
+            <p className="text-content-muted mb-4">No posts match these filters.</p>
             <Link to="/admin/posts/new"><Button>Write your first post</Button></Link>
           </div>
         ) : (
@@ -71,16 +104,18 @@ export default function AdminDashboard() {
                 <tr>
                   <th className="text-left px-4 py-3">Title</th>
                   <th className="text-left px-4 py-3 hidden md:table-cell">Category</th>
+                  <th className="text-left px-4 py-3 hidden md:table-cell">Country</th>
                   <th className="text-left px-4 py-3">Status</th>
                   <th className="text-left px-4 py-3 hidden md:table-cell">Updated</th>
                   <th className="px-4 py-3"></th>
                 </tr>
               </thead>
               <tbody>
-                {rows.map(r => (
+                {filtered.map(r => (
                   <tr key={r.id} className="border-t border-border hover:bg-muted/20">
                     <td className="px-4 py-3 font-medium text-foreground">{r.title}</td>
                     <td className="px-4 py-3 text-content-muted hidden md:table-cell">{r.category}</td>
+                    <td className="px-4 py-3 text-content-muted hidden md:table-cell capitalize">{r.country || '—'}</td>
                     <td className="px-4 py-3">
                       <span className={`text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-sm ${r.status === 'published' ? 'bg-gold/15 text-gold' : 'bg-muted text-content-muted'}`}>
                         {r.status}
