@@ -185,6 +185,58 @@ export default function AdminSettings() {
           </div>
           <p className="text-xs text-content-muted">Removing a category does not affect existing posts already filed under it.</p>
         </section>
+
+        {/* VENTURES */}
+        <section className="space-y-5">
+          <div className="border-b border-border pb-3">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Cambodia</p>
+            <h2 className="font-display text-2xl text-foreground mt-1">Ventures</h2>
+            <p className="text-sm text-content-muted mt-2">One photo per venture. Saved immediately on upload. Max 1600px, auto-optimized.</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-px bg-border">
+            {VENTURES.map(v => {
+              const img = ventureImages[v.slug];
+              const stat = ventureStats[v.slug];
+              return (
+                <div key={v.slug} className="bg-background p-5 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.22em] text-content-muted">{v.category}</p>
+                      <p className="font-display text-lg text-foreground">{v.name}</p>
+                    </div>
+                    {img && (
+                      <button onClick={() => removeVenturePhoto(v.slug)}
+                        className="p-1 text-content-muted hover:text-destructive" title="Remove photo">
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+
+                  {img ? (
+                    <img src={img} alt={v.name} className="w-full aspect-[4/3] object-cover rounded-sm border border-border" />
+                  ) : (
+                    <div className="aspect-[4/3] bg-muted rounded-sm flex items-center justify-center">
+                      <span className="font-display text-content-muted">No photo</span>
+                    </div>
+                  )}
+
+                  <Button variant="outline" size="sm" onClick={() => ventureRefs.current[v.slug]?.click()}
+                    disabled={ventureUploading === v.slug}>
+                    <Upload className="w-3.5 h-3.5 mr-2" />
+                    {ventureUploading === v.slug ? 'Uploading…' : (img ? 'Replace photo' : 'Upload photo')}
+                  </Button>
+                  <input
+                    ref={el => { ventureRefs.current[v.slug] = el; }}
+                    type="file" accept="image/*" className="hidden"
+                    onChange={e => e.target.files?.[0] && onVentureUpload(v.slug, e.target.files[0])}
+                  />
+                  {stat && <p className="text-[11px] text-content-muted tabular">{stat}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
       </main>
     </div>
   );
