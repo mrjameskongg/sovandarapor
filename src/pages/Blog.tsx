@@ -12,6 +12,7 @@ interface Post {
 }
 
 export default function Blog() {
+  const categories = useCategories();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
