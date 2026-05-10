@@ -103,7 +103,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Source Serif Pro', Georgia, serif;
+    font-family: var(--font-content, 'Source Serif Pro', Georgia, serif);
     font-feature-settings: "kern", "liga";
     font-size: 17px;
     line-height: 1.7;
