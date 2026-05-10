@@ -47,10 +47,12 @@ export default function PostEditor() {
       if (data) setForm({
         title: data.title, subtitle: data.subtitle || '', slug: data.slug,
         category: data.category, tags: (data.tags || []).join(', '),
-        featured_image_url: data.featured_image_url || '', content_html: data.content_html || '',
+        featured_image_url: data.featured_image_url || '', featured_image_size: null,
+        content_html: data.content_html || '',
         gallery_urls: data.gallery_urls || [], seo_title: data.seo_title || '',
         seo_description: data.seo_description || '', status: data.status as any,
         published_at: data.published_at, author_name: data.author_name || 'James',
+        country: ((data as any).country as CountryValue) || '',
       });
       setSlugTouched(true);
       setLoading(false);
