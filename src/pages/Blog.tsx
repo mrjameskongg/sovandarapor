@@ -54,7 +54,7 @@ export default function Blog() {
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <button onClick={() => setCat('all')}
             className={`text-xs uppercase tracking-[0.2em] py-1 ${cat === 'all' ? 'text-foreground border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>All</button>
-          {CATEGORIES.map(c => (
+          {categories.map(c => (
             <button key={c} onClick={() => setCat(c)}
               className={`text-xs uppercase tracking-[0.2em] py-1 ${cat === c ? 'text-foreground border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>
               {c}
