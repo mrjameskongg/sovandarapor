@@ -7,6 +7,7 @@ import Layout from "@/components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
+import Nondual from "./pages/Nondual";
 import CambodiaWork from "./pages/CambodiaWork";
 import BrandBuilding from "./pages/BrandBuilding";
 import Contact from "./pages/Contact";
@@ -47,6 +48,7 @@ const App = () => (
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/nondual" element={<Nondual />} />
               <Route path="/about-old" element={<About />} />
 
               {/* Admin */}
