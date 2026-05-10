@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RichEditor } from '@/components/RichEditor';
-import { CATEGORIES, slugify } from '@/lib/blog';
+import { useCategories, slugify, COUNTRIES, type CountryValue, DEFAULT_CATEGORIES } from '@/lib/blog';
 import { toast } from '@/hooks/use-toast';
 import { ArrowLeft, Eye, Save, Send, Upload, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
