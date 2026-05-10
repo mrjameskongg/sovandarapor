@@ -12,7 +12,7 @@ type LoginError = { message: string; code?: string; raw?: unknown };
 export default function AdminLogin() {
   const nav = useNavigate();
   const { user, isAdmin, loading } = useAuth();
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  // Signup removed for security — admin accounts must be provisioned in the backend.
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
@@ -56,22 +56,11 @@ export default function AdminLogin() {
     }, 5000);
 
     try {
-      if (mode === 'signup') {
-        const { error } = await supabase.auth.signUp({
-          email, password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-        window.clearTimeout(timeoutId);
-        toast({ title: 'Account created', description: 'Check your email to verify, then sign in.' });
-        setMode('signin');
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        window.clearTimeout(timeoutId);
-        setSuccess('Signed in, redirecting...');
-        setTimeout(() => nav('/admin', { replace: true }), 1000);
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      window.clearTimeout(timeoutId);
+      setSuccess('Signed in, redirecting...');
+      setTimeout(() => nav('/admin', { replace: true }), 1000);
     } catch (err: any) {
       window.clearTimeout(timeoutId);
       setLoginError({ message: err?.message ?? 'Unknown error', code: err?.code ?? err?.status?.toString(), raw: err });
@@ -115,7 +104,7 @@ export default function AdminLogin() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
           <p className="text-[11px] uppercase tracking-[0.3em] text-gold mb-2">Editor</p>
-          <h1 className="font-display text-3xl text-foreground">{mode === 'signin' ? 'Sign in' : 'Create admin'}</h1>
+          <h1 className="font-display text-3xl text-foreground">Sign in</h1>
         </div>
 
         {loginError && (
@@ -153,24 +142,17 @@ export default function AdminLogin() {
             <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} className="mt-2" />
           </div>
           <Button type="submit" className="w-full" disabled={busy}>
-            {busy ? '...' : mode === 'signin' ? 'Sign in' : 'Sign up'}
+            {busy ? '...' : 'Sign in'}
           </Button>
         </form>
 
-        {mode === 'signin' && (
-          <button onClick={forgot} type="button"
-            className="mt-4 w-full text-xs uppercase tracking-[0.2em] text-content-muted hover:text-gold">
-            Forgot password?
-          </button>
-        )}
-
-        <button onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}
-          className="mt-6 w-full text-xs uppercase tracking-[0.2em] text-content-muted hover:text-gold">
-          {mode === 'signin' ? 'First time? Create the admin account' : 'Have an account? Sign in'}
+        <button onClick={forgot} type="button"
+          className="mt-4 w-full text-xs uppercase tracking-[0.2em] text-content-muted hover:text-gold">
+          Forgot password?
         </button>
 
         <p className="mt-8 text-[11px] text-content-muted text-center leading-relaxed">
-          The first account created becomes the site admin. Later sign-ups have no privileges.
+          Admin access is by invitation only.
         </p>
 
         <div className="mt-6 pt-4 border-t border-border/60 text-[10px] text-content-muted text-center leading-relaxed space-y-1">
