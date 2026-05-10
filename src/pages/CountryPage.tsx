@@ -50,12 +50,12 @@ export default function CountryPage({ country }: { country: CountryValue }) {
 
   useEffect(() => {
     setLoading(true);
-    supabase.from('posts')
+    (supabase.from('posts') as any)
       .select('id,slug,title,subtitle,featured_image_url,category,published_at')
       .eq('status', 'published')
-      .eq('country' as any, country)
+      .eq('country', country)
       .order('published_at', { ascending: false })
-      .then(({ data }) => { setPosts((data as Post[]) || []); setLoading(false); });
+      .then(({ data }: any) => { setPosts((data as Post[]) || []); setLoading(false); });
   }, [country]);
 
   return (
