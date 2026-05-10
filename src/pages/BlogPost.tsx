@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { categorySlug, formatDate } from '@/lib/blog';
 import Colophon from '@/components/editorial/Colophon';
+import Seo from '@/components/Seo';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
