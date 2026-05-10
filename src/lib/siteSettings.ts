@@ -20,6 +20,23 @@ export const FONT_OPTIONS = {
   ui:      ['Inter', 'IBM Plex Sans', 'Work Sans', 'Manrope', 'DM Sans'],
 } as const;
 
+export interface Venture {
+  slug: string;
+  name: string;
+  category: string;
+  role: string;
+  desc: string;
+}
+
+export const VENTURES: Venture[] = [
+  { slug: 'princess-jenna', name: 'Princess Jenna Norodom', category: 'Media & Talent',         role: 'Personal Manager',     desc: 'Managing public presence, partnerships, and content strategy for Princess Jenna Norodom.' },
+  { slug: 'brm-agro',       name: 'BRM Agro',               category: 'Rice',                   role: 'Brand Strategy',       desc: 'Building a premium rice brand for export, from origin story to packaging to international buyers.' },
+  { slug: 'moo-moo',        name: 'Moo Moo Farms',          category: 'Dairy',                  role: 'Group Operations',     desc: 'Turnaround work on a Cambodian dairy operation. Supply, distribution, and a new web presence.' },
+  { slug: 'seekers',        name: 'Seekers Group',          category: 'Spirits & Hospitality',  role: 'Brand & Storytelling', desc: 'Spirits and hospitality concepts grounded in Cambodian terroir and craft.' },
+];
+
+export type VentureImages = Record<string, string>;
+
 const FONT_LINK_ID = 'site-fonts-link';
 
 export function applyFonts(fonts: SiteFonts) {
