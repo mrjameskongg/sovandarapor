@@ -131,6 +131,8 @@ const Profile = () => {
             <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start mt-8">
               <div className={`md:col-span-7 ${flip ? 'md:order-2' : ''}`}>
                 <Plate
+                  src={ventureImages[v.slug]}
+                  alt={v.name}
                   plate={numerals[i]}
                   ratio={i % 2 === 0 ? 'portrait' : 'landscape'}
                   placeholder={v.placeholder}
