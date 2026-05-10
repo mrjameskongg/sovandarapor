@@ -20,6 +20,7 @@ const Navigation = () => {
     { name: 'Travel', path: '/travel' },
     { name: 'Build Log', path: '/build-log' },
     { name: 'About', path: '/about' },
+    { name: 'Profile', path: '/profile' },
   ];
 
   return (
