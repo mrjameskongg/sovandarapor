@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Search, ArrowUpRight } from 'lucide-react';
-import { CATEGORIES, categorySlug, formatDate } from '@/lib/blog';
+import { useCategories, categorySlug, formatDate } from '@/lib/blog';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
