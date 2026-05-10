@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Search, ArrowUpRight } from 'lucide-react';
-import { CATEGORIES, categorySlug, formatDate } from '@/lib/blog';
+import { useCategories, categorySlug, formatDate } from '@/lib/blog';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
@@ -12,6 +12,7 @@ interface Post {
 }
 
 export default function Blog() {
+  const categories = useCategories();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
@@ -53,7 +54,7 @@ export default function Blog() {
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <button onClick={() => setCat('all')}
             className={`text-xs uppercase tracking-[0.2em] py-1 ${cat === 'all' ? 'text-foreground border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>All</button>
-          {CATEGORIES.map(c => (
+          {categories.map(c => (
             <button key={c} onClick={() => setCat(c)}
               className={`text-xs uppercase tracking-[0.2em] py-1 ${cat === c ? 'text-foreground border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>
               {c}

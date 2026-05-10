@@ -6,22 +6,25 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RichEditor } from '@/components/RichEditor';
-import { CATEGORIES, slugify } from '@/lib/blog';
+import { useCategories, slugify, COUNTRIES, type CountryValue, DEFAULT_CATEGORIES } from '@/lib/blog';
 import { toast } from '@/hooks/use-toast';
 import { ArrowLeft, Eye, Save, Send, Upload, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface PostForm {
   title: string; subtitle: string; slug: string; category: string;
-  tags: string; featured_image_url: string; content_html: string;
+  tags: string; featured_image_url: string; featured_image_size: number | null;
+  content_html: string;
   gallery_urls: string[]; seo_title: string; seo_description: string;
   status: 'draft' | 'published'; published_at: string | null; author_name: string;
+  country: CountryValue | '';
 }
 
 const empty: PostForm = {
-  title: '', subtitle: '', slug: '', category: CATEGORIES[0], tags: '',
-  featured_image_url: '', content_html: '', gallery_urls: [],
+  title: '', subtitle: '', slug: '', category: DEFAULT_CATEGORIES[0], tags: '',
+  featured_image_url: '', featured_image_size: null, content_html: '', gallery_urls: [],
   seo_title: '', seo_description: '', status: 'draft', published_at: null, author_name: 'James',
+  country: '',
 };
 
 export default function PostEditor() {
@@ -30,6 +33,7 @@ export default function PostEditor() {
   const { user } = useAuth();
   const isNew = !id || id === 'new';
   const [form, setForm] = useState<PostForm>(empty);
+  const categories = useCategories();
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState(false);
@@ -44,10 +48,12 @@ export default function PostEditor() {
       if (data) setForm({
         title: data.title, subtitle: data.subtitle || '', slug: data.slug,
         category: data.category, tags: (data.tags || []).join(', '),
-        featured_image_url: data.featured_image_url || '', content_html: data.content_html || '',
+        featured_image_url: data.featured_image_url || '', featured_image_size: null,
+        content_html: data.content_html || '',
         gallery_urls: data.gallery_urls || [], seo_title: data.seo_title || '',
         seo_description: data.seo_description || '', status: data.status as any,
         published_at: data.published_at, author_name: data.author_name || 'James',
+        country: ((data as any).country as CountryValue) || '',
       });
       setSlugTouched(true);
       setLoading(false);
@@ -69,7 +75,7 @@ export default function PostEditor() {
 
   const onFeat = async (f: File) => {
     const url = await uploadImage(f, 'featured');
-    if (url) update('featured_image_url', url);
+    if (url) setForm(s => ({ ...s, featured_image_url: url, featured_image_size: f.size }));
   };
   const onGallery = async (files: FileList) => {
     const urls: string[] = [];
@@ -92,8 +98,9 @@ export default function PostEditor() {
       gallery_urls: form.gallery_urls, seo_title: form.seo_title || null,
       seo_description: form.seo_description || null, status: finalStatus,
       author_name: form.author_name, author_id: user?.id || null,
+      country: form.country || null,
       published_at: finalStatus === 'published' ? (form.published_at || new Date().toISOString()) : form.published_at,
-    };
+    } as any;
     const op = isNew
       ? supabase.from('posts').insert(payload).select('id').single()
       : supabase.from('posts').update(payload).eq('id', id!).select('id').single();
@@ -150,7 +157,7 @@ export default function PostEditor() {
               <Input value={form.subtitle} onChange={e => update('subtitle', e.target.value)} placeholder="Short description" className="mt-2" />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-3 gap-5">
               <div>
                 <Label>Slug (URL)</Label>
                 <Input value={form.slug} onChange={e => { setSlugTouched(true); update('slug', slugify(e.target.value)); }} className="mt-2 font-mono text-sm" />
@@ -160,7 +167,15 @@ export default function PostEditor() {
                 <Label>Category</Label>
                 <select value={form.category} onChange={e => update('category', e.target.value)}
                   className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
-                  {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label>Country</Label>
+                <select value={form.country} onChange={e => update('country', e.target.value as CountryValue | '')}
+                  className="mt-2 flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  <option value="">None</option>
+                  {COUNTRIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                 </select>
               </div>
             </div>
@@ -179,11 +194,27 @@ export default function PostEditor() {
             <div>
               <Label>Featured image</Label>
               {form.featured_image_url ? (
-                <div className="mt-2 relative w-full max-w-md">
-                  <img src={form.featured_image_url} alt="" className="w-full aspect-[16/9] object-cover rounded-sm border border-border" />
-                  <button onClick={() => update('featured_image_url', '')} className="absolute top-2 right-2 bg-background/90 rounded-full p-1 hover:bg-destructive hover:text-destructive-foreground">
-                    <X className="w-4 h-4" />
-                  </button>
+                <div className="mt-2 w-full max-w-md space-y-2">
+                  <div className="relative">
+                    <img src={form.featured_image_url} alt="" className="w-full aspect-[16/9] object-cover rounded-sm border border-border" />
+                    <div className="absolute top-2 right-2 flex gap-1">
+                      <button type="button" onClick={() => featRef.current?.click()}
+                        title="Replace"
+                        className="bg-background/90 border border-border rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em] hover:bg-foreground hover:text-background">
+                        Replace
+                      </button>
+                      <button type="button" onClick={() => setForm(s => ({ ...s, featured_image_url: '', featured_image_size: null }))}
+                        title="Remove"
+                        className="bg-background/90 border border-border rounded-full p-1 hover:bg-destructive hover:text-destructive-foreground">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                  {form.featured_image_size != null && (
+                    <p className="text-xs text-content-muted tabular">
+                      {(form.featured_image_size / 1024).toFixed(1)} KB
+                    </p>
+                  )}
                 </div>
               ) : (
                 <button onClick={() => featRef.current?.click()} className="mt-2 border-2 border-dashed border-border rounded-sm p-10 w-full max-w-md text-center hover:border-gold hover:text-gold transition-colors text-content-muted">

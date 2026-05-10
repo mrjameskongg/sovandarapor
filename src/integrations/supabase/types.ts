@@ -20,6 +20,7 @@ export type Database = {
           author_name: string | null
           category: string
           content_html: string
+          country: string | null
           created_at: string
           featured_image_url: string | null
           gallery_urls: string[]
@@ -39,6 +40,7 @@ export type Database = {
           author_name?: string | null
           category: string
           content_html?: string
+          country?: string | null
           created_at?: string
           featured_image_url?: string | null
           gallery_urls?: string[]
@@ -58,6 +60,7 @@ export type Database = {
           author_name?: string | null
           category?: string
           content_html?: string
+          country?: string | null
           created_at?: string
           featured_image_url?: string | null
           gallery_urls?: string[]
@@ -92,6 +95,30 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          categories: string[]
+          fonts: Json
+          id: string
+          singleton: boolean
+          updated_at: string
+        }
+        Insert: {
+          categories?: string[]
+          fonts?: Json
+          id?: string
+          singleton?: boolean
+          updated_at?: string
+        }
+        Update: {
+          categories?: string[]
+          fonts?: Json
+          id?: string
+          singleton?: boolean
+          updated_at?: string
         }
         Relationships: []
       }
