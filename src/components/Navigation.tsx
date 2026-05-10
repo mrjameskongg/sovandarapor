@@ -28,7 +28,7 @@ const Navigation = () => {
       <div className="max-w-4xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="font-semibold text-foreground hover:text-gold transition-smooth">
-            James
+            Sovan
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
