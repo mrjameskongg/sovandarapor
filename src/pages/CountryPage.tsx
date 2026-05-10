@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { categorySlug, formatDate, type CountryValue } from '@/lib/blog';
 import { VENTURES, fetchVentureImages, type VentureImages } from '@/lib/siteSettings';
+import Seo from '@/components/Seo';
 
 interface CountryConfig {
   label: string;
@@ -59,6 +60,7 @@ export default function CountryPage({ country }: { country: CountryValue }) {
 
   return (
     <div className="space-y-20">
+      <Seo title={`${cfg.label} — James`} description={cfg.intro} />
       <header className="space-y-4 border-b border-border pb-8">
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Country</p>
         <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">{cfg.label}</h1>
@@ -76,6 +78,7 @@ export default function CountryPage({ country }: { country: CountryValue }) {
                   {img ? (
                     <div className="overflow-hidden rounded-sm">
                       <img src={img} alt={v.name}
+                        loading="lazy" decoding="async"
                         className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
                     </div>
                   ) : (
@@ -117,6 +120,7 @@ export default function CountryPage({ country }: { country: CountryValue }) {
                 {p.featured_image_url && (
                   <div className="overflow-hidden rounded-sm mb-5">
                     <img src={p.featured_image_url} alt={p.title}
+                      loading="lazy" decoding="async"
                       className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                 )}
