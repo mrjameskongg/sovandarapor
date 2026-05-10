@@ -98,8 +98,9 @@ export default function PostEditor() {
       gallery_urls: form.gallery_urls, seo_title: form.seo_title || null,
       seo_description: form.seo_description || null, status: finalStatus,
       author_name: form.author_name, author_id: user?.id || null,
+      country: form.country || null,
       published_at: finalStatus === 'published' ? (form.published_at || new Date().toISOString()) : form.published_at,
-    };
+    } as any;
     const op = isNew
       ? supabase.from('posts').insert(payload).select('id').single()
       : supabase.from('posts').update(payload).eq('id', id!).select('id').single();
