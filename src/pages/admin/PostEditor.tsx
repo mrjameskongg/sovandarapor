@@ -75,7 +75,7 @@ export default function PostEditor() {
 
   const onFeat = async (f: File) => {
     const url = await uploadImage(f, 'featured');
-    if (url) update('featured_image_url', url);
+    if (url) setForm(s => ({ ...s, featured_image_url: url, featured_image_size: f.size }));
   };
   const onGallery = async (files: FileList) => {
     const urls: string[] = [];
