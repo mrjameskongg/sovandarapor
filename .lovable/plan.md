@@ -1,66 +1,42 @@
+## Goal
 
-## 1. Reusable image optimization helper
+Remove the email + password login. Anyone who types the correct **secret passphrase** on `/admin/login` is granted admin access for that browser session. No signup. No Supabase auth required.
 
-**New file: `src/lib/imageUpload.ts`**
+## How it works
 
-- Install `browser-image-compression`.
-- Export `optimizeImage(file)`:
-  - If `file.size < 200 * 1024` → return original, no stats.
-  - Detect transparency: if MIME is `image/png`, decode via canvas and scan alpha channel; if any pixel alpha < 255, keep PNG output, otherwise convert to JPG.
-  - Compress with `browser-image-compression`: `maxWidthOrHeight: 1600`, `initialQuality: 0.8`, `fileType: 'image/jpeg'` or `'image/png'`, `useWebWorker: true`.
-  - Return `{ file, originalSize, optimizedSize, skipped }`.
-- Export `uploadToPostImages(file, folder)`:
-  - Calls `optimizeImage`, uploads to `post-images` bucket at `${folder}/${crypto.randomUUID()}.${ext}`, returns `{ publicUrl, stats }`.
-- Helper `formatSize(bytes)` returning `"1.2 MB"` / `"340 KB"`.
+1. You set a passphrase (stored as a Supabase secret, `ADMIN_PASSPHRASE`). It never ships in the frontend bundle.
+2. The login page shows one field: **Passphrase**.
+3. On submit, the page calls a new edge function `admin-unlock` that compares the entered value to `ADMIN_PASSPHRASE` (constant-time compare) and, if it matches, signs in as the existing admin user (`ksovandarapor`) and returns a real Supabase session.
+4. The session is set in the browser via `supabase.auth.setSession(...)`. From there, all existing admin RLS, the `AdminGuard`, and the editor work unchanged.
+5. To rotate access, just update the `ADMIN_PASSPHRASE` secret. Old sessions can be invalidated by signing out.
 
-**Wire into existing upload sites** (replace inline `supabase.storage.from('post-images').upload` calls):
+This keeps the existing Supabase admin user (and its RLS policies) intact, but hides the email/password from you. You only remember one phrase.
 
-- `src/pages/admin/PostEditor.tsx` — featured image + gallery image uploads. Below each upload area, render a small `text-[11px] text-content-muted` line: `Original: X → Optimized: Y` (only when not skipped). Track per-upload stats in local state.
-- `src/components/RichEditor.tsx` — inline image uploads inside posts (same bucket).
-- New venture upload (see §2) also uses the helper.
+## Changes
 
-## 2. Cambodia ventures: photo cards + admin manager
+**Backend**
+- Add secret `ADMIN_PASSPHRASE` (you enter it once, securely).
+- New edge function `admin-unlock` (public, no JWT required):
+  - Reads passphrase from request body, compares to `ADMIN_PASSPHRASE`.
+  - On match, uses the service role key to generate a session for the existing admin user (`f6bbafa1-3eb6-492f-aba5-cfc2a5dafd47`) via `auth.admin.generateLink` (magiclink) → exchange for tokens, or directly issue a session.
+  - Returns `{ access_token, refresh_token }`.
+  - On mismatch, returns 401 after a short delay (basic brute-force throttling).
 
-### Schema change (migration)
+**Frontend**
+- `src/pages/admin/Login.tsx`: replace email + password form with a single **Passphrase** field. On submit, call the edge function, then `supabase.auth.setSession(...)`, then redirect to `/admin`. Keep the existing visible error block, gold accent, ivory background, Cormorant Garamond styling. No em dashes.
+- Remove the "Forgot password" link and reset-password copy from the login page (the `/admin/reset-password` route can stay in place, just unused).
 
-Add a `venture_images jsonb` column to `site_settings` with a default of `'{}'::jsonb`. No RLS changes needed (existing policies already cover the column).
+**Unchanged**
+- `AdminGuard`, `useAuth`, all admin pages, RLS policies, the admin user row in `user_roles`.
 
-### `src/lib/siteSettings.ts`
+## Security notes
 
-- Extend `fetchSettings`/`saveSettings` to include `venture_images: Record<string, string>`.
-- Export a constant `VENTURES` (single source of truth used by both Cambodia page and admin):
-  ```ts
-  export const VENTURES = [
-    { slug: 'princess-jenna', name: 'Princess Jenna Norodom', category: 'Media & Talent', role: 'Personal Manager', desc: '...' },
-    { slug: 'brm-agro',       name: 'BRM Agro',               category: 'Rice',           role: 'Brand Strategy',  desc: '...' },
-    { slug: 'moo-moo',        name: 'Moo Moo Farms',          category: 'Dairy',          role: 'Group Operations',desc: '...' },
-    { slug: 'seekers',        name: 'Seekers Group',          category: 'Spirits & Hospitality', role: 'Brand & Storytelling', desc: '...' },
-  ] as const;
-  ```
-- `SiteSettingsLoader` exposes `venture_images` via a small in-memory store + `getVentureImages()`, or pages re-fetch — the Cambodia page will fetch directly from Supabase to keep it simple.
+- Passphrase lives only in the secret store and the edge function. It is never in the frontend bundle or git history.
+- Use a long passphrase (4+ random words). I will recommend a length when you set it.
+- Add basic rate-limiting in the edge function (sleep 1s on failure) to slow guessing.
+- Anyone who learns the phrase gets admin. Treat it like a password — do not share it, do not paste it into chat. You can rotate it anytime by updating the secret.
 
-### `src/pages/CountryPage.tsx`
+## What I need from you to implement
 
-- Remove Lucide icon imports and the `cambodiaVentures` local array. Import `VENTURES` from `siteSettings`.
-- On mount (when `country === 'cambodia'`), fetch `venture_images` from `site_settings`.
-- Render each card as: photo on top (`aspect-[4/3] object-cover`, wrapped in `overflow-hidden rounded-sm`, `transition-transform duration-700 group-hover:scale-105`), then existing label row, name (Cormorant), description (Source Serif). Keep the `grid md:grid-cols-2 gap-px bg-border` divider treatment, with `bg-background p-8 md:p-10` inner.
-- Placeholder when no URL: `<div class="aspect-[4/3] bg-muted flex items-center justify-center"><span class="font-display text-content-muted text-2xl">{name}</span></div>`.
-- Keep the "Read more" link to the category route and the existing typography.
-
-### `src/pages/admin/Settings.tsx`
-
-- New section "Ventures" below Categories.
-- For each entry in `VENTURES`: thumbnail (current image or placeholder), venture name, an "Upload photo" / "Replace" button, and an inline `text-[11px] text-content-muted` stats line after upload.
-- Uses `uploadToPostImages(file, 'ventures')` from the new helper.
-- Updates `venture_images[slug]` in local state and persists via `saveSettings({ venture_images })` on Save (or immediately after upload — see Open question).
-
-## Files
-
-- New: `src/lib/imageUpload.ts`
-- Edited: `src/pages/admin/PostEditor.tsx`, `src/components/RichEditor.tsx`, `src/pages/CountryPage.tsx`, `src/pages/admin/Settings.tsx`, `src/lib/siteSettings.ts`
-- Migration: add `venture_images jsonb` to `site_settings`
-- `package.json`: add `browser-image-compression`
-
-## Open question
-
-Should venture photo uploads save immediately when chosen, or only when the global "Save settings" button is pressed (matching how fonts/categories work today)? Default plan: persist immediately on upload so the photo is live without an extra click, while still letting the Save button cover any other edits.
+1. Confirmation to proceed.
+2. After confirmation, I will request the `ADMIN_PASSPHRASE` secret via the secure secrets form (do not type it in chat).
