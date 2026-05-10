@@ -59,6 +59,12 @@ export default function BlogPost() {
 
   return (
     <>
+      <Seo
+        title={`${post.seo_title || post.title} — James`}
+        description={post.seo_description || post.subtitle || post.title}
+        image={post.featured_image_url || undefined}
+        type="article"
+      />
       {/* Reading progress hairline */}
       <div className="fixed top-0 left-0 right-0 z-[60] h-px bg-transparent">
         <div className="h-full bg-gold transition-[width] duration-150" style={{ width: `${progress * 100}%` }} />
