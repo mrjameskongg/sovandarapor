@@ -41,7 +41,7 @@ const ventures = [
     category: 'Spirits · Hospitality · Lifestyle',
     role: 'Brand & Storytelling · Ongoing',
     body: 'A Cambodian spirits and beverage group building a portfolio of premium, lifestyle-driven brands rooted in modern Cambodian identity.',
-    body2: 'Drinks designed not for tourists, but for the Cambodian and regional class that's coming next.',
+    body2: "Drinks designed not for tourists, but for the Cambodian and regional class that's coming next.",
     highlights: ['Seekers', 'Jason Kong', 'Chanthy (upcoming)', 'Wild Bond'],
     label: 'Brands',
     placeholder: 'a single bottle on a marble bar',
