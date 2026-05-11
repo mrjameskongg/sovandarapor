@@ -86,9 +86,9 @@ const Home = () => {
 
       {/* WHITE-SPACE MANIFESTO */}
       <section className="py-32 md:py-48 max-w-3xl mx-auto text-center">
-        <p className="eyebrow-gold mb-10">Currently · Phnom Penh · Jan 15</p>
+        <p className="eyebrow-gold mb-10">Currently · Phnom Penh · May 2026</p>
         <p className="font-display font-light text-3xl md:text-5xl leading-[1.25] text-foreground">
-          Building a fintech for Southeast Asian SMEs.
+          Building NhamTime, a restaurant booking app for Cambodia.
           <span className="block italic text-content-muted mt-3">Reading less, looking more.</span>
         </p>
       </section>

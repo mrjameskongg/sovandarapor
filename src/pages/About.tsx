@@ -51,7 +51,7 @@ const About = () => {
           <div>
             <p className="text-gold text-[10px] mb-3">Languages</p>
             <p className="font-content normal-case text-base text-foreground italic">
-              English · Khmer · Thai · Français
+              English · Khmer · Français
             </p>
           </div>
           <div>
@@ -75,9 +75,9 @@ const About = () => {
 
       <section className="py-24 text-center border-t border-border">
         <p className="eyebrow-gold mb-8">Write</p>
-        <a href="mailto:james@example.com"
+        <a href="mailto:ksovandarapor@gmail.com"
            className="font-display font-light italic text-4xl md:text-6xl text-foreground hover:text-gold transition-colors duration-500">
-          james@example.com
+          ksovandarapor@gmail.com
         </a>
       </section>
 
