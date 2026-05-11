@@ -48,7 +48,7 @@ const ventures = [
     role: 'Brand & Storytelling · Ongoing',
     body: 'A Cambodian spirits and beverage group building a portfolio of premium, lifestyle-driven brands rooted in modern Cambodian identity.',
     body2: "Drinks designed not for tourists, but for the Cambodian and regional class that's coming next.",
-    highlights: ['Seekers', 'Jason Kong', 'Chanthy (upcoming)', 'Wild Bond'],
+    highlights: ['Seekers', 'Jason Kong', 'Chanthy (upcoming)', 'Wild Bong'],
     label: 'Brands',
     placeholder: 'a single bottle on a marble bar',
   },
@@ -110,7 +110,7 @@ const Profile = () => {
           house. <span className="italic text-content-muted">Different sectors, one thread.</span>
         </p>
         <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-12 tabular">
-          EN · KM · TH · FR &nbsp;·&nbsp; Phnom Penh ↔ Bangkok
+          EN · KM · FR &nbsp;·&nbsp; Phnom Penh ↔ Bangkok
         </p>
       </section>
 
@@ -155,11 +155,38 @@ const Profile = () => {
         );
       })}
 
+      {/* § V — NhamTime, side venture */}
+      <article className="py-24 md:py-32 border-t border-border">
+        <ChapterDivider numeral="V" title="NhamTime" subtitle="Restaurant Booking · Tech · Cambodia" />
+
+        <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start mt-8">
+          <div className="md:col-span-7">
+            <div className="aspect-[4/5] bg-muted flex items-center justify-center text-content-muted text-xs uppercase tracking-[0.3em] grain">
+              Restaurant table, Phnom Penh
+            </div>
+          </div>
+
+          <div className="md:col-span-5 space-y-6 md:pl-4 md:pt-8">
+            <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-gold">Founder · 2026 — Present</p>
+            <p className="font-content text-lg leading-[1.8] text-content reading">
+              A restaurant booking and discount app for Cambodia, inspired by my time at Eatigo in Thailand. The model adapted for a market that does not yet have it. Built on React, Supabase, and TanStack Router.
+            </p>
+            <p className="font-content italic text-content-muted text-base leading-relaxed">
+              A side venture, kept independent from the four chapters. Cambodia deserves its own version of every digital convenience the region already has. This is one of them.
+            </p>
+
+            <Marginalia label="Side venture">
+              Launching Phnom Penh first · Khmer + English from day one · Built on Lovable
+            </Marginalia>
+          </div>
+        </div>
+      </article>
+
       {/* CRAFT — vertical typographic list */}
       <section className="py-32 border-t border-border">
         <div className="grid md:grid-cols-12 gap-12 mb-16">
           <div className="md:col-span-4">
-            <p className="eyebrow-gold mb-4">§ V</p>
+            <p className="eyebrow-gold mb-4">§ VI</p>
             <h2 className="font-display font-light text-5xl md:text-6xl leading-[1] text-foreground">
               The craft.
             </h2>
@@ -191,7 +218,7 @@ const Profile = () => {
         </div>
         <div className="absolute inset-0 bg-black/55" />
         <div className="relative z-10 h-full flex flex-col justify-center items-center px-6 text-center">
-          <p className="font-ui text-[10px] uppercase tracking-[0.4em] text-paper/60 mb-8">§ VI · The thread</p>
+          <p className="font-ui text-[10px] uppercase tracking-[0.4em] text-paper/60 mb-8">§ VII · The thread</p>
           <h2 className="font-display font-light text-5xl md:text-7xl text-paper max-w-4xl leading-[1.05]">
             Building from <span className="italic">Cambodia.</span>
           </h2>
@@ -205,16 +232,16 @@ const Profile = () => {
       <section className="py-32 text-center">
         <p className="eyebrow-gold mb-8">Write</p>
         <a
-          href="mailto:james@example.com"
+          href="mailto:ksovandarapor@gmail.com"
           className="font-display font-light italic text-4xl md:text-7xl text-foreground hover:text-gold transition-colors duration-500"
         >
-          james@example.com
+          ksovandarapor@gmail.com
         </a>
         <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-10 tabular">
           Phnom Penh · Bangkok · written by hand
         </p>
         <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-3">
-          <Link to="https://www.linkedin.com/in/sovandarapor-kong" className="link-quiet">LinkedIn</Link>
+          <a href="https://www.linkedin.com/in/sovandarapor-kong-788a531b1/" target="_blank" rel="noopener noreferrer" className="link-quiet">LinkedIn</a>
         </p>
       </section>
 
