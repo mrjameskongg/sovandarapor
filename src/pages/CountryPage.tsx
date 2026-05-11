@@ -60,7 +60,7 @@ export default function CountryPage({ country }: { country: CountryValue }) {
 
   return (
     <div className="space-y-20">
-      <Seo title={`${cfg.label} — James`} description={cfg.intro} />
+      <Seo title={`${cfg.label} — Sovandarapor (James) Kong`} description={cfg.intro} />
       <header className="space-y-4 border-b border-border pb-8">
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Country</p>
         <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">{cfg.label}</h1>

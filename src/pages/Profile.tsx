@@ -93,7 +93,7 @@ const Profile = () => {
           <h1 className="font-display font-light text-6xl md:text-9xl leading-[0.88] text-paper">
             Sovandarapor
             <br />
-            <span className="italic">Kong.</span>
+            <span className="italic">(James) Kong.</span>
           </h1>
         </div>
 

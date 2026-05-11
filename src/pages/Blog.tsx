@@ -43,7 +43,7 @@ export default function Blog() {
 
   return (
     <div className="space-y-16">
-      <Seo title="Journal — James" description="Notes, essays and field reports on building businesses, brands and a life in Cambodia and Southeast Asia." />
+      <Seo title="Journal — Sovandarapor (James) Kong" description="Notes, essays and field reports on building businesses, brands and a life in Cambodia and Southeast Asia." />
       <header className="space-y-4 border-b border-border pb-8">
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Journal</p>
         <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">Writing</h1>

@@ -161,7 +161,7 @@ const Nondual = () => {
       {/* CLOSING LINE */}
       <section className="py-32 text-center">
         <p className="font-display font-light italic text-xl md:text-2xl text-content-muted">
-          — J.K., Phnom Penh, written between meetings.
+          — Sovandarapor (James) Kong, Phnom Penh, written between meetings.
         </p>
       </section>
 
