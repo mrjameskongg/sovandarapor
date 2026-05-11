@@ -12,12 +12,12 @@ export default function Contact() {
       </header>
 
       <div className="grid md:grid-cols-3 gap-px bg-border">
-        <a href="mailto:james@example.com" className="bg-background p-8 group">
+        <a href="mailto:ksovandarapor@gmail.com" className="bg-background p-8 group">
           <Mail className="w-6 h-6 text-gold mb-4" strokeWidth={1.5} />
           <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted mb-2">Email</p>
-          <p className="font-display text-xl text-foreground group-hover:text-gold">james@example.com</p>
+          <p className="font-display text-xl text-foreground group-hover:text-gold">ksovandarapor@gmail.com</p>
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="bg-background p-8 group">
+        <a href="https://www.linkedin.com/in/sovandarapor-kong-788a531b1/" target="_blank" rel="noreferrer" className="bg-background p-8 group">
           <Linkedin className="w-6 h-6 text-gold mb-4" strokeWidth={1.5} />
           <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted mb-2">LinkedIn</p>
           <p className="font-display text-xl text-foreground group-hover:text-gold">Sovandarapor (James) Kong</p>
