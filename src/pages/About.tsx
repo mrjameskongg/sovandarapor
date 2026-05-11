@@ -45,7 +45,7 @@ const About = () => {
           <div>
             <p className="text-gold text-[10px] mb-3">Based</p>
             <p className="font-content normal-case text-base text-foreground italic">
-              Phnom Penh · Bangkok
+              Phnom Penh · Bangkok · Everywhere
             </p>
           </div>
           <div>
