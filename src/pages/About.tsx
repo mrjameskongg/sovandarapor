@@ -21,7 +21,7 @@ const About = () => {
           <Plate src={portraitJames} alt="Sovandarapor (James) Kong, Phnom Penh"
                  plate="I" location="Phnom Penh" date="2024"
                  ratio="portrait"
-                 caption="Sovandarapor Kong, in formal Khmer dress." />
+                 caption="Sovandarapor (James) Kong, in formal Khmer dress." />
         </div>
         <div className="md:col-span-7 md:order-1 reading font-content text-lg leading-[1.8] text-content space-y-6">
           <p>

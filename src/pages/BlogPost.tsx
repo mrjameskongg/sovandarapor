@@ -28,7 +28,7 @@ export default function BlogPost() {
       .then(({ data }) => {
         if (!data) { setNotFound(true); setLoading(false); return; }
         setPost(data as Post);
-        document.title = (data.seo_title || data.title) + ' — James';
+        document.title = (data.seo_title || data.title) + ' — Sovandarapor (James) Kong';
         const meta = document.querySelector('meta[name="description"]') || (() => {
           const m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); return m;
         })();
@@ -61,7 +61,7 @@ export default function BlogPost() {
   return (
     <>
       <Seo
-        title={`${post.seo_title || post.title} — James`}
+        title={`${post.seo_title || post.title} — Sovandarapor (James) Kong`}
         description={post.seo_description || post.subtitle || post.title}
         image={post.featured_image_url || undefined}
         type="article"
