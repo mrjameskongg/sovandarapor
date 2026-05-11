@@ -16,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => {
         </main>
         <footer className="relative z-10 border-t border-border mt-24">
           <div className="max-w-6xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
-            <span>© {new Date().getFullYear()} Sovandarapor Kong · Phnom Penh</span>
+            <span>© {new Date().getFullYear()} Sovandarapor (James) Kong · Phnom Penh</span>
             <span className="tabular">Vol. 01 · Issue 12</span>
           </div>
         </footer>

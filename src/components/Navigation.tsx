@@ -50,7 +50,7 @@ const Navigation = () => {
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="flex items-center justify-between h-14">
           <Link to="/" className="font-ui text-[10px] uppercase tracking-[0.4em] text-foreground link-quiet">
-            Sovandarapor Kong
+            Sovandarapor (James) Kong
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

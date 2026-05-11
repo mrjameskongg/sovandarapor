@@ -25,7 +25,7 @@ interface PostForm {
 const empty: PostForm = {
   title: '', subtitle: '', slug: '', category: DEFAULT_CATEGORIES[0], tags: '',
   featured_image_url: '', featured_image_size: null, content_html: '', gallery_urls: [],
-  seo_title: '', seo_description: '', status: 'draft', published_at: null, author_name: 'James',
+  seo_title: '', seo_description: '', status: 'draft', published_at: null, author_name: 'Sovandarapor (James) Kong',
   country: '',
 };
 
@@ -57,7 +57,7 @@ export default function PostEditor() {
         content_html: data.content_html || '',
         gallery_urls: data.gallery_urls || [], seo_title: data.seo_title || '',
         seo_description: data.seo_description || '', status: data.status as any,
-        published_at: data.published_at, author_name: data.author_name || 'James',
+        published_at: data.published_at, author_name: data.author_name || 'Sovandarapor (James) Kong',
         country: ((data as any).country as CountryValue) || '',
       });
       setSlugTouched(true);

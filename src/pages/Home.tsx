@@ -52,7 +52,7 @@ const Home = () => {
   return (
     <>
       <Seo
-        title="James — Notes from the Road"
+        title="Sovandarapor (James) Kong — Notes from the Road"
         description="Essays and notes on nondual awareness, travel, and building businesses across Cambodia, Thailand, Vietnam and France."
         image={heroStreet}
       />
