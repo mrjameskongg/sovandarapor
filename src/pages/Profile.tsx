@@ -110,7 +110,7 @@ const Profile = () => {
           house. <span className="italic text-content-muted">Different sectors, one thread.</span>
         </p>
         <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-12 tabular">
-          EN · KM · FR &nbsp;·&nbsp; Phnom Penh ↔ Bangkok
+          EN · KM · FR &nbsp;·&nbsp; Phnom Penh ↔ Bangkok ↔ Everywhere
         </p>
       </section>
 
