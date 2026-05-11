@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+
 import Plate from '@/components/editorial/Plate';
 import PullQuote from '@/components/editorial/PullQuote';
 import ChapterDivider from '@/components/editorial/ChapterDivider';
