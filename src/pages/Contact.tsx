@@ -25,7 +25,7 @@ export default function Contact() {
         <div className="bg-background p-8">
           <MapPin className="w-6 h-6 text-gold mb-4" strokeWidth={1.5} />
           <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted mb-2">Based</p>
-          <p className="font-display text-xl text-foreground">Phnom Penh · Bangkok</p>
+          <p className="font-display text-xl text-foreground">Phnom Penh · Bangkok · Everywhere</p>
         </div>
       </div>
     </div>
