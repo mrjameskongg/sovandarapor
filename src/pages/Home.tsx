@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import heroStreet from '@/assets/hero-street.jpg';
+import heroStreet from '@/assets/hero-buddha.jpg';
 import featureTemple from '@/assets/feature-temple.jpg';
 import deskNotes from '@/assets/desk-notes.jpg';
 import mountainMist from '@/assets/mountain-mist.jpg';
