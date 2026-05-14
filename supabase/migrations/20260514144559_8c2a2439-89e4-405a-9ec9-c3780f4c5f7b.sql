@@ -1,0 +1,1 @@
+UPDATE site_settings SET venture_images = jsonb_set(venture_images::jsonb, '{moo-moo}', '"https://ukuqlxteqlsgtoascjvl.supabase.co/storage/v1/object/public/post-images/ventures/moo-moo-v3.jpeg"'::jsonb) WHERE id = '7203c9cc-0c3e-49b3-ae28-cc5a23773cd7';
