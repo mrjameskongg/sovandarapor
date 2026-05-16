@@ -2,7 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://sovandarapor.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://sovandarapor.com/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/profile</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://sovandarapor.com/nondual</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://sovandarapor.com/nondual/youve-already-known</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://sovandarapor.com/blog</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://sovandarapor.com/cambodia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://sovandarapor.com/thailand</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -10,4 +12,27 @@
   <url><loc>https://sovandarapor.com/france</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://sovandarapor.com/brand-building</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://sovandarapor.com/contact</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+
+  <url><loc>https://sovandarapor.com/blog/category/personal-philosophy</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/cambodia</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/business</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/brand-building</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/agriculture</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/dairy</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/rice</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/spirits-and-hospitality</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/media-and-talent</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sovandarapor.com/blog/category/design-and-marketing</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <url><loc>https://sovandarapor.com/blog/mother-day</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/the-rosewood-grid</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/filming-with-a-princess</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/drinks-for-the-next-cambodian</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/king-white-elephant</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/one-hundred-underfed-cows</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/gps-on-a-kampong-thom-paddy</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/label-is-not-a-brand</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/american-supermarket-test</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/phnom-penh-first-year</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sovandarapor.com/blog/not-taking-yourself-seriously</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

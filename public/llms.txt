@@ -1,0 +1,22 @@
+# Sovandarapor (James) Kong — Notes from the Road
+
+> Essays and notes on nondual awareness, travel, and building businesses across Cambodia, Thailand, Vietnam, and France by Sovandarapor (James) Kong.
+
+This site is a personal journal: a quiet corner for nondual writing, travel notes from Southeast Asia, and a build log of ventures in agriculture, dairy, spirits, media, and hospitality — most rooted in Cambodia.
+
+## Pages
+
+- [Home](/): Featured essays and a typographic index of all writing.
+- [About / Profile](/about): Sovandarapor (James) Kong — ventures, craft, and contact.
+- [Nondual](/nondual): A quiet corner on nondual awareness.
+- [Blog](/blog): The full journal — essays, notes, travel, build log.
+- [Cambodia](/cambodia): Notes on living, building, and writing from Cambodia.
+- [Thailand](/thailand): Notes from Thailand.
+- [Vietnam](/vietnam): Notes from Vietnam.
+- [France](/france): Notes from France.
+- [Brand Building](/brand-building): On building brands out of Cambodia for global markets.
+- [Contact](/contact): Email and LinkedIn.
+
+## Optional
+
+- [Sitemap](/sitemap.xml): Full machine-readable index of pages.
