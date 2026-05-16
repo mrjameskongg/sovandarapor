@@ -126,7 +126,7 @@ export default function BlogPost() {
             <p className="eyebrow-gold text-center mb-8">Plates</p>
             {post.gallery_urls.map((u, i) => (
               <figure key={u} className={i % 3 === 0 ? '' : i % 3 === 1 ? 'md:px-16' : 'md:px-32'}>
-                <img src={u} alt="" loading="lazy" decoding="async" className="w-full grain" />
+                <img src={u} alt={`${post.title} — plate ${i + 2}`} loading="lazy" decoding="async" className="w-full grain" />
                 <figcaption className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-3">
                   Plate {String(i + 2).padStart(2, '0')}
                 </figcaption>
@@ -152,7 +152,7 @@ export default function BlogPost() {
               {related.map((r) => (
                 <Link key={r.id} to={`/blog/${r.slug}`} className="group flex gap-6 items-start">
                   {r.featured_image_url && (
-                    <img src={r.featured_image_url} alt="" loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
+                    <img src={r.featured_image_url} alt={r.title} loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
                   )}
                   <div>
                     <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-3">{r.category}</p>
