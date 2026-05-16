@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Crown, Wheat, Milk, Wine, ArrowUpRight } from 'lucide-react';
 import { categorySlug } from '@/lib/blog';
+import Seo from '@/components/Seo';
 
 const ventures = [
   { icon: Crown, name: 'Princess Jenna Norodom', category: 'Media & Talent', role: 'Personal Manager', desc: 'Managing public presence, partnerships, and content strategy for Princess Jenna Norodom.' },
@@ -12,6 +13,10 @@ const ventures = [
 export default function CambodiaWork() {
   return (
     <div className="space-y-20">
+      <Seo
+        title="Cambodia Work — Ventures by Sovandarapor (James) Kong"
+        description="Operating in agriculture, dairy, spirits, and media — building Cambodian brands that can stand on a global stage."
+      />
       <header className="space-y-4 border-b border-border pb-8">
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Ventures</p>
         <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">Cambodia work</h1>

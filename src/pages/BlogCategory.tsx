@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { categoryFromSlug, categorySlug, formatDate } from '@/lib/blog';
+import Seo from '@/components/Seo';
 
 export default function BlogCategory() {
   const { slug } = useParams();
@@ -21,6 +22,10 @@ export default function BlogCategory() {
 
   return (
     <div className="space-y-12">
+      <Seo
+        title={`${category} — Writing by Sovandarapor (James) Kong`}
+        description={`Essays, notes, and field reports filed under ${category} on Sovandarapor (James) Kong's journal.`}
+      />
       <header className="space-y-3 border-b border-border pb-8">
         <Link to="/blog" className="text-[11px] uppercase tracking-[0.2em] text-content-muted hover:text-gold">← All writing</Link>
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Category</p>

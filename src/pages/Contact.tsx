@@ -1,8 +1,13 @@
 import { Mail, Linkedin, MapPin } from 'lucide-react';
+import Seo from '@/components/Seo';
 
 export default function Contact() {
   return (
     <div className="space-y-16">
+      <Seo
+        title="Contact — Sovandarapor (James) Kong"
+        description="Get in touch with Sovandarapor (James) Kong for collaborations, brand work, or a quiet introduction."
+      />
       <header className="space-y-4 border-b border-border pb-8">
         <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Contact</p>
         <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">Get in touch</h1>

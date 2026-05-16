@@ -1,4 +1,5 @@
 import PostCard, { Post } from '@/components/PostCard';
+import Seo from '@/components/Seo';
 
 const notePosts: Post[] = [
   {
@@ -72,6 +73,10 @@ const notePosts: Post[] = [
 const Notes = () => {
   return (
     <div className="space-y-8">
+      <Seo
+        title="Notes — Sovandarapor (James) Kong"
+        description="Short takes on nondual awareness, hiring engineers in Southeast Asia, and life between Bangkok and Phnom Penh."
+      />
       <div className="space-y-4">
         <h1 className="text-3xl font-bold text-foreground">Notes</h1>
         <p className="text-content-muted font-content text-lg leading-relaxed">

@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, DollarSign, Clock, Users } from 'lucide-react';
+import Seo from '@/components/Seo';
 
 const cities = [
   {
@@ -53,6 +54,10 @@ const cities = [
 const Travel = () => {
   return (
     <div className="space-y-8">
+      <Seo
+        title="Travel — Notes from Southeast Asia"
+        description="Practical travel notes from Phnom Penh, Bangkok, and Ho Chi Minh City — costs, logistics, and life on the move."
+      />
       <div className="space-y-4">
         <h1 className="text-3xl font-bold text-foreground">Travel</h1>
         <p className="text-content-muted font-content text-lg leading-relaxed">

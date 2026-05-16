@@ -5,6 +5,7 @@ import PullQuote from '@/components/editorial/PullQuote';
 import ChapterDivider from '@/components/editorial/ChapterDivider';
 import Marginalia from '@/components/editorial/Marginalia';
 import Colophon from '@/components/editorial/Colophon';
+import Seo from '@/components/Seo';
 import { fetchVentureImages, type VentureImages } from '@/lib/siteSettings';
 
 const ventures = [
@@ -75,6 +76,11 @@ const Profile = () => {
 
   return (
     <>
+      <Seo
+        title="About — Sovandarapor (James) Kong"
+        description="Sovandarapor (James) Kong — operating across agriculture, dairy, spirits, media, and brand work from Phnom Penh."
+        image="/profile-photo.jpg"
+      />
       {/* HERO PORTRAIT — full bleed, full viewport */}
       <section className="relative -mx-6 md:-mx-10 -mt-10 md:-mt-16 h-screen min-h-[640px] overflow-hidden grain">
         <img
