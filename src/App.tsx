@@ -14,6 +14,7 @@ const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Nondual = lazy(() => import("./pages/Nondual"));
+const NondualArticle = lazy(() => import("./pages/NondualArticle"));
 const CountryPage = lazy(() => import("./pages/CountryPage"));
 const BrandBuilding = lazy(() => import("./pages/BrandBuilding"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -64,6 +65,7 @@ const App = () => (
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/nondual" element={<Nondual />} />
+                <Route path="/nondual/:slug" element={<NondualArticle />} />
                 <Route path="/about-old" element={<About />} />
 
                 {/* Admin */}
