@@ -6,6 +6,8 @@ interface SeoProps {
   canonical?: string;
   image?: string;
   type?: 'website' | 'article';
+  /** Optional JSON-LD blob (e.g. BlogPosting) injected as <script type="application/ld+json"> */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 function upsertMeta(selector: string, attr: 'name' | 'property', key: string, content: string) {
@@ -28,11 +30,14 @@ function upsertLink(rel: string, href: string) {
   el.setAttribute('href', href);
 }
 
+const LD_ID = 'seo-page-jsonld';
+
 /**
  * Lightweight SEO injector. Updates <title>, description, canonical,
- * and Open Graph / Twitter tags per page without extra deps.
+ * Open Graph / Twitter tags, and an optional per-page JSON-LD block.
+ * A sitewide Person JSON-LD block already lives in index.html.
  */
-export default function Seo({ title, description, canonical, image, type = 'website' }: SeoProps) {
+export default function Seo({ title, description, canonical, image, type = 'website', jsonLd }: SeoProps) {
   useEffect(() => {
     document.title = title;
     if (description) {
@@ -52,6 +57,21 @@ export default function Seo({ title, description, canonical, image, type = 'webs
       upsertLink('canonical', url);
       upsertMeta('meta[property="og:url"]', 'property', 'og:url', url);
     }
-  }, [title, description, canonical, image, type]);
+
+    // Per-page JSON-LD
+    const existing = document.getElementById(LD_ID);
+    if (existing) existing.remove();
+    if (jsonLd) {
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.id = LD_ID;
+      s.textContent = JSON.stringify(jsonLd);
+      document.head.appendChild(s);
+    }
+    return () => {
+      const el = document.getElementById(LD_ID);
+      if (el) el.remove();
+    };
+  }, [title, description, canonical, image, type, JSON.stringify(jsonLd ?? null)]);
   return null;
 }
