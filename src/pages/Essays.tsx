@@ -1,4 +1,5 @@
 import PostCard, { Post } from '@/components/PostCard';
+import Seo from '@/components/Seo';
 
 const essayPosts: Post[] = [
   {
@@ -39,6 +40,10 @@ const essayPosts: Post[] = [
 const Essays = () => {
   return (
     <div className="space-y-8">
+      <Seo
+        title="Essays — Sovandarapor (James) Kong"
+        description="Long-form essays on nondual awareness, building businesses, and life between Bangkok and Phnom Penh."
+      />
       <div className="space-y-4">
         <h1 className="text-3xl font-bold text-foreground">Essays</h1>
         <p className="text-content-muted font-content text-lg leading-relaxed">

@@ -65,6 +65,19 @@ export default function BlogPost() {
         description={post.seo_description || post.subtitle || post.title}
         image={post.featured_image_url || undefined}
         type="article"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: post.title,
+          description: post.seo_description || post.subtitle || undefined,
+          image: post.featured_image_url || undefined,
+          datePublished: post.published_at || undefined,
+          author: {
+            '@type': 'Person',
+            name: post.author_name || 'Sovandarapor (James) Kong',
+          },
+          mainEntityOfPage: typeof window !== 'undefined' ? window.location.href.split('?')[0] : undefined,
+        }}
       />
       {/* Reading progress hairline */}
       <div className="fixed top-0 left-0 right-0 z-[60] h-px bg-transparent">

@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, TrendingDown, Minus, Calendar, DollarSign, Users, Target } from 'lucide-react';
+import Seo from '@/components/Seo';
 
 const buildUpdates = [
   {
@@ -106,6 +107,10 @@ const BuildLog = () => {
 
   return (
     <div className="space-y-8">
+      <Seo
+        title="Build Log — Sovandarapor (James) Kong"
+        description="Monthly build log: revenue, KPIs, what shipped, current blockers, and next bets from a fintech for SMEs in Southeast Asia."
+      />
       <div className="space-y-4">
         <h1 className="text-3xl font-bold text-foreground">Build Log</h1>
         <p className="text-content-muted font-content text-lg leading-relaxed">
