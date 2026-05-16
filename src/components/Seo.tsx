@@ -6,6 +6,7 @@ interface SeoProps {
   canonical?: string;
   image?: string;
   type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 function upsertMeta(selector: string, attr: 'name' | 'property', key: string, content: string) {
@@ -30,9 +31,9 @@ function upsertLink(rel: string, href: string) {
 
 /**
  * Lightweight SEO injector. Updates <title>, description, canonical,
- * and Open Graph / Twitter tags per page without extra deps.
+ * Open Graph / Twitter tags, and an optional JSON-LD block per page.
  */
-export default function Seo({ title, description, canonical, image, type = 'website' }: SeoProps) {
+export default function Seo({ title, description, canonical, image, type = 'website', jsonLd }: SeoProps) {
   useEffect(() => {
     document.title = title;
     if (description) {
@@ -52,6 +53,22 @@ export default function Seo({ title, description, canonical, image, type = 'webs
       upsertLink('canonical', url);
       upsertMeta('meta[property="og:url"]', 'property', 'og:url', url);
     }
-  }, [title, description, canonical, image, type]);
+
+    const scriptId = 'seo-jsonld';
+    const existing = document.getElementById(scriptId);
+    if (existing) existing.remove();
+    if (jsonLd) {
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.id = scriptId;
+      s.text = JSON.stringify(jsonLd);
+      document.head.appendChild(s);
+    }
+    return () => {
+      const el = document.getElementById(scriptId);
+      if (el) el.remove();
+    };
+  }, [title, description, canonical, image, type, jsonLd]);
   return null;
 }
+
