@@ -18,20 +18,39 @@ const reading = [
 const Nondual = () => {
   return (
     <>
-      {/* HERO — full-bleed plate */}
-      <section className="relative -mx-6 md:-mx-10 -mt-10 md:-mt-16 h-screen min-h-[640px] overflow-hidden grain">
+      {/* HERO — full-screen, quiet */}
+      <section className="relative -mx-6 md:-mx-10 -mt-10 md:-mt-16 min-h-screen overflow-hidden grain flex items-center justify-center">
         <img
           src={nondual1}
-          alt="A single window of light in a quiet interior"
+          alt=""
+          aria-hidden="true"
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.18] dark:opacity-[0.22]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60" />
-        <p className="absolute bottom-6 left-6 md:left-12 font-ui text-[10px] uppercase tracking-[0.3em] text-paper/75">
-          Plate I · <span className="italic normal-case tracking-normal text-paper/85 font-content">What is already here.</span>
-        </p>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+
+        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center space-y-10 py-24">
+          <p className="eyebrow-gold">Nondual · A quiet corner</p>
+          <h1 className="font-display font-light text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08] text-foreground tracking-[-0.015em]">
+            You&rsquo;ve already known.
+            <br />
+            You just didn&rsquo;t have the word for it.
+          </h1>
+          <p className="font-content italic text-lg md:text-xl text-content-muted leading-[1.7] max-w-xl mx-auto">
+            A quiet corner of the blog for the thing that keeps happening — and the old, sharp minds who already understood it.
+          </p>
+        </div>
+
+        <a
+          href="#begin"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 font-ui text-[10px] uppercase tracking-[0.35em] text-content-muted hover:text-gold transition-colors duration-500"
+        >
+          Start here ↓
+        </a>
       </section>
+
+      <span id="begin" className="block" />
 
       {/* SINGLE-LINE INVOCATION */}
       <section className="min-h-[80vh] flex items-center justify-center py-32 max-w-4xl mx-auto text-center">
