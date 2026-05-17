@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import heroStreet from '@/assets/hero-buddha.jpg';
-import featureTemple from '@/assets/feature-temple.jpg';
+import featureBangkok from '@/assets/feature-bangkok.jpg';
 import mountainMist from '@/assets/mountain-mist.jpg';
 import Masthead from '@/components/editorial/Masthead';
 import Colophon from '@/components/editorial/Colophon';
@@ -18,7 +18,7 @@ interface Post {
 }
 
 const samplePosts: Post[] = [
-  { id: '1', title: 'The Illusion of the Separate Self', slug: 'illusion-separate-self', date: '2024-01-15', tldr: 'Direct experience reveals no solid, separate self.', tags: ['nondual', 'awareness', 'self-inquiry'], readingTime: 8, category: 'essays', pillar: 'nondual', excerpt: 'What we call "I" is just a collection of thoughts, sensations, and perceptions arising in awareness.', image: featureTemple },
+  { id: '1', title: 'The Illusion of the Separate Self', slug: 'illusion-separate-self', date: '2024-01-15', tldr: 'Direct experience reveals no solid, separate self.', tags: ['nondual', 'awareness', 'self-inquiry'], readingTime: 8, category: 'essays', pillar: 'nondual', excerpt: 'What we call "I" is just a collection of thoughts, sensations, and perceptions arising in awareness.', image: featureBangkok },
   { id: '2', title: 'Phnom Penh — First 90 Days', slug: 'phnom-penh-first-90-days', date: '2024-01-10', tldr: "Living costs, visa runs, and finding rhythm in Cambodia's capital.", tags: ['Cambodia', 'expat'], readingTime: 5, category: 'travel', pillar: 'countries', excerpt: 'Notes from three months on the ground.', image: heroStreet },
   { id: '4', title: 'Awareness Is Already Perfect', slug: 'awareness-already-perfect', date: '2024-01-05', tldr: 'Nothing needs to be added.', tags: ['nondual', 'presence'], readingTime: 3, category: 'notes', pillar: 'nondual' },
 ];
@@ -112,7 +112,7 @@ const Home = () => {
             <div className="grid md:grid-cols-12 gap-y-12 md:gap-x-12">
               <div className="md:col-span-8 relative grain overflow-hidden">
                 <img
-                  src={featured.image || featureTemple}
+                  src={featured.image || featureBangkok}
                   alt={featured.title}
                   loading="lazy"
                   decoding="async"
@@ -149,15 +149,15 @@ const Home = () => {
           <figure className="md:col-span-6 grain overflow-hidden">
             <div className="relative aspect-[4/5] overflow-hidden">
               <img
-                src={featureTemple}
-                alt="Statue in heavy rain, Siem Reap, 2024"
+                src={featureBangkok}
+                alt="Cityscape, Bangkok, 2024"
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
             <figcaption className="mt-4 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
-              Plate II · Siem Reap · 2024
+              PLATE II · BANGKOK · 2024
             </figcaption>
           </figure>
           <div className="md:col-span-6">
