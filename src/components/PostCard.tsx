@@ -9,7 +9,7 @@ export interface Post {
   tldr: string;
   tags: string[];
   readingTime: number;
-  category: 'essays' | 'notes' | 'travel' | 'build-log';
+  category: 'essays' | 'notes' | 'travel';
   excerpt?: string;
 }
 
