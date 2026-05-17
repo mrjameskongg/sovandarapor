@@ -28,7 +28,7 @@ export default function BlogPost() {
       .then(({ data }) => {
         if (!data) { setNotFound(true); setLoading(false); return; }
         setPost(data as Post);
-        document.title = (data.seo_title || data.title) + ' — Sovandarapor (James) Kong';
+        document.title = (data.seo_title || data.title) + ' — James Kong';
         const meta = document.querySelector('meta[name="description"]') || (() => {
           const m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); return m;
         })();
