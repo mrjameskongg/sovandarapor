@@ -28,9 +28,18 @@ const NondualArticle = () => {
   return (
     <>
       <Seo
-        title="You've Already Known. You Just Didn't Have the Word for It. \u2014 Sovandarapor (James) Kong"
-        description="Most people argue about God without ever defining it. Here's the real definition \u2014 and why you've already touched it without knowing."
+        title="You've Already Known. You Just Didn't Have the Word for It. — James Kong"
+        description="Most people argue about God without ever defining it. Here's the real definition — and why you've already touched it without knowing the word."
         type="article"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: "You've Already Known. You Just Didn't Have the Word for It.",
+          author: { '@type': 'Person', name: 'Sovandarapor (James) Kong' },
+          datePublished: '2026-05-16',
+          url: 'https://sovandarapor.com/nondual/youve-already-known',
+          description: "Most people argue about God without ever defining it. Here's the real definition — and why you've already touched it without knowing the word.",
+        }}
       />
 
       {/* Reading progress hairline */}
