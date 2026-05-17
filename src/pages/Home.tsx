@@ -73,6 +73,8 @@ const Home = () => {
         <img
           src={heroStreet}
           alt="Siem Reap, Rain"
+          width={1920}
+          height={1280}
           fetchPriority="high"
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
