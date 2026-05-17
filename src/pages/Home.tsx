@@ -36,6 +36,8 @@ const PILLARS: { id: 'all' | Pillar; label: string }[] = [
 const Home = () => {
   const [scrollY, setScrollY] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const [pillar, setPillar] = useState<'all' | Pillar>('all');
+  const [activeTag, setActiveTag] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -45,7 +47,14 @@ const Home = () => {
 
   const sorted = useMemo(() => [...samplePosts].sort((a, b) => +new Date(b.date) - +new Date(a.date)), []);
   const featured = sorted[0];
-  const archive = sorted.slice(1);
+
+  const filtered = useMemo(() => {
+    return sorted.filter((p) => {
+      if (pillar !== 'all' && p.pillar !== pillar) return false;
+      if (activeTag && !p.tags.includes(activeTag)) return false;
+      return true;
+    });
+  }, [sorted, pillar, activeTag]);
 
   const allTags = useMemo(() => {
     const map = new Map<string, number>();
