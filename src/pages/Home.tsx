@@ -72,7 +72,7 @@ const Home = () => {
       <section className="relative -mx-6 md:-mx-10 -mt-10 md:-mt-16 h-screen min-h-[640px] overflow-hidden grain">
         <img
           src={heroStreet}
-          alt="Phnom Penh, after the rain"
+          alt="Siem Reap, Rain"
           fetchPriority="high"
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
@@ -91,7 +91,7 @@ const Home = () => {
             <span className="italic font-light">loud places.</span>
           </h1>
           <p className="font-ui text-[10px] uppercase tracking-[0.4em] text-paper/70 mt-10">
-            Plate I · Phnom Penh, after the rain · 14.5896° N · 104.9165° E
+            Plate I · Siem Reap, Rain · 13.4125° N, 103.8670° E
           </p>
         </div>
       </section>
