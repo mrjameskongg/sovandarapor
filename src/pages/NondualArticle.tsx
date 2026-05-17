@@ -313,8 +313,31 @@ const NondualArticle = () => {
           Glad you found it.
         </p>
 
+        {/* READ NEXT */}
+        <section className="mt-24 pt-12 border-t border-border">
+          <p className="eyebrow-gold mb-8">Read Next</p>
+          <ul className="space-y-8">
+            <li>
+              <Link to="/nondual" className="group block">
+                <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-2">Nondual · index</p>
+                <h3 className="font-display font-light text-2xl md:text-3xl text-foreground group-hover:text-gold transition-colors duration-500 leading-tight">
+                  More from the quiet corner
+                </h3>
+              </Link>
+            </li>
+            <li>
+              <Link to="/blog/category/personal-philosophy" className="group block">
+                <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-2">Essays · personal philosophy</p>
+                <h3 className="font-display font-light text-2xl md:text-3xl text-foreground group-hover:text-gold transition-colors duration-500 leading-tight">
+                  Adjacent essays on the same thread
+                </h3>
+              </Link>
+            </li>
+          </ul>
+        </section>
+
         {/* Footer nav */}
-        <div className="mt-24 pt-10 border-t border-border flex items-center justify-between font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
+        <div className="mt-16 pt-10 border-t border-border flex items-center justify-between font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
           <Link to="/nondual" className="link-quiet hover:text-gold">
             &larr; Back to Nondual
           </Link>
