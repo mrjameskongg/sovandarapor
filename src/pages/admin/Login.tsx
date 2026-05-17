@@ -31,7 +31,7 @@ export default function AdminLogin() {
         body: { passphrase },
       });
       if (error) throw new Error(error.message ?? 'Unlock failed');
-      if (!data?.token_hash || !data?.email) {
+      if (!data?.token_hash) {
         throw new Error(data?.error ?? 'Invalid passphrase');
       }
 
