@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Seo from '@/components/Seo';
 import Colophon from '@/components/editorial/Colophon';
+import nondualHero from '@/assets/nondual-1.jpg';
 
 const articles = [
   {
