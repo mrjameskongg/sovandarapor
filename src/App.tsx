@@ -17,6 +17,10 @@ const Nondual = lazy(() => import("./pages/Nondual"));
 const NondualArticle = lazy(() => import("./pages/NondualArticle"));
 const CountryPage = lazy(() => import("./pages/CountryPage"));
 const BrandBuilding = lazy(() => import("./pages/BrandBuilding"));
+const Travel = lazy(() => import("./pages/Travel"));
+const Essays = lazy(() => import("./pages/Essays"));
+const Notes = lazy(() => import("./pages/Notes"));
+const CambodiaWork = lazy(() => import("./pages/CambodiaWork"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
@@ -57,8 +61,12 @@ const App = () => (
                 <Route path="/thailand" element={<CountryPage country="thailand" />} />
                 <Route path="/vietnam" element={<CountryPage country="vietnam" />} />
                 <Route path="/france" element={<CountryPage country="france" />} />
-                <Route path="/cambodia-work" element={<Navigate to="/cambodia" replace />} />
+                <Route path="/cambodia-work" element={<CambodiaWork />} />
                 <Route path="/brand-building" element={<BrandBuilding />} />
+                <Route path="/travel" element={<Travel />} />
+                <Route path="/essays" element={<Essays />} />
+                <Route path="/notes" element={<Notes />} />
+                <Route path="/build-log" element={<Navigate to="/blog" replace />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/category/:slug" element={<BlogCategory />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
