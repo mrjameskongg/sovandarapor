@@ -28,7 +28,7 @@ export default function BlogPost() {
       .then(({ data }) => {
         if (!data) { setNotFound(true); setLoading(false); return; }
         setPost(data as Post);
-        document.title = (data.seo_title || data.title) + ' — Sovandarapor (James) Kong';
+        document.title = (data.seo_title || data.title) + ' — James Kong';
         const meta = document.querySelector('meta[name="description"]') || (() => {
           const m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); return m;
         })();
@@ -61,17 +61,18 @@ export default function BlogPost() {
   return (
     <>
       <Seo
-        title={`${post.seo_title || post.title} — Sovandarapor (James) Kong`}
+        title={`${post.seo_title || post.title} — James Kong`}
         description={post.seo_description || post.subtitle || post.title}
         image={post.featured_image_url || undefined}
         type="article"
         jsonLd={{
           '@context': 'https://schema.org',
-          '@type': 'Article',
+          '@type': 'BlogPosting',
           headline: post.title,
           description: post.seo_description || post.subtitle || undefined,
           image: post.featured_image_url || undefined,
           datePublished: post.published_at || undefined,
+          url: typeof window !== 'undefined' ? window.location.href.split('?')[0] : undefined,
           author: {
             '@type': 'Person',
             name: post.author_name || 'Sovandarapor (James) Kong',
@@ -149,12 +150,12 @@ export default function BlogPost() {
         {/* CONTINUE */}
         {related.length > 0 && (
           <section className="mt-32 border-t border-border pt-12 max-w-5xl mx-auto">
-            <p className="eyebrow-gold mb-10">Continue</p>
+            <p className="eyebrow-gold mb-10">Read Next</p>
             <div className="grid md:grid-cols-2 gap-12">
-              {related.map((r) => (
+              {related.slice(0, 2).map((r) => (
                 <Link key={r.id} to={`/blog/${r.slug}`} className="group flex gap-6 items-start">
                   {r.featured_image_url && (
-                    <img src={r.featured_image_url} alt="" loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
+                    <img src={r.featured_image_url} alt={`Featured image for ${r.title}`} loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
                   )}
                   <div>
                     <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-3">{r.category}</p>

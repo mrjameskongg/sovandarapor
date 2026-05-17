@@ -16,8 +16,8 @@ const Nondual = () => {
   return (
     <>
       <Seo
-        title="Nondual \u2014 Sovandarapor (James) Kong"
-        description="A quiet corner of the internet for the thing that keeps happening to you \u2014 and the old, sharp minds who already understood it."
+        title="Nondual — James Kong"
+        description="A quiet corner of the internet for the thing that keeps happening to you — and the old, sharp minds who already understood it."
       />
 
       {/* DOORWAY — quiet intro */}
