@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Seo from '@/components/Seo';
 import Colophon from '@/components/editorial/Colophon';
+import nondualHero from '@/assets/nondual-1.jpg';
 
 const articles = [
   {
@@ -20,8 +21,21 @@ const Nondual = () => {
         description="A quiet corner of the internet for the thing that keeps happening to you — and the old, sharp minds who already understood it."
       />
 
+      {/* HERO PLATE */}
+      <section className="py-16 md:py-24 max-w-3xl mx-auto px-2">
+        <figure className="grain overflow-hidden">
+          <div className="relative aspect-[4/5] overflow-hidden">
+            <img src={nondualHero} alt="Still water, quiet light" loading="lazy" decoding="async"
+              className="absolute inset-0 w-full h-full object-cover" />
+          </div>
+          <figcaption className="mt-4 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
+            <span className="text-gold">Plate I</span> · 2024
+          </figcaption>
+        </figure>
+      </section>
+
       {/* DOORWAY — quiet intro */}
-      <section className="min-h-[80vh] flex items-center justify-center py-24 md:py-32">
+      <section className="min-h-[60vh] flex items-center justify-center py-24 md:py-32">
         <div className="max-w-2xl mx-auto px-6 text-center space-y-10">
           <p className="eyebrow-gold">A quiet corner</p>
           <h1 className="font-display font-light text-6xl md:text-8xl leading-[0.95] text-foreground tracking-[-0.02em]">

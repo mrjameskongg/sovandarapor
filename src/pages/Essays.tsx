@@ -1,65 +1,58 @@
-import PostCard, { Post } from '@/components/PostCard';
+import { Link } from 'react-router-dom';
 import Seo from '@/components/Seo';
+import Colophon from '@/components/editorial/Colophon';
 
-const essayPosts: Post[] = [
+interface Essay {
+  slug: string;
+  title: string;
+  date: string;
+}
+
+const essays: Essay[] = [
   {
-    id: '1',
-    title: 'The Illusion of the Separate Self',
     slug: 'illusion-separate-self',
+    title: 'The Illusion of the Separate Self',
     date: '2024-01-15',
-    tldr: 'Direct experience reveals no solid, separate self - just awareness appearing as everything',
-    tags: ['nondual', 'awareness', 'self-inquiry'],
-    readingTime: 8,
-    category: 'essays',
-    excerpt: 'What we call "I" is just a collection of thoughts, sensations, and perceptions arising in awareness. There is no separate entity having these experiences. Through careful investigation, we can see that the self is more like a process than a thing - a continuous flow of experiences without a central experiencer.'
   },
-  {
-    id: '2',
-    title: 'Building in Public: Lessons from Southeast Asia',
-    slug: 'building-public-sea',
-    date: '2024-01-12',
-    tldr: 'Transparency, community, and growth while building startups across Thailand and Cambodia',
-    tags: ['business', 'transparency', 'community'],
-    readingTime: 10,
-    category: 'essays',
-    excerpt: 'Building in public means sharing your journey - the wins, failures, and everything in between. In Southeast Asia\'s startup ecosystem, this transparency creates unexpected opportunities and authentic connections that traditional business development never could.'
-  },
-  {
-    id: '3',
-    title: 'The Practice of Not-Knowing',
-    slug: 'practice-not-knowing',
-    date: '2024-01-08',
-    tldr: 'How embracing uncertainty leads to deeper understanding and creative breakthroughs',
-    tags: ['nondual', 'creativity', 'uncertainty'],
-    readingTime: 6,
-    category: 'essays',
-    excerpt: 'The mind\'s need to know, to categorize, to make sense of everything, often blocks deeper seeing. What happens when we rest in not-knowing? When we allow questions to remain unanswered? A different kind of intelligence emerges - one that works with uncertainty rather than against it.'
-  }
 ];
 
-const Essays = () => {
+export default function Essays() {
   return (
-    <div className="space-y-8">
+    <>
       <Seo
         title="Essays — Sovandarapor (James) Kong"
-        description="Long-form essays on nondual awareness, building businesses, and life between Bangkok and Phnom Penh."
+        description="Long-form essays. When something needs unpacking."
       />
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold text-foreground">Essays</h1>
-        <p className="text-content-muted font-content text-lg leading-relaxed">
-          Long-form explorations of nondual awareness, building businesses, 
-          and navigating life between Bangkok and Phnom Penh. 
-          Each piece is an attempt to think clearly about what matters.
+
+      <header className="py-32 max-w-3xl">
+        <p className="eyebrow-gold mb-6">§ Essays</p>
+        <h1 className="font-display font-light text-6xl md:text-8xl leading-[0.95] text-foreground">
+          Long-form.
+        </h1>
+        <p className="font-display italic font-light text-2xl md:text-3xl text-content-muted mt-8">
+          When something needs unpacking.
         </p>
-      </div>
+      </header>
 
-      <div className="grid gap-8">
-        {essayPosts.map((post) => (
-          <PostCard key={post.id} post={post} />
+      <ul className="border-t border-border">
+        {essays.map((e, i) => (
+          <li key={e.slug} className="border-b border-border">
+            <Link to={`/essays/${e.slug}`} className="grid grid-cols-12 gap-4 items-baseline py-8 md:py-10 group">
+              <span className="col-span-2 md:col-span-1 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted tabular">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h2 className="col-span-10 md:col-span-9 font-display font-light text-2xl md:text-4xl leading-[1.1] text-foreground group-hover:text-gold transition-colors duration-500">
+                {e.title}
+              </h2>
+              <span className="col-span-12 md:col-span-2 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted text-right tabular">
+                {new Date(e.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              </span>
+            </Link>
+          </li>
         ))}
-      </div>
-    </div>
-  );
-};
+      </ul>
 
-export default Essays;
+      <Colophon />
+    </>
+  );
+}

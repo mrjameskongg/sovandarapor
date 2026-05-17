@@ -6,6 +6,8 @@ import ChapterDivider from '@/components/editorial/ChapterDivider';
 import Marginalia from '@/components/editorial/Marginalia';
 import Colophon from '@/components/editorial/Colophon';
 import Seo from '@/components/Seo';
+import bentoHero from '@/assets/bento-hero.jpg';
+import heroStreetBW from '@/assets/hero-street.jpg';
 import { fetchVentureImages, type VentureImages } from '@/lib/siteSettings';
 
 const ventures = [
@@ -167,9 +169,15 @@ const Profile = () => {
 
         <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start mt-8">
           <div className="md:col-span-7">
-            <div className="aspect-[4/5] bg-muted flex items-center justify-center text-content-muted text-xs uppercase tracking-[0.3em] grain">
-              Restaurant table, Phnom Penh
-            </div>
+            <figure className="grain overflow-hidden">
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <img src={bentoHero} alt="A restaurant table, Phnom Penh" loading="lazy" decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover" />
+              </div>
+              <figcaption className="mt-4 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
+                <span className="text-gold">Plate V</span> · Phnom Penh · 2026
+              </figcaption>
+            </figure>
           </div>
 
           <div className="md:col-span-5 space-y-6 md:pl-4 md:pt-8">
@@ -189,7 +197,7 @@ const Profile = () => {
       </article>
 
       {/* CRAFT — vertical typographic list */}
-      <section className="py-32 border-t border-border">
+      <section id="craft" className="py-32 border-t border-border scroll-mt-24">
         <div className="grid md:grid-cols-12 gap-12 mb-16">
           <div className="md:col-span-4">
             <p className="eyebrow-gold mb-4">§ VI</p>
@@ -219,9 +227,10 @@ const Profile = () => {
 
       {/* THREAD — full-bleed B&W image with overlay */}
       <section className="relative -mx-6 md:-mx-10 h-[80vh] overflow-hidden grain my-24">
-        <div className="absolute inset-0 bg-muted flex items-center justify-center text-content-muted text-xs uppercase tracking-[0.3em]">
-          PLATE TK — black-and-white street scene, Phnom Penh
-        </div>
+        <img src={heroStreetBW} alt="Black-and-white street scene, Phnom Penh"
+          loading="lazy" decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'grayscale(100%) contrast(1.05)' }} />
         <div className="absolute inset-0 bg-black/55" />
         <div className="relative z-10 h-full flex flex-col justify-center items-center px-6 text-center">
           <p className="font-ui text-[10px] uppercase tracking-[0.4em] text-paper/60 mb-8">§ VII · The thread</p>
@@ -230,6 +239,9 @@ const Profile = () => {
           </h2>
           <p className="font-content italic text-lg text-paper/70 mt-8 max-w-xl">
             Talent. Rice. Dairy. Spirits. One country's next chapter — built deliberately.
+          </p>
+          <p className="absolute bottom-6 right-6 md:right-12 font-ui text-[10px] uppercase tracking-[0.3em] text-paper/60">
+            Plate VII · Phnom Penh · 2024
           </p>
         </div>
       </section>

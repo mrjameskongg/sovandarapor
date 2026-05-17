@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Input } from '@/components/ui/input';
-import { Search, ArrowUpRight } from 'lucide-react';
-import { useCategories, categorySlug, formatDate } from '@/lib/blog';
+import { useCategories, formatDate } from '@/lib/blog';
 import Seo from '@/components/Seo';
+import Colophon from '@/components/editorial/Colophon';
 
 interface Post {
   id: string; slug: string; title: string; subtitle: string | null;
@@ -42,86 +41,135 @@ export default function Blog() {
   const rest = filtered.slice(1);
 
   return (
-    <div className="space-y-16">
-      <Seo title="Journal — Sovandarapor (James) Kong" description="Notes, essays and field reports on building businesses, brands and a life in Cambodia and Southeast Asia." />
-      <header className="space-y-4 border-b border-border pb-8">
-        <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Journal</p>
-        <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">Writing</h1>
-        <p className="font-content text-lg text-content-muted max-w-2xl">
-          Notes, essays, and field reports on building businesses, brands, and a life in Cambodia.
+    <>
+      <Seo
+        title="Journal — Sovandarapor (James) Kong"
+        description="Notes, essays and field reports on building businesses, brands and a life in Cambodia and Southeast Asia."
+      />
+
+      <header className="py-32 max-w-3xl">
+        <p className="eyebrow-gold mb-6">§ Journal</p>
+        <h1 className="font-display font-light text-6xl md:text-8xl leading-[0.95] text-foreground">
+          Writing.
+        </h1>
+        <p className="font-display italic font-light text-2xl md:text-3xl text-content-muted mt-8">
+          Notes, essays, and field reports.
         </p>
       </header>
 
-      <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <button onClick={() => setCat('all')}
-            className={`text-xs uppercase tracking-[0.2em] py-1 ${cat === 'all' ? 'text-foreground border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>All</button>
-          {categories.map(c => (
-            <button key={c} onClick={() => setCat(c)}
-              className={`text-xs uppercase tracking-[0.2em] py-1 ${cat === c ? 'text-foreground border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>
-              {c}
+      {/* FILTERS */}
+      <section className="border-t border-border py-8">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 font-ui text-[10px] uppercase tracking-[0.3em]">
+            <button onClick={() => setCat('all')}
+              className={`transition-colors duration-300 pb-1 ${cat === 'all' ? 'text-gold border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>
+              All
             </button>
-          ))}
+            {categories.map((c, i) => (
+              <div key={c} className="flex items-center gap-x-6">
+                <span className="text-content-muted opacity-40">·</span>
+                <button onClick={() => setCat(c)}
+                  className={`transition-colors duration-300 pb-1 ${cat === c ? 'text-gold border-b border-gold' : 'text-content-muted hover:text-foreground'}`}>
+                  {c}
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="w-full md:w-72">
+            <input
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Search…"
+              className="w-full bg-transparent border-0 border-b border-border focus:border-gold outline-none py-2 font-ui text-[11px] uppercase tracking-[0.3em] text-foreground placeholder:text-content-muted transition-colors"
+            />
+          </div>
         </div>
-        <div className="relative w-full md:w-72">
-          <Search className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-content-muted" />
-          <Input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search…"
-            className="pl-6 h-9 bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-gold text-sm" />
-        </div>
-      </div>
+      </section>
 
       {loading ? (
-        <div className="text-content-muted">Loading…</div>
+        <p className="py-20 text-center font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">Loading</p>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 font-display italic text-content-muted">Nothing here yet.</div>
+        <p className="py-20 text-center font-display italic text-content-muted">Nothing here yet.</p>
       ) : (
         <>
+          {/* FEATURED — Lead essay layout */}
           {featured && (
-            <Link to={`/blog/${featured.slug}`} className="block group">
-              <div className="grid md:grid-cols-12 gap-8">
-                {featured.featured_image_url && (
-                  <div className="md:col-span-7 overflow-hidden rounded-sm">
-                    <img src={featured.featured_image_url} alt={featured.title}
-                      fetchPriority="high" decoding="async"
-                      className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
-                  </div>
-                )}
-                <div className={`${featured.featured_image_url ? 'md:col-span-5' : 'md:col-span-12'} flex flex-col justify-center`}>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-gold mb-3">Featured · {featured.category}</p>
-                  <h2 className="font-display text-4xl md:text-5xl text-foreground group-hover:text-gold transition-colors">{featured.title}</h2>
-                  {featured.subtitle && <p className="font-content text-lg text-content-muted mt-4">{featured.subtitle}</p>}
-                  <p className="text-xs text-content-muted mt-6 tabular">{formatDate(featured.published_at)}</p>
-                </div>
-              </div>
-            </Link>
-          )}
-
-          {rest.length > 0 && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 border-t border-border pt-12">
-              {rest.map(p => (
-                <Link key={p.id} to={`/blog/${p.slug}`} className="group">
-                  {p.featured_image_url && (
-                    <div className="overflow-hidden rounded-sm mb-5">
-                      <img src={p.featured_image_url} alt={p.title}
+            <section className="relative py-24 md:py-32 border-t border-border">
+              <Link to={`/blog/${featured.slug}`} className="block group">
+                <div className="grid md:grid-cols-12 gap-y-12 md:gap-x-12">
+                  {featured.featured_image_url && (
+                    <div className="md:col-span-8 relative grain overflow-hidden">
+                      <img
+                        src={featured.featured_image_url}
+                        alt={featured.title}
                         loading="lazy" decoding="async"
-                        className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
+                        className="w-full aspect-[4/5] object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
+                      />
                     </div>
                   )}
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-content-muted mb-3">
-                    <Link to={`/blog/category/${categorySlug(p.category)}`} onClick={e => e.stopPropagation()} className="text-gold hover:underline">{p.category}</Link>
-                    <span className="tabular">{formatDate(p.published_at)}</span>
+                  <div className={`${featured.featured_image_url ? 'md:col-span-4 md:pt-24 md:-ml-32' : 'md:col-span-12'} relative md:z-10`}>
+                    <p className="eyebrow-gold mb-4">Lead · 01</p>
+                    <h2 className="font-display font-light text-5xl md:text-7xl leading-[1] text-foreground group-hover:text-gold transition-colors duration-500">
+                      {featured.title}
+                    </h2>
                   </div>
-                  <h3 className="font-display text-2xl text-foreground group-hover:text-gold transition-colors leading-tight">{p.title}</h3>
-                  {p.subtitle && <p className="font-content text-content-muted mt-3 line-clamp-2">{p.subtitle}</p>}
-                  <div className="mt-4 flex items-center gap-1 text-xs text-content-muted group-hover:text-gold">
-                    Read <ArrowUpRight className="w-3 h-3" />
+                  <div className="md:col-start-6 md:col-span-5 md:pt-8">
+                    <div className="flex items-center gap-3 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-6 tabular">
+                      <span className="text-gold">{featured.category}</span>
+                      <span className="opacity-40">·</span>
+                      <span>{formatDate(featured.published_at)}</span>
+                    </div>
+                    {featured.subtitle && (
+                      <p className="font-content text-lg leading-[1.8] text-content">{featured.subtitle}</p>
+                    )}
+                    <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-foreground mt-8 link-quiet">
+                      Continue reading →
+                    </p>
                   </div>
-                </Link>
-              ))}
-            </div>
+                </div>
+              </Link>
+            </section>
+          )}
+
+          {/* THE COLLECTION — row-based list */}
+          {rest.length > 0 && (
+            <section className="py-24 md:py-32 border-t border-border">
+              <div className="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-6 mb-10">
+                <div>
+                  <p className="eyebrow-gold mb-3">Index · 02</p>
+                  <h2 className="font-display font-light text-5xl md:text-6xl text-foreground">The Collection</h2>
+                </div>
+                <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted tabular">
+                  {String(rest.length).padStart(2, '0')} Entries
+                </p>
+              </div>
+
+              <ul className="divide-y divide-border">
+                {rest.map((p, i) => (
+                  <li key={p.id}>
+                    <Link to={`/blog/${p.slug}`} className="grid grid-cols-12 gap-4 items-baseline py-6 md:py-8 group">
+                      <span className="col-span-1 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted tabular">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <h3 className="col-span-7 md:col-span-6 font-display font-light text-2xl md:text-4xl leading-[1.1] text-foreground group-hover:text-gold transition-colors duration-500">
+                        {p.title}
+                      </h3>
+                      <span className="col-span-4 md:col-span-3 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted">
+                        {p.category}
+                      </span>
+                      <span className="col-span-12 md:col-span-2 font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted text-right tabular">
+                        {formatDate(p.published_at)}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           )}
         </>
       )}
-    </div>
+
+      <Colophon />
+    </>
   );
 }

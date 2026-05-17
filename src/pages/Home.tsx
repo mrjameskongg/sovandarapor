@@ -12,7 +12,7 @@ type Pillar = 'nondual' | 'countries' | 'craft';
 interface Post {
   id: string; title: string; slug: string; date: string; tldr: string;
   tags: string[]; readingTime: number;
-  category: 'essays' | 'notes' | 'travel' | 'build-log';
+  category: 'essays' | 'notes' | 'travel';
   pillar: Pillar;
   excerpt?: string; image?: string;
 }
@@ -20,10 +20,7 @@ interface Post {
 const samplePosts: Post[] = [
   { id: '1', title: 'The Illusion of the Separate Self', slug: 'illusion-separate-self', date: '2024-01-15', tldr: 'Direct experience reveals no solid, separate self.', tags: ['nondual', 'awareness', 'self-inquiry'], readingTime: 8, category: 'essays', pillar: 'nondual', excerpt: 'What we call "I" is just a collection of thoughts, sensations, and perceptions arising in awareness.', image: featureTemple },
   { id: '2', title: 'Phnom Penh — First 90 Days', slug: 'phnom-penh-first-90-days', date: '2024-01-10', tldr: "Living costs, visa runs, and finding rhythm in Cambodia's capital.", tags: ['Cambodia', 'expat'], readingTime: 5, category: 'travel', pillar: 'countries', excerpt: 'Notes from three months on the ground.', image: heroStreet },
-  { id: '3', title: 'Building Remote Teams in SEA', slug: 'remote-teams-sea', date: '2024-01-08', tldr: 'Time zones, cultural bridges, hiring across Thailand and Cambodia.', tags: ['business', 'remote-work'], readingTime: 12, category: 'build-log', pillar: 'craft', excerpt: '' },
   { id: '4', title: 'Awareness Is Already Perfect', slug: 'awareness-already-perfect', date: '2024-01-05', tldr: 'Nothing needs to be added.', tags: ['nondual', 'presence'], readingTime: 3, category: 'notes', pillar: 'nondual' },
-  { id: '5', title: 'Bangkok vs Phnom Penh', slug: 'bangkok-vs-phnom-penh', date: '2024-01-03', tldr: 'Cost, infrastructure, quality of life.', tags: ['Thailand', 'Cambodia'], readingTime: 6, category: 'notes', pillar: 'countries' },
-  { id: '6', title: 'Q4 2023 — Revenue, Lessons, Plans', slug: 'q4-2023-update', date: '2023-12-28', tldr: '$15K MRR, expanded to Cambodia.', tags: ['business', 'revenue'], readingTime: 7, category: 'build-log', pillar: 'craft' },
 ];
 
 const PILLARS: { id: 'all' | Pillar; label: string }[] = [
