@@ -77,7 +77,6 @@ Deno.serve(async (req) => {
 
     return new Response(JSON.stringify({
       token_hash: linkData.properties.hashed_token,
-      email: userRes.user.email,
     }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
   } catch (e: any) {
     return new Response(JSON.stringify({ error: e?.message ?? "Unknown error" }), {
