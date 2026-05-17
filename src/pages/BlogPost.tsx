@@ -150,9 +150,9 @@ export default function BlogPost() {
         {/* CONTINUE */}
         {related.length > 0 && (
           <section className="mt-32 border-t border-border pt-12 max-w-5xl mx-auto">
-            <p className="eyebrow-gold mb-10">Continue</p>
+            <p className="eyebrow-gold mb-10">Read Next</p>
             <div className="grid md:grid-cols-2 gap-12">
-              {related.map((r) => (
+              {related.slice(0, 2).map((r) => (
                 <Link key={r.id} to={`/blog/${r.slug}`} className="group flex gap-6 items-start">
                   {r.featured_image_url && (
                     <img src={r.featured_image_url} alt="" loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
