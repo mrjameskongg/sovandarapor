@@ -197,7 +197,7 @@ const Profile = () => {
       </article>
 
       {/* CRAFT — vertical typographic list */}
-      <section className="py-32 border-t border-border">
+      <section id="craft" className="py-32 border-t border-border scroll-mt-24">
         <div className="grid md:grid-cols-12 gap-12 mb-16">
           <div className="md:col-span-4">
             <p className="eyebrow-gold mb-4">§ VI</p>
