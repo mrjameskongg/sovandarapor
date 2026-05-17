@@ -2,19 +2,18 @@ import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import heroStreet from '@/assets/hero-buddha.jpg';
 import featureTemple from '@/assets/feature-temple.jpg';
-import deskNotes from '@/assets/desk-notes.jpg';
 import mountainMist from '@/assets/mountain-mist.jpg';
-import nondual1 from '@/assets/nondual-1.jpg';
 import Masthead from '@/components/editorial/Masthead';
-import Plate from '@/components/editorial/Plate';
-import PullQuote from '@/components/editorial/PullQuote';
 import Colophon from '@/components/editorial/Colophon';
 import Seo from '@/components/Seo';
+
+type Pillar = 'nondual' | 'countries' | 'craft';
 
 interface Post {
   id: string; title: string; slug: string; date: string; tldr: string;
   tags: string[]; readingTime: number;
   category: 'essays' | 'notes' | 'travel' | 'build-log';
+  pillar: Pillar;
   excerpt?: string; image?: string;
 }
 
