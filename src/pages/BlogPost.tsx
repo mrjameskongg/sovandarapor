@@ -61,17 +61,18 @@ export default function BlogPost() {
   return (
     <>
       <Seo
-        title={`${post.seo_title || post.title} — Sovandarapor (James) Kong`}
+        title={`${post.seo_title || post.title} — James Kong`}
         description={post.seo_description || post.subtitle || post.title}
         image={post.featured_image_url || undefined}
         type="article"
         jsonLd={{
           '@context': 'https://schema.org',
-          '@type': 'Article',
+          '@type': 'BlogPosting',
           headline: post.title,
           description: post.seo_description || post.subtitle || undefined,
           image: post.featured_image_url || undefined,
           datePublished: post.published_at || undefined,
+          url: typeof window !== 'undefined' ? window.location.href.split('?')[0] : undefined,
           author: {
             '@type': 'Person',
             name: post.author_name || 'Sovandarapor (James) Kong',
