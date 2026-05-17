@@ -67,8 +67,8 @@ const Home = () => {
   return (
     <>
       <Seo
-        title="Sovandarapor (James) Kong — Notes from the Road"
-        description="Essays and notes on nondual awareness, travel, and building businesses across Cambodia, Thailand, Vietnam and France."
+        title="Nondual Awareness, Travel & Business in Southeast Asia — James Kong"
+        description="Essays and notes on nondual awareness, travel, and building businesses in Southeast Asia."
         image={heroStreet}
       />
       {/* FULL-BLEED HERO */}
