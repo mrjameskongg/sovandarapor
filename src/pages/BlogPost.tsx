@@ -155,7 +155,7 @@ export default function BlogPost() {
               {related.slice(0, 2).map((r) => (
                 <Link key={r.id} to={`/blog/${r.slug}`} className="group flex gap-6 items-start">
                   {r.featured_image_url && (
-                    <img src={r.featured_image_url} alt="" loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
+                    <img src={r.featured_image_url} alt={`Featured image for ${r.title}`} loading="lazy" decoding="async" className="w-32 aspect-[4/5] object-cover grain shrink-0" />
                   )}
                   <div>
                     <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mb-3">{r.category}</p>
