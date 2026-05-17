@@ -1,155 +1,120 @@
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { MapPin, DollarSign, Clock, Users } from 'lucide-react';
 import Seo from '@/components/Seo';
+import Plate from '@/components/editorial/Plate';
+import PullQuote from '@/components/editorial/PullQuote';
+import ChapterDivider from '@/components/editorial/ChapterDivider';
+import Colophon from '@/components/editorial/Colophon';
+import mountainMist from '@/assets/mountain-mist.jpg';
+import heroStreet from '@/assets/hero-street.jpg';
+import featureTemple from '@/assets/feature-temple.jpg';
+import nondual2 from '@/assets/nondual-2.jpg';
 
-const cities = [
+interface Chapter {
+  numeral: string;
+  city: string;
+  country: string;
+  date: string;
+  body: string;
+  body2: string;
+  image: string;
+  placeholder: string;
+}
+
+const chapters: Chapter[] = [
   {
-    name: 'Phnom Penh',
+    numeral: 'II',
+    city: 'Phnom Penh',
     country: 'Cambodia',
-    status: 'Current Base',
-    duration: '8+ months',
-    cost: '$600/month',
-    highlights: ['Raw energy', 'Low cost', 'Growing tech scene', 'Easy visa'],
-    description: 'Cambodia\'s capital is experiencing rapid growth. The entrepreneurial energy is infectious, costs are low, and the government is surprisingly tech-friendly.',
-    sleep: 'BKK1 area, $300-500/month for decent 1BR',
-    eat: 'Street food $1-2, nice restaurants $5-10',
-    workout: 'Fitness First, outdoor running along riverside',
-    meet: 'Impact Hub, various co-working spaces, expat Facebook groups',
-    lessons: 'Patience required for infrastructure. Banking can be challenging for foreigners. Rainy season is serious.',
-    image: '/api/placeholder/400/250'
+    date: '2024 — Present',
+    body: 'The capital wakes early and stays loud until the rain comes. I keep a small flat off Norodom and most of my work happens between a courtyard table and a phone. The river is ten minutes away when I forget what the city is doing.',
+    body2: 'Phnom Penh rewards patience. The infrastructure is uneven, the people are not. Most things take a second visit. Almost everything is cheaper than it should be, and somehow that makes you spend less.',
+    image: heroStreet,
+    placeholder: 'street scene, Phnom Penh',
   },
   {
-    name: 'Bangkok',
+    numeral: 'III',
+    city: 'Bangkok',
     country: 'Thailand',
-    status: 'Regular Visits',
-    duration: '2-3 weeks/quarter',
-    cost: '$1200/month',
-    highlights: ['World-class infrastructure', 'Amazing food', 'Great healthcare', 'Easy travel hub'],
-    description: 'Still the gold standard for digital nomads in SEA. More expensive than Cambodia but infrastructure and convenience are unmatched.',
-    sleep: 'Sukhumvit area, $600-1000/month for serviced apartments',
-    eat: 'Street food $2-3, high-end dining $15-30',
-    workout: 'Virgin Active, Fitness First, great parks for running',
-    meet: 'HUBBA-TO, various co-working spaces, strong startup community',
-    lessons: 'Visa runs every 30-60 days. Traffic is brutal. Worth the higher cost for comfort.',
-    image: '/api/placeholder/400/250'
+    date: 'Quarterly',
+    body: 'Bangkok is the older sibling. Trains that arrive on time, hospitals that work, food that holds steady from a 30-baht plate to a tasting menu. I come for two or three weeks at a stretch when I need the city to do some of the thinking for me.',
+    body2: 'It costs roughly twice what Phnom Penh costs. The trade is the friction Bangkok removes. Some months that trade is worth it. Most months I miss the dust.',
+    image: featureTemple,
+    placeholder: 'a quiet temple, Bangkok',
   },
   {
-    name: 'Ho Chi Minh City',
+    numeral: 'IV',
+    city: 'Ho Chi Minh',
     country: 'Vietnam',
-    status: 'Exploring',
-    duration: '2 weeks',
-    cost: '$800/month',
-    highlights: ['Incredible food scene', 'Motivated young workforce', 'Growing startup ecosystem'],
-    description: 'Vietnam\'s tech hub. More structured than Cambodia, less expensive than Thailand. Strong engineering talent.',
-    sleep: 'District 1 or 3, $400-700/month',
-    eat: 'Phenomenal street food $1-2, Western $8-15',
-    workout: 'California Fitness, many outdoor options',
-    meet: 'Dreamplex, HCMC startup community events',
-    lessons: 'Visa process more complex. Language barrier higher. Amazing coffee culture.',
-    image: '/api/placeholder/400/250'
-  }
+    date: 'Occasional',
+    body: 'Saigon moves on motorbikes and second-wave coffee. The engineering talent runs deep and the founders are younger than you expect. I go when I want to be reminded that ambition has different accents in this region.',
+    body2: 'A different kind of energy than Bangkok or Phnom Penh — less polished, more impatient. The food alone is worth a flight.',
+    image: nondual2,
+    placeholder: 'morning light, Saigon',
+  },
 ];
 
-const Travel = () => {
+export default function Travel() {
   return (
-    <div className="space-y-8">
+    <>
       <Seo
-        title="Travel — Notes from Southeast Asia"
-        description="Practical travel notes from Phnom Penh, Bangkok, and Ho Chi Minh City — costs, logistics, and life on the move."
+        title="Travel — Sovandarapor (James) Kong"
+        description="Notes from where the work happens. Phnom Penh, Bangkok, Ho Chi Minh, and the road between them."
       />
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold text-foreground">Travel</h1>
-        <p className="text-content-muted font-content text-lg leading-relaxed">
-          Living and building across Southeast Asia. 
-          Practical notes on costs, logistics, and what it's really like 
-          to run a business while constantly moving.
+
+      <header className="py-32 max-w-3xl">
+        <p className="eyebrow-gold mb-6">§ Travel</p>
+        <h1 className="font-display font-light text-6xl md:text-8xl leading-[0.95] text-foreground">
+          The road.
+        </h1>
+        <p className="font-display italic font-light text-2xl md:text-3xl text-content-muted mt-8">
+          Notes from where the work happens.
         </p>
-      </div>
+      </header>
 
-      <div className="grid gap-8">
-        {cities.map((city) => (
-          <Card key={city.name} className="p-8 space-y-6">
-            {/* Header */}
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-2xl font-semibold text-foreground">{city.name}</h2>
-                  <Badge variant="outline" className="text-xs">
-                    {city.country}
-                  </Badge>
-                </div>
-                <div className="flex items-center gap-6 text-sm text-content-muted">
-                  <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    {city.status}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {city.duration}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <DollarSign className="w-4 h-4" />
-                    {city.cost}
-                  </div>
-                </div>
+      {/* INTRO PLATE */}
+      <section className="pb-24 md:pb-32 border-t border-border pt-16">
+        <Plate
+          src={mountainMist}
+          alt="Misty mountain ridges at dawn, Mondulkiri"
+          plate="I"
+          location="Mondulkiri"
+          date="2023"
+          ratio="portrait"
+        />
+      </section>
+
+      <PullQuote attribution="On the road">
+        The road doesn&rsquo;t change you. It just stops you pretending.
+      </PullQuote>
+
+      {chapters.map((c, i) => {
+        const flip = i % 2 === 1;
+        return (
+          <article key={c.city} className="py-24 md:py-32 border-t border-border">
+            <ChapterDivider numeral={c.numeral} title={c.city} subtitle={c.country + ' · ' + c.date} />
+
+            <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start mt-8">
+              <div className={`md:col-span-7 ${flip ? 'md:order-2' : ''}`}>
+                <Plate
+                  src={c.image}
+                  alt={c.placeholder}
+                  plate={c.numeral}
+                  location={c.city}
+                  date={c.date.split('—')[0].trim()}
+                  ratio="portrait"
+                  placeholder={c.placeholder}
+                />
+              </div>
+              <div className={`md:col-span-5 space-y-6 ${flip ? 'md:order-1 md:pr-4' : 'md:pl-4'} md:pt-8`}>
+                <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-gold">{c.country}</p>
+                <p className="font-content text-lg leading-[1.8] text-content reading">{c.body}</p>
+                <p className="font-content italic text-content-muted text-base leading-relaxed">{c.body2}</p>
               </div>
             </div>
+          </article>
+        );
+      })}
 
-            {/* Highlights */}
-            <div className="flex flex-wrap gap-2">
-              {city.highlights.map((highlight) => (
-                <Badge key={highlight} variant="secondary" className="text-xs">
-                  {highlight}
-                </Badge>
-              ))}
-            </div>
-
-            {/* Description */}
-            <p className="text-content font-content leading-relaxed">
-              {city.description}
-            </p>
-
-            {/* Practical Info Grid */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
-                    <Users className="w-4 h-4" />
-                    Sleep
-                  </h4>
-                  <p className="text-sm text-content-muted">{city.sleep}</p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground mb-2">Eat</h4>
-                  <p className="text-sm text-content-muted">{city.eat}</p>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-foreground mb-2">Workout</h4>
-                  <p className="text-sm text-content-muted">{city.workout}</p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground mb-2">Meet</h4>
-                  <p className="text-sm text-content-muted">{city.meet}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Lessons Learned */}
-            <div className="pt-4 border-t border-border">
-              <h4 className="font-medium text-foreground mb-2">Costs & Lessons Learned</h4>
-              <p className="text-sm text-content font-content leading-relaxed">
-                {city.lessons}
-              </p>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
+      <Colophon />
+    </>
   );
-};
-
-export default Travel;
+}

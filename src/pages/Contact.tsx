@@ -1,38 +1,51 @@
-import { Mail, Linkedin, MapPin } from 'lucide-react';
 import Seo from '@/components/Seo';
+import Plate from '@/components/editorial/Plate';
+import Colophon from '@/components/editorial/Colophon';
+import deskNotes from '@/assets/desk-notes.jpg';
 
 export default function Contact() {
   return (
-    <div className="space-y-16">
+    <>
       <Seo
         title="Contact — Sovandarapor (James) Kong"
-        description="Get in touch with Sovandarapor (James) Kong for collaborations, brand work, or a quiet introduction."
+        description="Write directly. Phnom Penh, Bangkok, everywhere."
       />
-      <header className="space-y-4 border-b border-border pb-8">
-        <p className="text-[11px] uppercase tracking-[0.3em] text-gold">Contact</p>
-        <h1 className="font-display text-5xl md:text-7xl font-light text-foreground leading-[0.95]">Get in touch</h1>
-        <p className="font-content text-lg text-content-muted max-w-2xl">
-          For collaborations, brand work, or a quiet introduction — write directly.
-        </p>
-      </header>
 
-      <div className="grid md:grid-cols-3 gap-px bg-border">
-        <a href="mailto:ksovandarapor@gmail.com" className="bg-background p-8 group">
-          <Mail className="w-6 h-6 text-gold mb-4" strokeWidth={1.5} />
-          <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted mb-2">Email</p>
-          <p className="font-display text-xl text-foreground group-hover:text-gold">ksovandarapor@gmail.com</p>
+      <section className="py-16 md:py-24 max-w-3xl mx-auto px-2">
+        <Plate
+          src={deskNotes}
+          alt="A working desk"
+          plate="I"
+          location="A working desk"
+          date="2024"
+          ratio="portrait"
+        />
+      </section>
+
+      <section className="py-32 md:py-48 text-center border-t border-border">
+        <p className="eyebrow-gold mb-8">§ Write</p>
+        <a
+          href="mailto:ksovandarapor@gmail.com"
+          className="font-display font-light italic text-4xl md:text-7xl text-foreground hover:text-gold transition-colors duration-500 break-words"
+        >
+          ksovandarapor@gmail.com
         </a>
-        <a href="https://www.linkedin.com/in/sovandarapor-kong-788a531b1/" target="_blank" rel="noreferrer" className="bg-background p-8 group">
-          <Linkedin className="w-6 h-6 text-gold mb-4" strokeWidth={1.5} />
-          <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted mb-2">LinkedIn</p>
-          <p className="font-display text-xl text-foreground group-hover:text-gold">Sovandarapor (James) Kong</p>
-        </a>
-        <div className="bg-background p-8">
-          <MapPin className="w-6 h-6 text-gold mb-4" strokeWidth={1.5} />
-          <p className="text-[11px] uppercase tracking-[0.22em] text-content-muted mb-2">Based</p>
-          <p className="font-display text-xl text-foreground">Phnom Penh · Bangkok · Everywhere</p>
-        </div>
-      </div>
-    </div>
+        <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-10 tabular">
+          Phnom Penh · Bangkok · Everywhere · written by hand
+        </p>
+        <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-content-muted mt-3">
+          <a
+            href="https://www.linkedin.com/in/sovandarapor-kong-788a531b1/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-quiet"
+          >
+            LinkedIn
+          </a>
+        </p>
+      </section>
+
+      <Colophon />
+    </>
   );
 }
