@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const ADMIN_USER_ID = "f6bbafa1-3eb6-492f-aba5-cfc2a5dafd47";
+
 
 function safeEqual(a: string, b: string) {
   if (a.length !== b.length) return false;
@@ -44,7 +44,21 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
-    const { data: userRes, error: userErr } = await admin.auth.admin.getUserById(ADMIN_USER_ID);
+    // Look up the first admin from user_roles rather than hardcoding a UUID
+    const { data: roleRow, error: roleErr } = await admin
+      .from("user_roles")
+      .select("user_id")
+      .eq("role", "admin")
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (roleErr || !roleRow?.user_id) {
+      return new Response(JSON.stringify({ error: "No admin configured" }), {
+        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const { data: userRes, error: userErr } = await admin.auth.admin.getUserById(roleRow.user_id);
     if (userErr || !userRes?.user?.email) {
       return new Response(JSON.stringify({ error: "Admin user not found" }), {
         status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
