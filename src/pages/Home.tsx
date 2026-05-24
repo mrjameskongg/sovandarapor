@@ -6,6 +6,7 @@ import mountainMist from '@/assets/mountain-mist.jpg';
 import Masthead from '@/components/editorial/Masthead';
 import Colophon from '@/components/editorial/Colophon';
 import Seo from '@/components/Seo';
+import InkShader from '@/components/InkShader';
 
 type Pillar = 'nondual' | 'countries' | 'craft';
 
