@@ -82,6 +82,7 @@ const Home = () => {
           style={{ transform: `translate3d(0, ${scrollY * 0.25}px, 0) scale(${1 + scrollY * 0.0002})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/80" />
+        <InkShader className="absolute inset-0 w-full h-full" intensity={0.85} />
 
         <div className="absolute top-0 inset-x-0 z-10 px-6 md:px-12 pt-6">
           <Masthead light />
