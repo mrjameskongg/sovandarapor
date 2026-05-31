@@ -71,7 +71,7 @@ function HeroSection({ scrollProgress }: { scrollProgress: number }) {
       <InkShader className="absolute inset-0 w-full h-full" intensity={0.95} scrollProgress={scrollProgress} />
       <div className="relative z-10 text-center px-6 max-w-5xl">
         <p className="eyebrow-gold mb-6">Exploring awareness &amp; ventures in Southeast Asia</p>
-        <h1 className="font-display font-light text-[14vw] md:text-[10vw] lg:text-[9rem] leading-[0.88] text-foreground">
+        <h1 className="font-display font-light leading-[0.9] text-foreground break-words" style={{ fontSize: 'clamp(2.75rem, 11vw, 9rem)' }}>
           Sovandarapor
           <br />
           <span className="italic">Kong</span>
@@ -81,6 +81,7 @@ function HeroSection({ scrollProgress }: { scrollProgress: number }) {
     </section>
   );
 }
+
 
 /* ─── Pinned Manifesto ─── */
 function ManifestoSection() {
@@ -113,22 +114,23 @@ function ManifestoSection() {
   return (
     <div ref={wrapperRef} className="relative" style={{ height: '400vh' }}>
       <div className="sticky top-0 min-h-[100dvh] flex flex-col items-center justify-center bg-background overflow-hidden px-6">
-        <div className="mf-group text-center">
-          <div className="mf-many font-display font-light text-[12vw] lg:text-[10vw] leading-none text-foreground">
+        <div className="mf-group text-center max-w-full">
+          <div className="mf-many font-display font-light leading-[0.95] text-foreground" style={{ fontSize: 'clamp(3rem, 11vw, 11rem)' }}>
             MANY
           </div>
-          <div className="mf-appearances font-display font-light italic text-[12vw] lg:text-[10vw] leading-none text-gold">
+          <div className="mf-appearances font-display font-light italic leading-[0.95] text-gold break-words" style={{ fontSize: 'clamp(2.5rem, 11vw, 11rem)' }}>
             APPEARANCES
           </div>
-          <div className="flex justify-center gap-4 lg:gap-8 mt-4">
-            <span className="mf-one font-display font-light text-[8vw] lg:text-[6vw] leading-none text-foreground">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 lg:gap-8 mt-4">
+            <span className="mf-one font-display font-light leading-[0.95] text-foreground" style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}>
               ONE
             </span>
-            <span className="mf-awareness font-display font-light italic text-[8vw] lg:text-[6vw] leading-none text-foreground">
+            <span className="mf-awareness font-display font-light italic leading-[0.95] text-foreground" style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}>
               AWARENESS
             </span>
           </div>
         </div>
+
         <div className="mf-body absolute bottom-16 lg:bottom-24 max-w-xl text-center px-6">
           <p className="font-content text-lg text-content-muted leading-relaxed">
             What we call reality is simply awareness appearing as form. There is no separation
