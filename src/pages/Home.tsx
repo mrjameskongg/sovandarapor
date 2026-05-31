@@ -40,13 +40,13 @@ function LoadingIntro({ onComplete }: { onComplete: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const delay = reduced ? 300 : 2200;
+    const delay = reduced ? 200 : 900;
     const t = setTimeout(() => {
       if (!ref.current) return onComplete();
       gsap.to(ref.current, {
         opacity: 0,
-        duration: reduced ? 0.3 : 1.1,
-        ease: 'power3.inOut',
+        duration: reduced ? 0.2 : 0.6,
+        ease: 'power2.inOut',
         onComplete,
       });
     }, delay);
