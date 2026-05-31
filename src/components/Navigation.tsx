@@ -22,12 +22,12 @@ const Navigation = () => {
     path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   const linkClass = (active: boolean) =>
-    `font-ui text-[10px] uppercase tracking-[0.3em] transition-opacity duration-300 ${
-      active ? 'text-foreground opacity-100' : 'text-foreground opacity-50 hover:opacity-100'
+    `nav-link font-ui text-[10px] uppercase tracking-[0.3em] transition-opacity duration-300 ${
+      active ? 'is-active text-foreground opacity-100' : 'text-foreground opacity-60 hover:opacity-100'
     }`;
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/85 backdrop-blur-md border-b border-border">
+    <nav className="sticky top-0 z-50 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/55 border-b border-border/70">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="flex items-center justify-between h-14">
           <Link to="/" className="font-ui text-[10px] uppercase tracking-[0.4em] text-foreground link-quiet">
@@ -37,7 +37,7 @@ const Navigation = () => {
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link key={item.path} to={item.path} className={linkClass(isActive(item.path))}>
-                {item.name}
+                <span className="nav-link-label">{item.name}</span>
               </Link>
             ))}
           </div>
@@ -56,10 +56,10 @@ const Navigation = () => {
         <div className="md:hidden pb-3 -mt-1 flex flex-wrap gap-x-5 gap-y-2 items-center">
           {navItems.map((item) => (
             <Link key={item.path} to={item.path}
-              className={`font-ui text-[10px] uppercase tracking-[0.3em] ${
-                isActive(item.path) ? 'text-foreground' : 'text-content-muted'
+              className={`nav-link font-ui text-[10px] uppercase tracking-[0.3em] ${
+                isActive(item.path) ? 'is-active text-foreground' : 'text-content-muted'
               }`}>
-              {item.name}
+              <span className="nav-link-label">{item.name}</span>
             </Link>
           ))}
         </div>
