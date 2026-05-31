@@ -192,4 +192,88 @@
     padding: 0.1em 0.12em 0 0;
     color: hsl(var(--foreground));
   }
+
+  /* ── Premium polish ─────────────────────────────────────── */
+
+  /* Scroll reveal — fade + gentle rise */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition:
+      opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Nav link: animated gold underline + steady active state */
+  .nav-link { position: relative; display: inline-block; }
+  .nav-link .nav-link-label { display: inline-block; transition: transform 400ms cubic-bezier(0.22,1,0.36,1); }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 1px;
+    background: hsl(var(--gold));
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  .nav-link:hover .nav-link-label { transform: translateY(-1px); }
+
+  /* Subtle card lift on hover */
+  .card-lift {
+    transition:
+      transform 500ms cubic-bezier(0.22,1,0.36,1),
+      box-shadow 500ms cubic-bezier(0.22,1,0.36,1);
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px -28px hsl(var(--ink) / 0.45);
+  }
+
+  /* Inline link with gold underline sweep */
+  .link-sweep {
+    position: relative;
+    display: inline-block;
+  }
+  .link-sweep::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px;
+    background: hsl(var(--gold));
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-sweep:hover::after,
+  .link-sweep:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+
+  /* Hero readability overlay (image-led sections) */
+  .hero-veil {
+    background:
+      radial-gradient(120% 80% at 20% 100%, hsl(0 0% 0% / 0.55), transparent 60%),
+      linear-gradient(180deg, hsl(0 0% 0% / 0.25) 0%, hsl(0 0% 0% / 0.15) 35%, hsl(0 0% 0% / 0.85) 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .card-lift, .nav-link .nav-link-label { transition: none !important; }
+    .nav-link::after, .link-sweep::after { transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
 }
