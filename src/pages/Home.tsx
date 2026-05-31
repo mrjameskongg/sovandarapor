@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import heroStreet from '@/assets/hero-buddha.jpg';
 import featureBangkok from '@/assets/feature-bangkok.jpg';
@@ -7,6 +7,7 @@ import Masthead from '@/components/editorial/Masthead';
 import Colophon from '@/components/editorial/Colophon';
 import Seo from '@/components/Seo';
 import InkShader from '@/components/InkShader';
+import { useReveal } from '@/hooks/useReveal';
 
 type Pillar = 'nondual' | 'countries' | 'craft';
 
@@ -36,12 +37,32 @@ const Home = () => {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const [pillar, setPillar] = useState<'all' | Pillar>('all');
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const reduceMotion = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    reduceMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion.current) return;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+        raf = 0;
+      });
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
+
+  const manifestoRef = useReveal<HTMLElement>();
+  const featuredRef = useReveal<HTMLElement>();
+  const marginaliaRef = useReveal<HTMLElement>();
+  const collectionRef = useReveal<HTMLElement>();
+  const subjectsRef = useReveal<HTMLElement>();
+  const endNoteRef = useReveal<HTMLElement>();
 
   const sorted = useMemo(() => [...samplePosts].sort((a, b) => +new Date(b.date) - +new Date(a.date)), []);
   const featured = sorted[0];
@@ -81,7 +102,7 @@ const Home = () => {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ transform: `translate3d(0, ${scrollY * 0.25}px, 0) scale(${1 + scrollY * 0.0002})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/80" />
+        <div className="absolute inset-0 hero-veil" />
         <InkShader className="absolute inset-0 w-full h-full" intensity={0.85} />
 
         <div className="absolute top-0 inset-x-0 z-10 px-6 md:px-12 pt-6">
