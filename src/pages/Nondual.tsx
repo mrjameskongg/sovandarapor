@@ -36,8 +36,9 @@ const Nondual = () => {
       </section>
 
       {/* DOORWAY — quiet intro */}
-      <section className="min-h-[60vh] flex items-center justify-center py-24 md:py-32">
-        <div className="max-w-2xl mx-auto px-6 text-center space-y-10">
+      <section className="relative min-h-[60vh] flex items-center justify-center py-24 md:py-32 overflow-hidden">
+        <RingExpansion ringCount={14} separation={16} />
+        <div className="relative max-w-2xl mx-auto px-6 text-center space-y-10">
           <p className="eyebrow-gold">A quiet corner</p>
           <h1 className="font-display font-light text-6xl md:text-8xl leading-[0.95] text-foreground tracking-[-0.02em]">
             Nondual
