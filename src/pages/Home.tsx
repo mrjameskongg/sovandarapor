@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import heroStreet from '@/assets/hero-buddha.jpg';
 import featureBangkok from '@/assets/feature-bangkok.jpg';
@@ -7,6 +7,7 @@ import Masthead from '@/components/editorial/Masthead';
 import Colophon from '@/components/editorial/Colophon';
 import Seo from '@/components/Seo';
 import InkShader from '@/components/InkShader';
+import { useReveal } from '@/hooks/useReveal';
 
 type Pillar = 'nondual' | 'countries' | 'craft';
 
@@ -36,12 +37,32 @@ const Home = () => {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const [pillar, setPillar] = useState<'all' | Pillar>('all');
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const reduceMotion = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    reduceMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion.current) return;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+        raf = 0;
+      });
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
+
+  const manifestoRef = useReveal<HTMLElement>();
+  const featuredRef = useReveal<HTMLElement>();
+  const marginaliaRef = useReveal<HTMLElement>();
+  const collectionRef = useReveal<HTMLElement>();
+  const subjectsRef = useReveal<HTMLElement>();
+  const endNoteRef = useReveal<HTMLElement>();
 
   const sorted = useMemo(() => [...samplePosts].sort((a, b) => +new Date(b.date) - +new Date(a.date)), []);
   const featured = sorted[0];
@@ -81,7 +102,7 @@ const Home = () => {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ transform: `translate3d(0, ${scrollY * 0.25}px, 0) scale(${1 + scrollY * 0.0002})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/80" />
+        <div className="absolute inset-0 hero-veil" />
         <InkShader className="absolute inset-0 w-full h-full" intensity={0.85} />
 
         <div className="absolute top-0 inset-x-0 z-10 px-6 md:px-12 pt-6">
@@ -101,7 +122,7 @@ const Home = () => {
       </section>
 
       {/* WHITE-SPACE MANIFESTO */}
-      <section className="py-32 md:py-48 max-w-3xl mx-auto text-center">
+      <section ref={manifestoRef} className="reveal py-32 md:py-48 max-w-3xl mx-auto text-center">
         <p className="eyebrow-gold mb-10">Currently · Phnom Penh · May 2026</p>
         <p className="font-display font-light text-3xl md:text-5xl leading-[1.25] text-foreground">
           Building NhamTime, a restaurant booking app for Cambodia.
@@ -111,8 +132,8 @@ const Home = () => {
 
       {/* FEATURED — image-led, asymmetric, headline overlaps */}
       {featured && (
-        <section className="relative pb-32">
-          <Link to={`/${featured.category}/${featured.slug}`} className="block group">
+        <section ref={featuredRef} className="reveal relative pb-32">
+          <Link to={`/${featured.category}/${featured.slug}`} className="card-lift block group">
             <div className="grid md:grid-cols-12 gap-y-12 md:gap-x-12">
               <div className="md:col-span-8 relative grain overflow-hidden">
                 <img
@@ -138,7 +159,7 @@ const Home = () => {
                   <span>{featured.readingTime} min</span>
                 </div>
                 <p className="font-content text-lg leading-[1.8] text-content">{featured.excerpt || featured.tldr}</p>
-                <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-foreground mt-8 link-quiet">
+                <p className="font-ui text-[10px] uppercase tracking-[0.3em] text-foreground mt-8 link-sweep">
                   Continue reading →
                 </p>
               </div>
@@ -148,7 +169,7 @@ const Home = () => {
       )}
 
       {/* SECTION 1 — MARGINALIA · 02A — Pullquote paired with Plate II */}
-      <section className="py-24 md:py-32 border-t border-border">
+      <section ref={marginaliaRef} className="reveal py-24 md:py-32 border-t border-border">
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
           <figure className="md:col-span-6 grain overflow-hidden">
             <div className="relative aspect-[4/5] overflow-hidden">
@@ -177,7 +198,7 @@ const Home = () => {
       </section>
 
       {/* SECTION 2 — INDEX · 02 — The Collection with pillar tabs */}
-      <section className="py-24 md:py-32 border-t border-border">
+      <section ref={collectionRef} className="reveal py-24 md:py-32 border-t border-border">
         <div className="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-6 mb-10">
           <div>
             <p className="eyebrow-gold mb-3">Index · 02</p>
@@ -249,7 +270,7 @@ const Home = () => {
       </section>
 
       {/* SECTION 3 — BY SUBJECT · 03 — Tag cloud paired with Plate IV */}
-      <section className="py-24 md:py-32 border-t border-border">
+      <section ref={subjectsRef} className="reveal py-24 md:py-32 border-t border-border">
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
           <div className="md:col-span-7 order-2 md:order-1">
             <p className="eyebrow-gold mb-5">By Subject · 03</p>
@@ -298,17 +319,17 @@ const Home = () => {
       </section>
 
       {/* SECTION 4 — END NOTE */}
-      <section className="py-24 md:py-32 border-t border-border">
+      <section ref={endNoteRef} className="reveal py-24 md:py-32 border-t border-border">
         <div className="max-w-2xl mx-auto text-center">
           <p className="eyebrow-gold mb-8">§ End Note</p>
           <p className="font-display italic font-light text-3xl md:text-4xl text-foreground leading-[1.25]">
             Welcome. Take your time.
           </p>
           <div className="mt-12 flex items-center justify-center gap-x-10 font-ui text-[10px] uppercase tracking-[0.3em]">
-            <Link to="/contact" className="text-foreground hover:text-gold transition-colors border-b border-gold pb-1">
+            <Link to="/contact" className="link-sweep text-foreground hover:text-gold transition-colors">
               Subscribe
             </Link>
-            <Link to="/contact" className="text-foreground hover:text-gold transition-colors border-b border-gold pb-1">
+            <Link to="/contact" className="link-sweep text-foreground hover:text-gold transition-colors">
               Contact
             </Link>
           </div>

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import Navigation from './Navigation';
+import ReadingProgress from './ReadingProgress';
 import { ThemeProvider } from 'next-themes';
 
 interface LayoutProps {
@@ -10,6 +11,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <div className="min-h-screen bg-background relative">
+        <ReadingProgress />
         <Navigation />
         <main className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 py-10 md:py-16">
           {children}
