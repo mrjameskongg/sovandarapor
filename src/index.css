@@ -273,7 +273,18 @@
     .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
     .card-lift, .nav-link .nav-link-label { transition: none !important; }
     .nav-link::after, .link-sweep::after { transition: none !important; }
+    .animate-marquee { animation: none !important; }
     html { scroll-behavior: auto; }
   }
 
 }
+
+/* Marquee — used by <Marquee /> */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
